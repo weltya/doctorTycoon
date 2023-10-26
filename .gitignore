@@ -30,6 +30,11 @@
 
 # Visual Studio cache directory
 **/.vs/
+**/.vsconfig/
+**/.vscode/
+**/.vs/*
+**/.vsconfig/*
+**/.vscode/*
 
 # Gradle cache directory
 **/.gradle/
@@ -117,6 +122,11 @@
 # ----------------------------------------------------------------------------------
 # Visual Studio cache directory
 .vs/
+.vsconfig/
+.vscode/
+.vs/*
+.vsconfig/*
+.vscode/*
 
 # Gradle cache directory
 .gradle/
