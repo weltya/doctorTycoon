@@ -9194,10 +9194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56642823a55cba3448950cd88f239715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeed: 40
   _zoomSpeed: 10
-  _minZoom: 5
-  _maxZoom: 15
+  _minZoom: 10
+  _maxZoom: 30
 --- !u!1001 &1978498689
 PrefabInstance:
   m_ObjectHideFlags: 0
