@@ -1120,7 +1120,7 @@ GameObject:
   - component: {fileID: 215574921}
   - component: {fileID: 215574922}
   m_Layer: 0
-  m_Name: PatientNavMeshVieww
+  m_Name: PatientNavMeshView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
