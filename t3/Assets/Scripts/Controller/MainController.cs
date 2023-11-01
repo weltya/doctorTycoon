@@ -24,7 +24,7 @@ namespace Controller
 
             StartCoroutine(waiter(2f));
 
-            GoingInWaitingRoom();
+            AssignWaypointsToPatientsGoingWaitingRoom();
         }
 
         IEnumerator waiter(float delay)
@@ -36,9 +36,9 @@ namespace Controller
             _patientController.CreatePatient();
         }
 
-        public void GoingInWaitingRoom()
+        public void AssignWaypointsToPatientsGoingWaitingRoom()
         {
-            //_patientController.GoInTheWaitingRoom();
+            _patientController.AssignWaypointsToPatientsGoingWaitingRoom();
         }
     }
 }

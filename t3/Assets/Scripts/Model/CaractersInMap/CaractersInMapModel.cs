@@ -24,6 +24,11 @@ public class CaractersInMapModel
         return _instance;
     }
 
+    public HashSet<PatientDataModel> GetPatientsWaitingRoom()
+    {
+        return _patientsWaitingRoom;
+    }
+
     public void AddPatientToWaitingRoom(PatientDataModel patient)
     {
         _patientsWaitingRoom.Add(patient);

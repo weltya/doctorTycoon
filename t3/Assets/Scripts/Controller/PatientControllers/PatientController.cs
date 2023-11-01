@@ -1,4 +1,5 @@
 using Model.Patients;
+using Model.Waypoints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,19 @@ namespace Controller.PatientControllers
         {
             _patientDataModel = new PatientDataModel();
             _caractersInMap.AddPatientToWaitingRoom(_patientDataModel);
+        }
+
+        public void AssignWaypointsToPatientsGoingWaitingRoom()
+        {
+            WaypointWaitingRoomModel waypointWaitingRoomModel = WaypointWaitingRoomModel.GetInstance();
+
+            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsWaitingRoom();
+
+            foreach(var patientData in patientsDataModel)
+            {
+                Transform waypoint = waypointWaitingRoomModel.RequestChair();
+                patientData.SetTargetChair(waypoint);
+            }
         }
     }
 }
