@@ -1,24 +1,28 @@
+using Model.Patients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using Model.Patients;
-using Model.Waypoints;
-using System;
+using View.Caracters.Patients;
 
 namespace Controller.PatientControllers
 {
-    public class PatientController : MonoBehaviour
+    public class PatientController
     {
-        [SerializeField] PatientModel _patientModel;
-        [SerializeField] WaitingRoomWayointModel _waitingRoomWayointModel;
-
-        public void GoInTheWaitingRoom()
+        private PatientDataModel _patientDataModel;
+        private CaractersInMapModel _caractersInMap;
+        private InstantiatePatientView _instantiatePatientView;
+        public PatientController(InstantiatePatientView instantiatePatientView)
         {
-            Transform chairPosition = _waitingRoomWayointModel.RequestChair();
-            _patientModel.GoToSeatInWaitinRoom(chairPosition);
+            _instantiatePatientView = instantiatePatientView;
+            _caractersInMap = CaractersInMapModel.GetIntance();
+            _caractersInMap.SubscribeToObserverPatient(_instantiatePatientView);
         }
 
+        public void CreatePatient()
+        {
+            _patientDataModel = new PatientDataModel();
+            _caractersInMap.AddPatientToWaitingRoom(_patientDataModel);
+        }
     }
 }
 

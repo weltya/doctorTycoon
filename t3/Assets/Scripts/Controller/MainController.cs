@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Controller.PatientControllers;
+using View.Caracters.Patients;
 
 namespace Controller
 {
     public class MainController : MonoBehaviour
     {
-        [SerializeField] private PatientController _patientController;
-        [SerializeField] private PatientSpawnController _PatientSpawnController;
+        [SerializeField] InstantiatePatientView _instantiatePatientView;
+        private PatientController _patientController;
 
         private void Start()
         {
-            /*
+            _patientController = new PatientController(_instantiatePatientView);
+
+            
             for (int i = 0; i < 3; i++)
             {
                 CreatePatient();
             }
-            */
-            //StartCoroutine(waiter(2f));
+
+            StartCoroutine(waiter(2f));
 
             GoingInWaitingRoom();
         }
@@ -30,18 +33,13 @@ namespace Controller
         }
         public void CreatePatient()
         {
-            _PatientSpawnController.SpawnPatient();
+            _patientController.CreatePatient();
         }
 
         public void GoingInWaitingRoom()
         {
-            _patientController.GoInTheWaitingRoom();
+            //_patientController.GoInTheWaitingRoom();
         }
-
     }
-
-
-
-
 }
 
