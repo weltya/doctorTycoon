@@ -4,17 +4,20 @@ using UnityEngine;
 
 using Controller.PatientControllers;
 using View.Caracters.Patients;
+using View.Caracters;
 
 namespace Controller
 {
     public class MainController : MonoBehaviour
     {
         [SerializeField] InstantiatePatientView _instantiatePatientView;
+        [SerializeField] PatientNavMeshView _patientNavMeshView;
+
         private PatientController _patientController;
 
         private void Start()
         {
-            _patientController = new PatientController(_instantiatePatientView);
+            _patientController = new PatientController(_instantiatePatientView, _patientNavMeshView);
 
             
             for (int i = 0; i < 3; i++)
