@@ -43,6 +43,16 @@ namespace Controller.PatientControllers
                 patientData.SetTargetChair(waypoint);
             }
         }
+
+        public void AssignWaypointsToPatientsGoingReception() {
+            WaypointReceptionModel waypointReceptionModel = WaypointReceptionModel.GetInstance();
+            HashSet<PatientDataModel> patientDataModels = _caractersInMap.GetPatientsWaitingRoom();
+
+            foreach(var patientData in patientDataModels) {
+                Transform waypoint = waypointReceptionModel.RequestDesk();
+                patientData.SetTargetChair(waypoint);
+            }
+        }
     }
 }
 

@@ -23,11 +23,14 @@ namespace Controller
             for (int i = 0; i < 3; i++)
             {
                 CreatePatient();
+                MoveToWaitingRoomWithDelay(2.0f);
+                MoveToReceptionWithDelay(4.0f);
+                MoveToWaitingRoomWithDelay(6.0f);
             }
 
             StartCoroutine(waiter(2f));
 
-            AssignWaypointsToPatientsGoingWaitingRoom();
+            //AssignWaypointsToPatientsGoingWaitingRoom();
         }
 
         IEnumerator waiter(float delay)
@@ -42,6 +45,28 @@ namespace Controller
         public void AssignWaypointsToPatientsGoingWaitingRoom()
         {
             _patientController.AssignWaypointsToPatientsGoingWaitingRoom();
+        }
+
+        public void AssignWaypointsToPatientsGoingReception() {
+            _patientController.AssignWaypointsToPatientsGoingReception();
+        }
+
+        public void MoveToWaitingRoomWithDelay(float delay) {
+            StartCoroutine(MoveToWaitingRoomCoroutine(delay));
+        }
+
+        private IEnumerator MoveToWaitingRoomCoroutine(float delay) {
+            yield return new WaitForSeconds(delay);
+            AssignWaypointsToPatientsGoingWaitingRoom();
+        }
+
+        public void MoveToReceptionWithDelay(float delay) {
+            StartCoroutine(MoveToReceptionCoroutine(delay));
+        }
+
+        private IEnumerator MoveToReceptionCoroutine(float delay) {
+            yield return new WaitForSeconds(delay);
+            AssignWaypointsToPatientsGoingReception();
         }
     }
 }
