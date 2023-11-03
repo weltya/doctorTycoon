@@ -18,7 +18,7 @@ namespace View.Waypoints
             {
                 foreach (Transform waypoint in waypointsParent.transform)
                 {
-                    WaypointWaitingRoomModel.GetInstance().AddWaypoint(waypoint);
+                    WaypointReceptionModel.GetInstance().AddWaypoint(waypoint);
                     Debug.Log("Waypoint chargé");
                 }
             }

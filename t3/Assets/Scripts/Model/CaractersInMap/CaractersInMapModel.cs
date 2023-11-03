@@ -7,8 +7,8 @@ public class CaractersInMapModel
 {
     private static CaractersInMapModel _instance;
 
-    private HashSet<PatientDataModel> _patientsWaitingRoom;
-    private List<IObserverCaractersInMap> _observersPatients;
+    private readonly HashSet<PatientDataModel> _patientsWaitingRoom;
+    private readonly List<IObserverCaractersInMap> _observersPatients;
     private CaractersInMapModel()
     {
         _patientsWaitingRoom = new HashSet<PatientDataModel>();

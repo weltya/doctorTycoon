@@ -2,26 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using Random = System.Random;
 
 namespace Model.Waypoints
 {
     public class WaypointReceptionModel
     {
         private static WaypointReceptionModel _instance;
-        private HashSet<Transform> _availableDesk = new();
+        private readonly HashSet<Transform> _availableDesk = new();
 
 
-        private WaypointReceptionModel() 
+        private WaypointReceptionModel()
         {
             
         }
         public static WaypointReceptionModel GetInstance()
         {
-            if ( _instance == null )
-            {
-                _instance = new WaypointReceptionModel();
-            }
+            _instance ??= new WaypointReceptionModel();
             return _instance;
         }
 
@@ -38,12 +35,16 @@ namespace Model.Waypoints
 
         public Transform RequestDesk()
         {
-            if (_availableDesk.Count > 0)
-            {
-                var desk = _availableDesk.First();
-                _availableDesk.Remove(desk);
+            Random random = new();
+
+            Debug.Log(_availableDesk.Count());
+
+            var desk = _availableDesk.ElementAt(random.Next(0, _availableDesk.Count() - 1));
+
+            if (desk) {
                 return desk;
             }
+
             return null;
         }
 

@@ -9,7 +9,7 @@ namespace Model.Patients
     {
         private GameObject _gameobject;
         private Transform _targetChair;
-        private List<IObserverPatient> _observersPatient = new List<IObserverPatient>();
+        private List<IObserverPatient> _observersPatient = new();
         public PatientDataModel()
         {
         }

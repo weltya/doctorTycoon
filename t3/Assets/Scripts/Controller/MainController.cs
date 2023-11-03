@@ -23,9 +23,9 @@ namespace Controller
             for (int i = 0; i < 3; i++)
             {
                 CreatePatient();
-                MoveToWaitingRoomWithDelay(2.0f);
-                MoveToReceptionWithDelay(4.0f);
-                MoveToWaitingRoomWithDelay(6.0f);
+                MoveToWaitingRoomWithDelay(1.0f);
+                MoveToReceptionWithDelay(10.0f);
+                MoveToWaitingRoomWithDelay(20.0f);
             }
 
             StartCoroutine(waiter(2f));
