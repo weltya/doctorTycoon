@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Model.Patients
+namespace Model.Caracters.Patients
 {
     public class PatientDataModel
     {

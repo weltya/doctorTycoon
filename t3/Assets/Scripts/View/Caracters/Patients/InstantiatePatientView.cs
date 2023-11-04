@@ -1,9 +1,11 @@
-using Controller;
-using Model.Patients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Controller;
+using Model.Caracters.CaractersInMap;
+using Model.Caracters.Patients;
+using Model.Caracters;
 
 namespace View.Caracters.Patients
 {
@@ -23,7 +25,8 @@ namespace View.Caracters.Patients
             _position = new Vector3(_spawnX, 0, spawnZ);
 
             List<GameObject> prefabList = new List<GameObject>();
-            prefabList = _dataController.GetPatientPrefabs();
+            PatientPrefabModel patientPrefabModel = PatientPrefabModel.GetInstance();
+            prefabList = patientPrefabModel.GetPatientsPrefabs();
             GameObject go = Instantiate(prefabList[0], _position, _rotation);
             patientDataModel.SetGameobject(go);
         }

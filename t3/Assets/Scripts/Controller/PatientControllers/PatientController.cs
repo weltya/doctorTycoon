@@ -1,11 +1,13 @@
-using Model.Patients;
-using Model.Waypoints;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+
 using View.Caracters;
 using View.Caracters.Patients;
+using Model.Caracters.CaractersInMap;
+using Model.Caracters.Patients;
+using Model.Waypoints;
 
 namespace Controller.PatientControllers
 {

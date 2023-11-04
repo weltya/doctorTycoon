@@ -1,8 +1,9 @@
-using Model.Waypoints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Model.Waypoints;
+using Model.Caracters;
 
 namespace Controller
 {
@@ -14,10 +15,14 @@ namespace Controller
         {
             InitializeWaypointsReception();
             InitializeWaypointsWaitingRoom();
+            InializePatientPrefab();
         }
 
-        public List<GameObject> GetPatientPrefabs()
+        public List<GameObject> InializePatientPrefab()
         {
+            PatientPrefabModel patientPrefab = PatientPrefabModel.GetInstance();
+            patientPrefab.SetPatientsPrefabs(_patientPrefabs);
+
             return _patientPrefabs;
         }
 

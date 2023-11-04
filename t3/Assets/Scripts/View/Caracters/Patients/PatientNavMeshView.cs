@@ -1,9 +1,10 @@
-using Model.Patients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+
+using Model.Caracters.Patients;
 
 
 namespace View.Caracters
