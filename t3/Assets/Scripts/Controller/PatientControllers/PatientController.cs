@@ -1,11 +1,12 @@
-using Model.Caracters.CaractersInMap;
-using Model.Caracters.Patients;
-using Model.Waypoint;
-using Model.Waypoints;
 using System.Collections.Generic;
 using UnityEngine;
+
 using View.Caracters;
 using View.Caracters.Patients;
+using Model.Caracters.Patients;
+using Model.Waypoints;
+using Model.Characters.CaractersInMap;
+using Model.Utils;
 
 namespace Controller.PatientControllers
 {
@@ -17,9 +18,8 @@ namespace Controller.PatientControllers
         private PatientNavMeshView _patientNavMeshView;
         public PatientController(InstantiatePatientView instantiatePatientView, PatientNavMeshView patientNavMeshView)
         {
-            
             _instantiatePatientView = instantiatePatientView;
-            _caractersInMap = CaractersInMapModel.GetIntance();
+            _caractersInMap = CaractersInMapModel.GetInstance();
             _caractersInMap.SubscribeToObserverPatient(_instantiatePatientView);
             _patientNavMeshView = patientNavMeshView;
         }
@@ -27,123 +27,57 @@ namespace Controller.PatientControllers
         public void CreatePatient()
         {
             _patientDataModel = new PatientDataModel();
-            _caractersInMap.AddPatientInSpawnList(_patientDataModel);
+            _caractersInMap.AddPatientInList(PatientState.Spawn, _patientDataModel);
             _patientDataModel.SubscribeToObserverPatient(_patientNavMeshView);
         }
 
-        public void MovePatientToReception() 
+        public void MovePatient(PatientState state)
         {
-            WaypointReceptionModel waypointReceptionModel = WaypointReceptionModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModels = _caractersInMap.GetPatientsInSpawn();
+            WaypointModel waypointsModel = WaypointModel.GetInstance();
+            HashSet<PatientDataModel> patientsDataModels = _caractersInMap.GetPatientsByStateFromList(state-1);
             List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
 
-            foreach (var patientData in patientsDataModels) 
+            foreach(var patientData in patientsDataModels)
             {
                 patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInReceptionList(patientData);
-                Transform waypoint = waypointReceptionModel.RequestChair();
+                _caractersInMap.AddPatientInList(state, patientData);
+                Transform waypoint = waypointsModel.RequestWaypoint(state);
                 patientData.SetTargetChair(waypoint);
             }
+
             foreach (var patient in patientsToRemove)
             {
-                _caractersInMap.RemovePatientFromSpawnList(patient);
+                _caractersInMap.RemovePatientFromList(state - 1, patient);
             }
+        }
+        public void MovePatientToReception()
+        {
+            MovePatient(PatientState.Reception);
         }
 
         public void MovePatientToWaitingRoomNurse()
         {
-            WaypointWaitingRoomNurseModel waypointWaitingRoomNurseModel = WaypointWaitingRoomNurseModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsInReception();
-            List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
-
-            foreach (var patientData in patientsDataModel)
-            {
-                patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInWaitingRoomNursesList(patientData);
-                Transform waypoint = waypointWaitingRoomNurseModel.RequestChair();
-                patientData.SetTargetChair(waypoint);
-            }
-            foreach (var patient in patientsToRemove)
-            {
-                _caractersInMap.RemovePatientFromReceptionList(patient);
-            }
+            MovePatient(PatientState.WaitingRoomNurse);
         }
 
         public void MovePatientToRoomNurse()
         {
-            WaypointRoomNurseModel waypointRoomNurseModel = WaypointRoomNurseModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsInWaitingRoomNurse();
-            List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
-
-            foreach (var patientData in patientsDataModel)
-            {
-                patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInNursesRoomList(patientData);
-                Transform waypoint = waypointRoomNurseModel.RequestChair();
-                patientData.SetTargetChair(waypoint);
-            }
-            foreach (var patient in patientsToRemove)
-            {
-                _caractersInMap.RemovePatientFromWaitingRoomNursesList(patient);
-            }
+            MovePatient(PatientState.NurseRoom);
         }
 
         public void MovePatientToWaitingRoomDoctor()
         {
-            WaypointWaitingRoomDoctorModel waypointWaitingRoomDoctorModel = WaypointWaitingRoomDoctorModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsInRoomNurse();
-            List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
-
-            foreach (var patientData in patientsDataModel)
-            {
-                patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInWaitingDoctorsRoom(patientData);
-                Transform waypoint = waypointWaitingRoomDoctorModel.RequestChair();
-                patientData.SetTargetChair(waypoint);
-            }
-            foreach (var patient in patientsToRemove)
-            {
-                _caractersInMap.RemovePatientFromNursesRoomList(patient);
-            }
+            MovePatient(PatientState.WaitingRoomDoctor);
         }
 
         public void MovePatientToDoctorRoom()
         {
-            WaypointRoomDoctorModel waypointRoomDoctorModel = WaypointRoomDoctorModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsInWaitingRoomDoctor();
-            List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
-
-            foreach (var patientData in patientsDataModel)
-            {
-                patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInDoctorsRoomList(patientData);
-                Transform waypoint = waypointRoomDoctorModel.RequestChair();
-                patientData.SetTargetChair(waypoint);
-            }
-            foreach (var patient in patientsToRemove)
-            {
-                _caractersInMap.RemovePatientFromWaitingRoomDoctorsList(patient);
-            }
+            MovePatient(PatientState.DoctorRoom);
         }
 
         public void MovePatientToFinish()
         {
-            WaypointFinishModel waypointFinish = WaypointFinishModel.GetInstance();
-            HashSet<PatientDataModel> patientsDataModel = _caractersInMap.GetPatientsInRoomDoctor();
-            List<PatientDataModel> patientsToRemove = new List<PatientDataModel>();
-
-            foreach (var patientData in patientsDataModel)
-            {
-                patientsToRemove.Add(patientData);
-                _caractersInMap.AddPatientInFinishList(patientData);
-                Transform waypoint = waypointFinish.RequestChair();
-                patientData.SetTargetChair(waypoint);
-            }
-            foreach (var patient in patientsToRemove)
-            {
-                _caractersInMap.RemovePatientFromDoctorsRoomList(patient);
-            }
+            MovePatient(PatientState.Finish);
         }
     }
 }
-

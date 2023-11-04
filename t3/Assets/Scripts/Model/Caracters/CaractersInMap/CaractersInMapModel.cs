@@ -1,38 +1,29 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 using Model.Caracters.Patients;
+using Model.Caracters.CaractersInMap;
+using Model.Utils;
 
-
-namespace Model.Caracters.CaractersInMap
+namespace Model.Characters.CaractersInMap
 {
     public class CaractersInMapModel
     {
         private static CaractersInMapModel _instance;
-
-        private readonly HashSet<PatientDataModel> _patientsInSpawn;
-        private readonly HashSet<PatientDataModel> _patientsInReception;
-        private readonly HashSet<PatientDataModel> _patientsInWaitingRoomNurse;
-        private readonly HashSet<PatientDataModel> _patientInNursesRoom;
-        private readonly HashSet<PatientDataModel> _patientsInWaitingDoctorRoom;
-        private readonly HashSet<PatientDataModel> _patientsInDoctorsRoom;
-        private readonly HashSet<PatientDataModel> _patientsFinish;
+        private readonly Dictionary<PatientState, HashSet<PatientDataModel>> _patientsByState;
         private readonly List<IObserverCaractersInMap> _observersPatients;
+
         private CaractersInMapModel()
         {
-            _patientsInSpawn = new HashSet<PatientDataModel>();
-            _patientsInReception = new HashSet<PatientDataModel>();
-            _patientsInWaitingRoomNurse = new HashSet<PatientDataModel>();
-            _patientsInWaitingRoomNurse = new HashSet<PatientDataModel>();
-            _patientInNursesRoom = new HashSet<PatientDataModel>();
-            _patientsInWaitingDoctorRoom = new HashSet<PatientDataModel>();
-            _patientsInDoctorsRoom = new HashSet<PatientDataModel>();
-            _patientsFinish = new HashSet<PatientDataModel>();
+            _patientsByState = new Dictionary<PatientState, HashSet<PatientDataModel>>();
+            foreach (PatientState state in Enum.GetValues(typeof(PatientState)))
+            {
+                _patientsByState[state] = new HashSet<PatientDataModel>();
+            }
             _observersPatients = new List<IObserverCaractersInMap>();
         }
 
-        public static CaractersInMapModel GetIntance()
+        public static CaractersInMapModel GetInstance()
         {
             if (_instance == null)
             {
@@ -41,114 +32,40 @@ namespace Model.Caracters.CaractersInMap
             return _instance;
         }
 
-        public HashSet<PatientDataModel> GetPatientsInSpawn()
+        public HashSet<PatientDataModel> GetPatientsByStateFromList(PatientState state)
         {
-            return _patientsInSpawn;
+            return _patientsByState[state];
         }
 
-        public HashSet<PatientDataModel> GetPatientsInReception()
+        public void AddPatientInList(PatientState state, PatientDataModel patient)
         {
-            return _patientsInReception;
-        }
-        public HashSet<PatientDataModel> GetPatientsInWaitingRoomNurse()
-        {
-            return _patientsInWaitingRoomNurse;
-        }
-        public HashSet<PatientDataModel> GetPatientsInRoomNurse()
-        {
-            return _patientInNursesRoom;
-        }
-        public HashSet<PatientDataModel> GetPatientsInWaitingRoomDoctor()
-        {
-            return _patientsInWaitingDoctorRoom;
-        }
-        public HashSet<PatientDataModel> GetPatientsInRoomDoctor()
-        {
-            return _patientsInDoctorsRoom;
-        }
-        public HashSet<PatientDataModel> GetPatientsInFinish()
-        {
-            return _patientsFinish;
-        }
-
-        public void AddPatientInSpawnList(PatientDataModel patient)
-        {
-            _patientsInSpawn.Add(patient);
-            notifyObserverCreationPatients(patient);
-        }
-
-        public void AddPatientInReceptionList(PatientDataModel patient)
-        {
-            _patientsInReception.Add(patient);
-        }
-        public void AddPatientInWaitingRoomNursesList(PatientDataModel patient)
-        {
-            _patientsInWaitingRoomNurse.Add(patient);
-        }
-        public void AddPatientInNursesRoomList(PatientDataModel patient)
-        {
-            _patientInNursesRoom.Add(patient);
-        }
-        public void AddPatientInWaitingDoctorsRoom(PatientDataModel patient)
-        {
-            _patientsInWaitingDoctorRoom.Add(patient);
-        }
-        public void AddPatientInDoctorsRoomList(PatientDataModel patient)
-        {
-            _patientsInDoctorsRoom.Add(patient);
-        }
-        public void AddPatientInFinishList(PatientDataModel patient)
-        {
-            _patientsFinish.Add(patient);
-        }
-
-
-        public void RemovePatientFromSpawnList(PatientDataModel patient)
-        {
-            _patientsInSpawn.Remove(patient);
-        }
-        public void RemovePatientFromReceptionList(PatientDataModel patient)
-        {
-            _patientsInReception.Remove(patient);
-        }
-        public void RemovePatientFromWaitingRoomNursesList(PatientDataModel patient)
-        {
-            _patientsInWaitingRoomNurse.Remove(patient);
-        }
-        public void RemovePatientFromNursesRoomList(PatientDataModel patient)
-        {
-            _patientInNursesRoom.Remove(patient);
-        }
-        public void RemovePatientFromWaitingRoomDoctorsList(PatientDataModel patient)
-        {
-            _patientsInWaitingDoctorRoom.Remove(patient);
-        }
-        public void RemovePatientFromDoctorsRoomList(PatientDataModel patient)
-        {
-            _patientsInDoctorsRoom.Remove(patient);
-        }
-        public void RemovePatientFromFinishList(PatientDataModel patient)
-        {
-            _patientsFinish.Remove(patient);
-        }
-
-        public void SubscribeToObserverPatient(IObserverCaractersInMap instantiatePatientView)
-        {
-            _observersPatients.Add(instantiatePatientView);
-        }
-
-        public void UnsubscribeToObserverPatient(IObserverCaractersInMap instantiatePatientView)
-        {
-            _observersPatients.Remove(instantiatePatientView);
-        }
-
-        public void notifyObserverCreationPatients(PatientDataModel patientDataModel)
-        {
-            foreach (var patient in _observersPatients)
+            if (_patientsByState[state].Add(patient) && state == PatientState.Spawn)
             {
-                patient.InstantiatePrefab(patientDataModel);
+                NotifyObserverCreationPatients(patient);
+            }
+        }
+
+        public void RemovePatientFromList(PatientState state, PatientDataModel patient)
+        {
+            _patientsByState[state].Remove(patient);
+        }
+
+        public void SubscribeToObserverPatient(IObserverCaractersInMap observer)
+        {
+            _observersPatients.Add(observer);
+        }
+
+        public void Unsubscribe(IObserverCaractersInMap observer)
+        {
+            _observersPatients.Remove(observer);
+        }
+
+        private void NotifyObserverCreationPatients(PatientDataModel patientDataModel)
+        {
+            foreach (var observer in _observersPatients)
+            {
+                observer.InstantiatePrefab(patientDataModel);
             }
         }
     }
-
 }

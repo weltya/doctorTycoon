@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Controller.PatientControllers;
@@ -27,7 +26,6 @@ namespace Controller
 
             StartCoroutine(MovePatientsSequence());
         }
-
         IEnumerator waiter(float delay)
         {
             yield return new WaitForSeconds(delay);
