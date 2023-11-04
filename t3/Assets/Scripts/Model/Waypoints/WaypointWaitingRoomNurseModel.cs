@@ -6,22 +6,22 @@ using UnityEngine;
 
 namespace Model.Waypoints
 {
-    public class WaypointWaitingRoomModel
+    public class WaypointWaitingRoomNurseModel : IWaypointModel
     {
-        private static WaypointWaitingRoomModel _instance;
+        private static WaypointWaitingRoomNurseModel _instance;
         //private List<Transform> _waypoints = new List<Transform>();
         private HashSet<Transform> _availableChairs = new HashSet<Transform>();
 
 
-        private WaypointWaitingRoomModel() 
+        private WaypointWaitingRoomNurseModel() 
         {
             
         }
-        public static WaypointWaitingRoomModel GetInstance()
+        public static WaypointWaitingRoomNurseModel GetInstance()
         {
             if ( _instance == null )
             {
-                _instance = new WaypointWaitingRoomModel();
+                _instance = new WaypointWaitingRoomNurseModel();
             }
             return _instance;
         }

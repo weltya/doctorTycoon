@@ -23,14 +23,9 @@ namespace Controller
             for (int i = 0; i < 3; i++)
             {
                 CreatePatient();
-                MoveToWaitingRoomWithDelay(1.0f);
-                MoveToReceptionWithDelay(10.0f);
-                MoveToWaitingRoomWithDelay(20.0f);
             }
 
-            StartCoroutine(waiter(2f));
-
-            //AssignWaypointsToPatientsGoingWaitingRoom();
+            StartCoroutine(MovePatientsSequence());
         }
 
         IEnumerator waiter(float delay)
@@ -42,31 +37,25 @@ namespace Controller
             _patientController.CreatePatient();
         }
 
-        public void AssignWaypointsToPatientsGoingWaitingRoom()
+        public void MovePatientToReception()
         {
-            _patientController.AssignWaypointsToPatientsGoingWaitingRoom();
+            _patientController.MovePatientToReception();
+        }
+        public void MovePatientToWaitingRoomNurse()
+        {
+            _patientController.MovePatientToWaitingRoomNurse();
         }
 
-        public void AssignWaypointsToPatientsGoingReception() {
-            _patientController.AssignWaypointsToPatientsGoingReception();
-        }
+        public IEnumerator MovePatientsSequence()
+        {
+            MovePatientToReception();
 
-        public void MoveToWaitingRoomWithDelay(float delay) {
-            StartCoroutine(MoveToWaitingRoomCoroutine(delay));
-        }
+            yield return new WaitForSeconds(6f);
 
-        private IEnumerator MoveToWaitingRoomCoroutine(float delay) {
-            yield return new WaitForSeconds(delay);
-            AssignWaypointsToPatientsGoingWaitingRoom();
-        }
+            MovePatientToWaitingRoomNurse();
 
-        public void MoveToReceptionWithDelay(float delay) {
-            StartCoroutine(MoveToReceptionCoroutine(delay));
-        }
+            yield return new WaitForSeconds(6f);
 
-        private IEnumerator MoveToReceptionCoroutine(float delay) {
-            yield return new WaitForSeconds(delay);
-            AssignWaypointsToPatientsGoingReception();
         }
     }
 }

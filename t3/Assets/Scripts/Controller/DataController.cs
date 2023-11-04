@@ -34,7 +34,6 @@ namespace Controller
                 foreach (Transform waypoint in waypointsParent.transform)
                 {
                     WaypointReceptionModel.GetInstance().AddWaypoint(waypoint);
-                    Debug.Log("Waypoint chargé");
                 }
             }
             else
@@ -45,12 +44,12 @@ namespace Controller
 
         private void InitializeWaypointsWaitingRoom()
         {
-            GameObject waypointsParent = GameObject.Find("WaypointsWaitingRoom");
+            GameObject waypointsParent = GameObject.Find("WaypointsWaitingRoomNurse");
             if (waypointsParent != null)
             {
                 foreach (Transform waypoint in waypointsParent.transform)
                 {
-                    WaypointWaitingRoomModel.GetInstance().AddWaypoint(waypoint);
+                    WaypointWaitingRoomNurseModel.GetInstance().AddWaypoint(waypoint);
                 }
             }
             else

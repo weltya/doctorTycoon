@@ -6,7 +6,7 @@ using Random = System.Random;
 
 namespace Model.Waypoints
 {
-    public class WaypointReceptionModel
+    public class WaypointReceptionModel : IWaypointModel
     {
         private static WaypointReceptionModel _instance;
         private readonly HashSet<Transform> _availableDesk = new();
@@ -33,24 +33,20 @@ namespace Model.Waypoints
             _availableDesk.Add(waypoint);
         }
 
-        public Transform RequestDesk()
+        public Transform RequestChair()
         {
-            Random random = new();
-
-            Debug.Log(_availableDesk.Count());
-
-            var desk = _availableDesk.ElementAt(random.Next(0, _availableDesk.Count() - 1));
-
-            if (desk) {
-                return desk;
+            if (_availableDesk.Count > 0)
+            {
+                var chair = _availableDesk.First();
+                _availableDesk.Remove(chair);
+                return chair;
             }
-
             return null;
         }
 
-        public void ReleaseDesk(Transform desk)
+        public void ReleaseChair(Transform chair)
         {
-            _availableDesk.Add(desk);
+            _availableDesk.Add(chair);
         }
     }
 }

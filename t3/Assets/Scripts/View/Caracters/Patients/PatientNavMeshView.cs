@@ -32,10 +32,8 @@ namespace View.Caracters
                 _targetPosition = targetPositon;
                 _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
-                Debug.Log(gameObject.name);
                 if (_targetPosition != null && _navMeshAgent != null)
                 {
-                    Debug.Log(targetPositon.position);
                     _navMeshAgent.SetDestination(_targetPosition.position);
                 }
             }
