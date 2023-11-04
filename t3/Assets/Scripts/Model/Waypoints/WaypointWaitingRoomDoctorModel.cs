@@ -1,31 +1,31 @@
+using Model.Waypoints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 
-namespace Model.Waypoints
+namespace Model.Waypoint
 {
-    public class WaypointWaitingRoomModel
+    public class WaypointWaitingRoomDoctorModel : IWaypointModel
     {
-        private static WaypointWaitingRoomModel _instance;
+        private static WaypointWaitingRoomDoctorModel _instance;
         //private List<Transform> _waypoints = new List<Transform>();
         private HashSet<Transform> _availableChairs = new HashSet<Transform>();
 
 
-        private WaypointWaitingRoomModel() 
+        private WaypointWaitingRoomDoctorModel()
         {
-            
+
         }
-        public static WaypointWaitingRoomModel GetInstance()
+        public static WaypointWaitingRoomDoctorModel GetInstance()
         {
-            if ( _instance == null )
+            if (_instance == null)
             {
-                _instance = new WaypointWaitingRoomModel();
+                _instance = new WaypointWaitingRoomDoctorModel();
             }
             return _instance;
         }
-
 
         public HashSet<Transform> GetWaypoints()
         {

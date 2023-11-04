@@ -1,9 +1,10 @@
-using Model.Patients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+
+using Model.Caracters.Patients;
 
 
 namespace View.Caracters
@@ -31,10 +32,8 @@ namespace View.Caracters
                 _targetPosition = targetPositon;
                 _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
-                Debug.Log(gameObject.name);
                 if (_targetPosition != null && _navMeshAgent != null)
                 {
-                    Debug.Log(targetPositon.position);
                     _navMeshAgent.SetDestination(_targetPosition.position);
                 }
             }
