@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace Model.Caracters.Patients
 {
@@ -9,6 +7,7 @@ namespace Model.Caracters.Patients
     {
         private GameObject _gameobject;
         private Transform _targetChair;
+        public string name = "patient1";
         private List<IObserverPatient> _observersPatient = new();
         public PatientDataModel()
         {
@@ -52,4 +51,3 @@ namespace Model.Caracters.Patients
         }
     }
 }
-

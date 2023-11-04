@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ namespace View.Caracters.Patients
 {
     public class InstantiatePatientView : MonoBehaviour, IObserverCaractersInMap
     {
-        //[SerializeField] PatientsPrefabView _patientsPrefabView;
         [SerializeField] DataController _dataController;
         private Vector3 _position;
         private Quaternion _rotation = Quaternion.Euler(0, 90, 0);
@@ -32,4 +30,3 @@ namespace View.Caracters.Patients
         }
     }
 }
-

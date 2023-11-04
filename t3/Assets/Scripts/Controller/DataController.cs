@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using Model.Waypoints;
 using Model.Caracters;
-using Model.Waypoint;
+using Model.Utils;
 
 namespace Controller
 {
@@ -12,119 +11,44 @@ namespace Controller
     {
         [SerializeField] private List<GameObject> _patientPrefabs = new List<GameObject>();
 
+        private readonly List<(string, IWaypointModel, PatientState)> _waypointsInitializationList = new List<(string, IWaypointModel, PatientState)>
+        {
+            ("WaypointsReception", WaypointModel.GetInstance(), PatientState.Reception),
+            ("WaypointsWaitingRoomNurse", WaypointModel.GetInstance(), PatientState.WaitingRoomNurse),
+            ("WaypointNurseRoom", WaypointModel.GetInstance(), PatientState.NurseRoom),
+            ("WaypointWaitingRoomDoctor", WaypointModel.GetInstance(), PatientState.WaitingRoomDoctor),
+            ("WaypointRoomDoctor", WaypointModel.GetInstance(), PatientState.DoctorRoom),
+            ("WaypointFinish", WaypointModel.GetInstance(), PatientState.Finish)
+        };
+
         private void Start()
         {
-            InitializeWaypointsReception();
-            InitializeWaypointsWaitingRoomNurse();
-            InitializeWaypointsRoomNurse();
-            InitializeWaypointsWaitingRoomDoctor();
-            InitializeWaypointsRoomDoctor();
-            InitializeWaypointsFinish();
-            InializePatientPrefab();
+            foreach (var (parentName, model, state) in _waypointsInitializationList)
+            {
+                InitializeWaypoints(parentName, model, state);
+            }
+            InitializePatientPrefab();
         }
 
-        public List<GameObject> InializePatientPrefab()
+        public void InitializePatientPrefab()
         {
-            CaractersPrefabModel patientPrefab = CaractersPrefabModel.GetInstance();
-            patientPrefab.SetPatientsPrefabs(_patientPrefabs);
-
-            return _patientPrefabs;
+            CaractersPrefabModel.GetInstance().SetPatientsPrefabs(_patientPrefabs);
         }
 
-        private void InitializeWaypointsReception()
+        private void InitializeWaypoints(string waypointsParentName, IWaypointModel waypointModel, PatientState state)
         {
-            GameObject waypointsParent = GameObject.Find("WaypointsReception");
+            GameObject waypointsParent = GameObject.Find(waypointsParentName);
             if (waypointsParent != null)
             {
                 foreach (Transform waypoint in waypointsParent.transform)
                 {
-                    WaypointReceptionModel.GetInstance().AddWaypoint(waypoint);
+                    waypointModel.AddWaypoint(state, waypoint);
                 }
             }
             else
             {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
-            }
-        }
-
-        private void InitializeWaypointsWaitingRoomNurse()
-        {
-            GameObject waypointsParent = GameObject.Find("WaypointsWaitingRoomNurse");
-            if (waypointsParent != null)
-            {
-                foreach (Transform waypoint in waypointsParent.transform)
-                {
-                    WaypointWaitingRoomNurseModel.GetInstance().AddWaypoint(waypoint);
-                }
-            }
-            else
-            {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
-            }
-        }
-
-        private void InitializeWaypointsRoomNurse()
-        {
-            GameObject waypointsParent = GameObject.Find("WaypointNurseRoom");
-            if (waypointsParent != null)
-            {
-                foreach (Transform waypoint in waypointsParent.transform)
-                {
-                    WaypointRoomNurseModel.GetInstance().AddWaypoint(waypoint);
-                }
-            }
-            else
-            {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
-            }
-        }
-
-        private void InitializeWaypointsWaitingRoomDoctor()
-        {
-            GameObject waypointsParent = GameObject.Find("WaypointWaitingRoomDoctor");
-            if (waypointsParent != null)
-            {
-                foreach (Transform waypoint in waypointsParent.transform)
-                {
-                    WaypointWaitingRoomDoctorModel.GetInstance().AddWaypoint(waypoint);
-                }
-            }
-            else
-            {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
-            }
-        }
-
-        private void InitializeWaypointsRoomDoctor()
-        {
-            GameObject waypointsParent = GameObject.Find("WaypointRoomDoctor");
-            if (waypointsParent != null)
-            {
-                foreach (Transform waypoint in waypointsParent.transform)
-                {
-                    WaypointRoomDoctorModel.GetInstance().AddWaypoint(waypoint);
-                }
-            }
-            else
-            {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
-            }
-        }
-        private void InitializeWaypointsFinish()
-        {
-            GameObject waypointsParent = GameObject.Find("WaypointFinish");
-            if (waypointsParent != null)
-            {
-                foreach (Transform waypoint in waypointsParent.transform)
-                {
-                    WaypointFinishModel.GetInstance().AddWaypoint(waypoint);
-                }
-            }
-            else
-            {
-                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
+                Debug.LogError($"{waypointsParentName} GameObject not found in the scene.");
             }
         }
     }
 }
-
