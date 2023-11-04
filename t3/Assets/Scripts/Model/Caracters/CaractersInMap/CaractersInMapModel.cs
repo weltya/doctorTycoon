@@ -50,6 +50,26 @@ namespace Model.Caracters.CaractersInMap
         {
             return _patientsInReception;
         }
+        public HashSet<PatientDataModel> GetPatientsInWaitingRoomNurse()
+        {
+            return _patientsInWaitingRoomNurse;
+        }
+        public HashSet<PatientDataModel> GetPatientsInRoomNurse()
+        {
+            return _patientInNursesRoom;
+        }
+        public HashSet<PatientDataModel> GetPatientsInWaitingRoomDoctor()
+        {
+            return _patientsInWaitingDoctorRoom;
+        }
+        public HashSet<PatientDataModel> GetPatientsInRoomDoctor()
+        {
+            return _patientsInDoctorsRoom;
+        }
+        public HashSet<PatientDataModel> GetPatientsInFinish()
+        {
+            return _patientsFinish;
+        }
 
         public void AddPatientInSpawnList(PatientDataModel patient)
         {
@@ -89,27 +109,27 @@ namespace Model.Caracters.CaractersInMap
         }
         public void RemovePatientFromReceptionList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientsInReception.Remove(patient);
         }
         public void RemovePatientFromWaitingRoomNursesList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientsInWaitingRoomNurse.Remove(patient);
         }
         public void RemovePatientFromNursesRoomList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientInNursesRoom.Remove(patient);
         }
-        public void RemovePatientFromDoctorsRoom(PatientDataModel patient)
+        public void RemovePatientFromWaitingRoomDoctorsList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientsInWaitingDoctorRoom.Remove(patient);
         }
         public void RemovePatientFromDoctorsRoomList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientsInDoctorsRoom.Remove(patient);
         }
         public void RemovePatientFromFinishList(PatientDataModel patient)
         {
-            _patientsInSpawn.Remove(patient);
+            _patientsFinish.Remove(patient);
         }
 
         public void SubscribeToObserverPatient(IObserverCaractersInMap instantiatePatientView)

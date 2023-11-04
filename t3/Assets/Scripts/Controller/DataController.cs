@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Model.Waypoints;
 using Model.Caracters;
+using Model.Waypoint;
 
 namespace Controller
 {
@@ -14,7 +15,11 @@ namespace Controller
         private void Start()
         {
             InitializeWaypointsReception();
-            InitializeWaypointsWaitingRoom();
+            InitializeWaypointsWaitingRoomNurse();
+            InitializeWaypointsRoomNurse();
+            InitializeWaypointsWaitingRoomDoctor();
+            InitializeWaypointsRoomDoctor();
+            InitializeWaypointsFinish();
             InializePatientPrefab();
         }
 
@@ -42,7 +47,7 @@ namespace Controller
             }
         }
 
-        private void InitializeWaypointsWaitingRoom()
+        private void InitializeWaypointsWaitingRoomNurse()
         {
             GameObject waypointsParent = GameObject.Find("WaypointsWaitingRoomNurse");
             if (waypointsParent != null)
@@ -50,6 +55,69 @@ namespace Controller
                 foreach (Transform waypoint in waypointsParent.transform)
                 {
                     WaypointWaitingRoomNurseModel.GetInstance().AddWaypoint(waypoint);
+                }
+            }
+            else
+            {
+                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
+            }
+        }
+
+        private void InitializeWaypointsRoomNurse()
+        {
+            GameObject waypointsParent = GameObject.Find("WaypointNurseRoom");
+            if (waypointsParent != null)
+            {
+                foreach (Transform waypoint in waypointsParent.transform)
+                {
+                    WaypointRoomNurseModel.GetInstance().AddWaypoint(waypoint);
+                }
+            }
+            else
+            {
+                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
+            }
+        }
+
+        private void InitializeWaypointsWaitingRoomDoctor()
+        {
+            GameObject waypointsParent = GameObject.Find("WaypointWaitingRoomDoctor");
+            if (waypointsParent != null)
+            {
+                foreach (Transform waypoint in waypointsParent.transform)
+                {
+                    WaypointWaitingRoomDoctorModel.GetInstance().AddWaypoint(waypoint);
+                }
+            }
+            else
+            {
+                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
+            }
+        }
+
+        private void InitializeWaypointsRoomDoctor()
+        {
+            GameObject waypointsParent = GameObject.Find("WaypointRoomDoctor");
+            if (waypointsParent != null)
+            {
+                foreach (Transform waypoint in waypointsParent.transform)
+                {
+                    WaypointRoomDoctorModel.GetInstance().AddWaypoint(waypoint);
+                }
+            }
+            else
+            {
+                Debug.LogError("WaypointsWaitingRoom GameObject not found in the scene.");
+            }
+        }
+        private void InitializeWaypointsFinish()
+        {
+            GameObject waypointsParent = GameObject.Find("WaypointFinish");
+            if (waypointsParent != null)
+            {
+                foreach (Transform waypoint in waypointsParent.transform)
+                {
+                    WaypointFinishModel.GetInstance().AddWaypoint(waypoint);
                 }
             }
             else

@@ -45,6 +45,22 @@ namespace Controller
         {
             _patientController.MovePatientToWaitingRoomNurse();
         }
+        public void MovePatientToRoomNurse()
+        {
+            _patientController.MovePatientToRoomNurse();
+        }
+        public void MovePatientToWaitingRoomDoctor()
+        {
+            _patientController.MovePatientToWaitingRoomDoctor();
+        }
+        public void MovePatientToDoctorRoom()
+        {
+            _patientController.MovePatientToDoctorRoom();
+        }
+        public void MovePatientToFinish()
+        {
+            _patientController.MovePatientToFinish();
+        }
 
         public IEnumerator MovePatientsSequence()
         {
@@ -54,8 +70,21 @@ namespace Controller
 
             MovePatientToWaitingRoomNurse();
 
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(8f);
 
+            MovePatientToRoomNurse();
+
+            yield return new WaitForSeconds(14f);
+
+            MovePatientToWaitingRoomDoctor();
+
+            yield return new WaitForSeconds(14f);
+
+            MovePatientToDoctorRoom();
+
+            yield return new WaitForSeconds(14f);
+
+            MovePatientToFinish();
         }
     }
 }
