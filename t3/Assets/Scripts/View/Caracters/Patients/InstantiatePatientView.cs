@@ -25,7 +25,7 @@ namespace View.Caracters.Patients
             _position = new Vector3(_spawnX, 0, spawnZ);
 
             List<GameObject> prefabList = new List<GameObject>();
-            PatientPrefabModel patientPrefabModel = PatientPrefabModel.GetInstance();
+            CaractersPrefabModel patientPrefabModel = CaractersPrefabModel.GetInstance();
             prefabList = patientPrefabModel.GetPatientsPrefabs();
             GameObject go = Instantiate(prefabList[0], _position, _rotation);
             patientDataModel.SetGameobject(go);

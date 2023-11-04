@@ -20,7 +20,7 @@ namespace Controller
 
         public List<GameObject> InializePatientPrefab()
         {
-            PatientPrefabModel patientPrefab = PatientPrefabModel.GetInstance();
+            CaractersPrefabModel patientPrefab = CaractersPrefabModel.GetInstance();
             patientPrefab.SetPatientsPrefabs(_patientPrefabs);
 
             return _patientPrefabs;

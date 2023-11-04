@@ -5,21 +5,22 @@ using UnityEngine;
 
 namespace Model.Caracters
 {
-    public class PatientPrefabModel
+    public class CaractersPrefabModel
+
     {
-        private static PatientPrefabModel _instance;
+        private static CaractersPrefabModel _instance;
         private List<GameObject> _patientsPrefabs;
 
-        private PatientPrefabModel()
+        private CaractersPrefabModel()
         {
 
         }
 
-        public static PatientPrefabModel GetInstance()
+        public static CaractersPrefabModel GetInstance()
         {
             if (_instance == null)
             {
-                _instance = new PatientPrefabModel();
+                _instance = new CaractersPrefabModel();
             }
             return _instance;
         }
