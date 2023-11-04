@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1937906917727848, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
       propertyPath: m_Name
-      value: Young Lady Variant
+      value: Patient1
       objectReference: {fileID: 0}
     - target: {fileID: 4340559023226304, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,14 +58,17 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1937906917727848, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6614477404052252331}
+      addedObject: {fileID: 2352535463294207296}
+    - targetCorrespondingSourceObject: {fileID: 1937906917727848, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1161214448125175756}
   m_SourcePrefab: {fileID: 100100000, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
 --- !u!1 &8412751113644499786 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1937906917727848, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
   m_PrefabInstance: {fileID: 8414687920513695010}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6614477404052252331
+--- !u!114 &2352535463294207296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,6 +77,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 8412751113644499786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29580d347514fd4dbfa200946ddecad, type: 3}
+  m_Script: {fileID: 11500000, guid: 48e797fb0c2ae3642b64fcfe47eb6daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &1161214448125175756
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8412751113644499786}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
