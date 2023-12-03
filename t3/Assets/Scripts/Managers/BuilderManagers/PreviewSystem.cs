@@ -20,7 +20,7 @@ namespace Scripts.Managers.BuilderManagers
         {
             _previewMaterialInstance = new Material(_previewMaterialPrefab);
             _cellIndicator.SetActive(false);
-            _cellIndicatorRenderer = _cellIndicator.GetComponent<Renderer>();
+            _cellIndicatorRenderer = _cellIndicator.GetComponentInChildren<Renderer>();
             if( _cellIndicatorRenderer == null )
             {
                 Debug.Log(_cellIndicator.name);
@@ -42,11 +42,12 @@ namespace Scripts.Managers.BuilderManagers
         }
 
         private void PrepareCursor(Vector2Int size)
-        {
+        {            
             if (size.x > 0 || size.y > 0)
             {
-                _cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
-                _cellIndicatorRenderer.material.mainTextureScale = size;
+                //offset dans database so
+                _cellIndicator.transform.localScale = new Vector3(size.x-2f, 1, size.y-2f);
+                _cellIndicator.GetComponentInChildren<Renderer>().material.mainTextureScale = size;
             }
         }
 
