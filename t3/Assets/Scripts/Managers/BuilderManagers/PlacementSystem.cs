@@ -14,9 +14,9 @@ namespace Scripts.Managers.BuilderManagers
         private int _selectedObjectIndex = -1;
         [SerializeField] private GameObject _gridVisualization;
         private GridData room1;
-        private List<GameObject> _placedGameObject = new();
         [SerializeField] private PreviewSystem _previewSystem;
         private Vector3Int _lastDetectedPosition = Vector3Int.zero;
+        [SerializeField] private ObjectPlacer _objectPlacer;
 
         private void Start()
         {
@@ -53,12 +53,11 @@ namespace Scripts.Managers.BuilderManagers
             {
                 return;
             }
-            GameObject go = Instantiate(_database.objectsData[_selectedObjectIndex].prefab);
-            go.transform.position = _grid.CellToWorld(gridPosition);
-            _placedGameObject.Add(go);
+            int index = _objectPlacer.PlaceObject(_database.objectsData[_selectedObjectIndex].prefab, _grid.CellToWorld(gridPosition));
+            
 
             GridData selectedData = room1;
-            selectedData.AddObjectAt(gridPosition, _database.objectsData[_selectedObjectIndex].Size, _database.objectsData[_selectedObjectIndex].ID, _placedGameObject.Count - 1);
+            selectedData.AddObjectAt(gridPosition, _database.objectsData[_selectedObjectIndex].Size, _database.objectsData[_selectedObjectIndex].ID, index);
 
             _previewSystem.UpdatePosition(_grid.CellToWorld(gridPosition), false);
         }
