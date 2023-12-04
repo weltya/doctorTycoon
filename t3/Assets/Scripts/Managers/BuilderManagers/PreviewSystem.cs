@@ -16,6 +16,8 @@ namespace Scripts.Managers.BuilderManagers
         private Material _previewMaterialInstance;
         private Renderer _cellIndicatorRenderer;
 
+        
+
         private void Start()
         {
             _previewMaterialInstance = new Material(_previewMaterialPrefab);

@@ -7,16 +7,15 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class PlacementSystem : MonoBehaviour
     {
-        [SerializeField] private GameObject _mouseIndicator;
         [SerializeField] InputManager _inputManager;
         [SerializeField] private Grid _grid;
         [SerializeField] private ObjectsDatabaseSO _database;
-        private int _selectedObjectIndex = -1;
         [SerializeField] private GameObject _gridVisualization;
         private GridData room1;
         [SerializeField] private PreviewSystem _previewSystem;
         private Vector3Int _lastDetectedPosition = Vector3Int.zero;
         [SerializeField] private ObjectPlacer _objectPlacer;
+        IBuildingState buildingState;
 
         private void Start()
         {
@@ -27,14 +26,8 @@ namespace Scripts.Managers.BuilderManagers
         public void StartPlacement(int ID)
         {
             StopPlacement();
-            _selectedObjectIndex = _database.objectsData.FindIndex(data => data.ID == ID);
-            if(_selectedObjectIndex < 0 )
-            {
-                Debug.LogError($"No ID found {ID}");
-                return;
-            }
-            _gridVisualization.SetActive( true );
-            _previewSystem.StartShowingPlacementPreview(_database.objectsData[_selectedObjectIndex].prefab, _database.objectsData[_selectedObjectIndex].Size);
+            _gridVisualization.SetActive(true);
+            buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
             _inputManager.OnClicked += PlaceStructure;
             _inputManager.OnExit += StopPlacement;
         }
@@ -47,50 +40,36 @@ namespace Scripts.Managers.BuilderManagers
             }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();
             Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
-
-            bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
-            if (!isValidPlacement)
-            {
-                return;
-            }
-            int index = _objectPlacer.PlaceObject(_database.objectsData[_selectedObjectIndex].prefab, _grid.CellToWorld(gridPosition));
-            
-
-            GridData selectedData = room1;
-            selectedData.AddObjectAt(gridPosition, _database.objectsData[_selectedObjectIndex].Size, _database.objectsData[_selectedObjectIndex].ID, index);
-
-            _previewSystem.UpdatePosition(_grid.CellToWorld(gridPosition), false);
+            buildingState.OnAction(gridPosition);
         }
 
-        private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-        {
-            GridData selectedData = room1;
+        //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+        //{
+        //    GridData selectedData = room1;
 
-            return selectedData.CanPlaceObjectAt(gridPosition, _database.objectsData[selectedObjectIndex].Size);
-        }
+        //    return selectedData.CanPlaceObjectAt(gridPosition, _database.objectsData[selectedObjectIndex].Size);
+        //}
 
         private void StopPlacement()
         {
-            _selectedObjectIndex = -1;
+            if (buildingState == null) { return; }
             _gridVisualization.SetActive(false);
-            _previewSystem.StopShowingPreview();
+            buildingState.EndState();
             _inputManager.OnClicked -= PlaceStructure;
             _inputManager.OnExit -= StopPlacement;
             _lastDetectedPosition = Vector3Int.zero;
+            buildingState = null;
         }
 
         private void Update()
         {
-            if (_selectedObjectIndex < 0) { return; }
+            if (buildingState == null) { return; }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();
             Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
             
             if (_lastDetectedPosition != gridPosition) 
             {
-                bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
-
-                _mouseIndicator.transform.position = mousePosition;
-                _previewSystem.UpdatePosition(_grid.CellToWorld(gridPosition), isValidPlacement);
+                buildingState.UpdateState(gridPosition);
                 _lastDetectedPosition = gridPosition;
             }  
 
