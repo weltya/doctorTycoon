@@ -47,6 +47,23 @@ namespace Scripts.Managers.BuilderManagers
             }
             return true;
         }
+
+        internal int GetRepresentationIndex(Vector3Int gridPosition)
+        {
+            if (!_placeObjects.ContainsKey(gridPosition))
+            {
+                return -1;
+            }
+            return _placeObjects[gridPosition].PlacedObjectIndex;
+        }
+
+        internal void RemoveObjectAt(Vector3Int gridPosition)
+        {
+            foreach (var pos in _placeObjects[gridPosition].occupiedPositions)
+            {
+                _placeObjects.Remove(pos);
+            }
+        }
     }
 
     public class PlacementData

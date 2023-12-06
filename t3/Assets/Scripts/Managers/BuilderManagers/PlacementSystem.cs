@@ -32,6 +32,15 @@ namespace Scripts.Managers.BuilderManagers
             _inputManager.OnExit += StopPlacement;
         }
 
+        public void StartRemoving()
+        {
+            StopPlacement();
+            _gridVisualization.SetActive(true);
+            buildingState = new RemovingState(_grid, _previewSystem, room1, _objectPlacer);
+            _inputManager.OnClicked += PlaceStructure;
+            _inputManager.OnExit += StopPlacement;
+        }
+
         private void PlaceStructure()
         {
             if (_inputManager.IsPointerOverUi())

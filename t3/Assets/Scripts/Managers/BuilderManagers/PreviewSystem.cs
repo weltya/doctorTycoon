@@ -70,22 +70,37 @@ namespace Scripts.Managers.BuilderManagers
         public void StopShowingPreview()
         {
             _cellIndicator.SetActive(false);
-            Destroy(_previewObject);
+            if ( _previewObject != null )
+            {
+                Destroy(_previewObject);
+            }
+            
         }
 
         public void UpdatePosition(Vector3 position, bool validity)
         {
-            MovePreview(position);
+            if( _previewObject != null)
+            {
+                MovePreview(position);
+                ApplyFeedbackToPreview(validity);
+            }
+            
             MoveCursor(position);
-            ApplyFeedback(validity);
+            ApplyFeedbackToCursor(validity);
         }
 
-        private void ApplyFeedback(bool validity)
+        private void ApplyFeedbackToPreview(bool validity)
+        {
+            Color color = validity ? Color.green : Color.red;
+            color.a = 0.5f;
+            _previewMaterialInstance.color = color;
+        }
+
+        private void ApplyFeedbackToCursor(bool validity)
         {
             Color color = validity ? Color.green : Color.red;
             color.a = 0.5f;
             _cellIndicatorRenderer.material.color = color;
-            _previewMaterialInstance.color = color;
         }
 
         private void MoveCursor(Vector3 position)
@@ -96,6 +111,13 @@ namespace Scripts.Managers.BuilderManagers
         private void MovePreview(Vector3 position)
         {
             _previewObject.transform.position = new Vector3(position.x, position.y + _previewOffsetY, position.z);
+        }
+
+        internal void StartShowingRemovePreview()
+        {
+            _cellIndicator.SetActive(true);
+            PrepareCursor(Vector2Int.one);
+            ApplyFeedbackToCursor(false);
         }
     }
 
