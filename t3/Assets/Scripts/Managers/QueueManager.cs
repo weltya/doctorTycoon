@@ -22,10 +22,6 @@ namespace Scripts.Managers.Caracters
         #region[instance]
         public static QueueManager GetInstance()
         {
-            if (Instance == null)
-            {
-                Instance = new QueueManager();
-            }
             return Instance;
         }
         #endregion[instance]
@@ -45,7 +41,7 @@ namespace Scripts.Managers.Caracters
         #endregion[check or wait]
 
         #region[private check or wait]
-        private bool IsReceptionIsAvailable()
+        public bool IsReceptionIsAvailable()
         {
             return true;
         }
@@ -61,9 +57,8 @@ namespace Scripts.Managers.Caracters
         private void MoveToReception(GameObject patientGameplay)
         {
             PatientGameplay scriptPatientGameplay = patientGameplay.GetComponent<PatientGameplay>();
-            if (scriptPatientGameplay != null) { Debug.LogError("scriptPatientGameplay equal to null"); }
+            if (scriptPatientGameplay == null) { Debug.LogError("scriptPatientGameplay equal to null"); }
             scriptPatientGameplay.MovePatientToreception();
-
         }
         #endregion[private check or waim]
     }
