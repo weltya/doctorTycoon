@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; position: absolute; height: 30px; width: 78px; top: 11px; left: 12px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Guérison :" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="G" parse-escape-sequences="true" display-tooltip-when-elided="true" name="guerison" style="position: absolute; top: 0; left: 58px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; height: 30px; width: 76px; top: 11px; left: 114px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Exp_sub :" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="E" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exp" style="position: absolute; top: 1px; left: 59px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; height: 30px; width: 75px; top: 11px; left: 361px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Rooms :" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="R" parse-escape-sequences="true" display-tooltip-when-elided="true" name="room" style="position: absolute; top: 0; left: 54px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; position: absolute; height: 30px; width: 78px; top: 11px; left: 459px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Patients :" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="P" parse-escape-sequences="true" display-tooltip-when-elided="true" name="patient" style="position: absolute; top: 0; left: 58px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; position: absolute; height: 30px; width: 74px; top: 58px; left: 361px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Doctors:" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="D" parse-escape-sequences="true" display-tooltip-when-elided="true" name="doctor" style="position: absolute; top: 0; left: 54px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; position: absolute; height: 30px; width: 78px; top: 58px; left: 460px; color: rgb(27, 27, 27); background-color: rgb(24, 35, 154);">
+        <ui:Label tabindex="-1" text="Nurses :" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 253, 27); font-size: 12px; width: 61px;" />
+        <ui:Label tabindex="-1" text="N" parse-escape-sequences="true" display-tooltip-when-elided="true" name="nurse" style="position: absolute; top: 0; left: 54px; width: 14px; color: rgb(255, 253, 27); font-size: 12px;" />
+    </ui:VisualElement>
+</ui:UXML>
