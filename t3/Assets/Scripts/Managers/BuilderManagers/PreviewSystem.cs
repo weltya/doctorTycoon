@@ -47,8 +47,8 @@ namespace Scripts.Managers.BuilderManagers
         {            
             if (size.x > 0 || size.y > 0)
             {
-                //offset dans database so
-                _cellIndicator.transform.localScale = new Vector3(size.x-2f, 1, size.y-2f);
+                //offset dans database so size.x et z - 2f (correction du pivot 0.5 -> 1)
+                _cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
                 _cellIndicator.GetComponentInChildren<Renderer>().material.mainTextureScale = size;
             }
         }
