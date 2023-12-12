@@ -726,8 +726,6 @@ Transform:
   - {fileID: 830165660}
   m_Father: {fileID: 378250872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &31791085
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +783,6 @@ MonoBehaviour:
   nurseCapText: {fileID: 0}
   guerisonText: {fileID: 0}
   expSubText: {fileID: 407510024}
->>>>>>> e78613247c5b3fa69ebad1f37ba9886fee9e44bd
 --- !u!1001 &32241402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8668,11 +8665,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-<<<<<<< HEAD
-  m_ReferenceResolution: {x: 1200, y: 1080}
-=======
   m_ReferenceResolution: {x: 1200, y: 760}
->>>>>>> e78613247c5b3fa69ebad1f37ba9886fee9e44bd
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -8716,10 +8709,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1375202580}
-<<<<<<< HEAD
-=======
   - {fileID: 838217330}
->>>>>>> e78613247c5b3fa69ebad1f37ba9886fee9e44bd
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12261,8 +12251,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830165659}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &838217329
 GameObject:
   m_ObjectHideFlags: 0
@@ -12344,7 +12332,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838217329}
   m_CullTransparentMesh: 1
->>>>>>> e78613247c5b3fa69ebad1f37ba9886fee9e44bd
 --- !u!1001 &839675093
 PrefabInstance:
   m_ObjectHideFlags: 0
