@@ -1,9 +1,8 @@
 using UnityEngine;
 using System;
 
-public class Room
+public class Room : MonoBehaviour
 {
     public Transform point;
-    public Boolean available;
-
+    public Boolean available = true;
 }

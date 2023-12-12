@@ -7,7 +7,7 @@ public class BulkRename : ScriptableObject
     [MenuItem("Tools/Bulk Rename")]
     static void RenameSelectedObjects()
     {
-        string newName = "Ground 01 Carpet 02";
+        string newName = "Waypoint";
         int counter = 1;
 
         foreach (GameObject obj in Selection.gameObjects)
