@@ -12,26 +12,17 @@ public class Score : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        // Add other initialization code...
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Other update logic...
-
-        // Example usage:
+    { 
         UpdateRoomCapLabel(calculate_room_cap());
         UpdatepatientCapLabel(calculate_patient_cap());
         UpdateNurseCapLabel(calculate_nurse_cap());
         UpdateDoctorCapLabel(calculate_doctor_cap());
         UpdateGuerisonLabel(calculate_guersion());
         UpdateExpLabel(calculate_exp_sub());
+        // Add other initialization code...
     }
 
-    // Other methods...
-
+   
     void UpdateRoomCapLabel(int cap_roomwait)
     {
         if (roomCapText != null)
