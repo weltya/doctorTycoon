@@ -13,7 +13,43 @@ MonoBehaviour:
   m_Name: Database
   m_EditorClassIdentifier: 
   objectsData:
-  - <Name>k__BackingField: room1
+  - <Name>k__BackingField: DoctorRoom1Doctor1
     <ID>k__BackingField: 0
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: DoctorRoom1Doctor2
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: DoctorRoom2Doctor1
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: DoctorRoom2Doctor2
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: NurseRoom1Nurse1
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: NurseRoom1Nurse2
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: NurseRoom2Nurse1
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: NurseRoom2Nurse2
+    <ID>k__BackingField: 7
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: WaitingRoom1
+    <ID>k__BackingField: 8
+    <Size>k__BackingField: {x: 11, y: 6}
+    <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
+  - <Name>k__BackingField: WaitingRoom2
+    <ID>k__BackingField: 9
     <Size>k__BackingField: {x: 11, y: 6}
     <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
