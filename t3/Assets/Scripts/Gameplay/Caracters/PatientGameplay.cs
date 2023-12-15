@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 using Scripts.Utils.Enum;
 using UnityEngine.AI;
 using Scripts.Models.Caracters;
+using Scripts.Managers.Caracters;
+
 
 namespace Scripts.Gameplay.Caracters
 {
@@ -65,12 +68,34 @@ namespace Scripts.Gameplay.Caracters
         #endregion[navmesh]
 
         #region[send patient to]
-        public void MovePatientToreception()
+        public void MovePatientToReception(ReceptionRoomData room)
         {
-
+            SetDestination(room.point, room);
+            Thread.Sleep(4000);
+            QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
         #endregion[send patient to]
 
+        #region [send patient to]
+        public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
+        {
+            
+            SetDestination(room., room);
+            QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
+        }
+        #endregion[send patient to]
+        public void MovePatientToDoctor(DoctorRoomData room)
+        {
+            SetDestination(room.point, room);
+            Thread.Sleep(7000);
+            QueueManager.GetInstance().CheckOrWaitToWaitingRoomDoctor(this);
+        }
+        public void MovePatientToNurse(NurseRoomData NurseRoom)
+        {
+
+            SetDestination(NurseRoom.point, NurseRoom);
+            Thread.Sleep(5000);
+            QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
+        }
     }
 }
-

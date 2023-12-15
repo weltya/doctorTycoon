@@ -9,13 +9,15 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class ObjectPlacer : MonoBehaviour
     {
-        
-       [SerializeField] private List<GameObject> _placedGameObject = new();
+        internal event Action<Room> onObjectPlaced;
+        [SerializeField] private List<GameObject> _placedGameObject = new();
 
         public int PlaceObject(GameObject prefab, Vector3 vector3)
         {
             GameObject go = Instantiate(prefab);
             go.transform.position = vector3;
+            Room room=go.GetComponent<DoctorRoomData>();
+            onObjectPlaced?.Invoke(room);
             _placedGameObject.Add(go);
             return _placedGameObject.Count - 1;
         }
