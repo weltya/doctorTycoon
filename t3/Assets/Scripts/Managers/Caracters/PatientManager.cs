@@ -19,7 +19,6 @@ namespace Scripts.Managers.Caracters
         private float _spawnX = 2f;
 
 
-        #region[unity function]
         private void Start()
         {
             if (_patientsPrefab.Count <= 0)
@@ -30,9 +29,6 @@ namespace Scripts.Managers.Caracters
             InstantiatePatient();
             InstantiatePatient();
         }
-        #endregion[unity function]
-
-        #region[Move and instantiate patient]
         private void InstantiatePatient()
         {
             GameObject go;
@@ -45,9 +41,6 @@ namespace Scripts.Managers.Caracters
 
             QueueManager.GetInstance().CheckOrWaitToReception(go);
         }
-
-
-        #endregion[Move and instantiate patient]
     }
 }
 

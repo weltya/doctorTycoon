@@ -9,8 +9,8 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class ObjectPlacer : MonoBehaviour
     {
-        
-       [SerializeField] private List<GameObject> _placedGameObject = new();
+        internal Action onObjectPlaced;
+        [SerializeField] private List<GameObject> _placedGameObject = new();
 
         public int PlaceObject(GameObject prefab, Vector3 vector3)
         {
