@@ -60,6 +60,7 @@ namespace Scripts.Managers.Caracters
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {
+                    int i = 0;
                     _waitingQueueDoctor.Enqueue(patientGameplay);
                     patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
@@ -79,7 +80,7 @@ namespace Scripts.Managers.Caracters
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {
-                    int i=
+                    int i = 0;
                     _waitingQueueDoctor.Enqueue(patientGameplay);
                     patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
