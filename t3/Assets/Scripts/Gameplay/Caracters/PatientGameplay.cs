@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-
+using System.Linq;
 using Scripts.Utils.Enum;
 using UnityEngine.AI;
 using Scripts.Models.Caracters;
@@ -80,7 +80,7 @@ namespace Scripts.Gameplay.Caracters
         public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
         {
             
-            //SetDestination(room.room, room);
+            SetDestination(room.points.ElementAt(i).Key, room);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
         #endregion[send patient to]
