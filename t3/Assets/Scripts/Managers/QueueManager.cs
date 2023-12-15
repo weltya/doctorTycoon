@@ -15,7 +15,7 @@ namespace Scripts.Managers.Caracters
         private Queue<PatientGameplay> _waitingQueueNurse = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueDoctor = new Queue<PatientGameplay>();
 
-        private List<ReceptionRoomData> ReceptionRoomdata = new List<ReceptionRoomData>();
+        private List<ReceptionRoomData> ListReceptionRoom = new List<ReceptionRoomData>();
         private List<WaitingRoomData> ListWaitingRoom = new List<WaitingRoomData>();
         private List<DoctorRoomData> ListDoctor = new List<DoctorRoomData>();
         private List<NurseRoomData> ListNurse = new List<NurseRoomData>();
@@ -61,7 +61,7 @@ namespace Scripts.Managers.Caracters
                 if (WaitingRoom != null)
                 {
                     _waitingQueueDoctor.Enqueue(patientGameplay);
-                    patientGameplay.MovePatientToWaitingRoom(WaitingRoom);
+                    patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
             }
         }
@@ -79,20 +79,21 @@ namespace Scripts.Managers.Caracters
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {
+                    int i=
                     _waitingQueueDoctor.Enqueue(patientGameplay);
-                    patientGameplay.MovePatientToWaitingRoom(WaitingRoom);
+                    patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
 
             }
         }
         public ReceptionRoomData IsReceptionIsAvailable()
         {
-            for (int i = 0; i < ReceptionRoomdata.Count; i++)
+            for (int i = 0; i < ListReceptionRoom.Count; i++)
             {
-                if (ReceptionRoomdata[i].available)
+                if (ListReceptionRoom[i].available)
                 {
-                    ReceptionRoomdata[i].available = false;
-                    return ReceptionRoomdata[i];
+                    ListReceptionRoom[i].available = false;
+                    return ListReceptionRoom[i];
                 }
             }
             return null;
@@ -137,6 +138,7 @@ namespace Scripts.Managers.Caracters
 
         private void UpdateReceptionAvailability()
         {
+            ReceptionRoomData wheretogo=IsReceptionIsAvailable();
             if (IsReceptionIsAvailable() && _waitingQueueReception.Count > 0)
             {
                 MoveToReception(_waitingQueueReception.Dequeue());
@@ -168,8 +170,21 @@ namespace Scripts.Managers.Caracters
             if (scriptPatientGameplay == null) { Debug.LogError("scriptPatientGameplay equal to null"); }
             scriptPatientGameplay.MovePatientToReception(reception);
         }
-        private void AddRoom()
+        private void AddRoom(Room room)
         {
+            
+            if(room is DoctorRoomData){
+                ListDoctor.Add((DoctorRoomData)room);
+            }
+            else if(room is WaitingRoomData){
+                ListWaitingRoom.Add((WaitingRoomData)room);
+            }else if(room is NurseRoomData){
+                ListNurse.Add((NurseRoomData)room);
+            }else if(room is ReceptionRoomData){
+                ListReceptionRoom.Add((ReceptionRoomData)room);
+            } 
+
+            Debug.Log(ListDoctor);
 
         }
     }

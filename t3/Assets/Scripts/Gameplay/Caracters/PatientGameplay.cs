@@ -77,9 +77,10 @@ namespace Scripts.Gameplay.Caracters
         #endregion[send patient to]
 
         #region [send patient to]
-        public void MovePatientToWaitingRoom(WaitingRoomData room)
+        public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
         {
-            SetDestination(room.point, room);
+            
+            SetDestination(room., room);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
         #endregion[send patient to]

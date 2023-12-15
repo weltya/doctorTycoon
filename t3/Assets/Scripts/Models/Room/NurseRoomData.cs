@@ -4,5 +4,6 @@ using UnityEngine;
 public class NurseRoomData : Room
 {
     public NurseData nurseData;
-    public int expSubjective;
+    public Transform point;
+    public Boolean available = true;
 }
