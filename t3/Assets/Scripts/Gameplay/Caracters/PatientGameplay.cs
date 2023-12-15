@@ -80,7 +80,7 @@ namespace Scripts.Gameplay.Caracters
         public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
         {
             
-            SetDestination(room., room);
+            //SetDestination(room.room, room);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
         #endregion[send patient to]
