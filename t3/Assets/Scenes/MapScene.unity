@@ -7273,6 +7273,7 @@ MonoBehaviour:
   _gridVisualization: {fileID: 830165659}
   _previewSystem: {fileID: 1613756068}
   _objectPlacer: {fileID: 667623104}
+  _ui: {fileID: 576192263}
 --- !u!1 &576192258
 GameObject:
   m_ObjectHideFlags: 0
