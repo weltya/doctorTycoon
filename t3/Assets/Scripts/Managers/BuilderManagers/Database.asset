@@ -51,5 +51,9 @@ MonoBehaviour:
     <prefab>k__BackingField: {fileID: 8293642898071508903, guid: b9bc592e2b034b14b9bb1dbca86a4a55, type: 3}
   - <Name>k__BackingField: WaitingRoom2
     <ID>k__BackingField: 9
-    <Size>k__BackingField: {x: 11, y: 16}
-    <prefab>k__BackingField: {fileID: 6213891051702673415, guid: da7baeb142d2a4449b8b6b2ea962ec62, type: 3}
+    <Size>k__BackingField: {x: 5, y: 4}
+    <prefab>k__BackingField: {fileID: 5367670868441946815, guid: c2eeb3dceb060ff45ab436130766ac1e, type: 3}
+  - <Name>k__BackingField: Reception1
+    <ID>k__BackingField: 9
+    <Size>k__BackingField: {x: 5, y: 4}
+    <prefab>k__BackingField: {fileID: 5367670868441946815, guid: c2eeb3dceb060ff45ab436130766ac1e, type: 3}
