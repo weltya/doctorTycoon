@@ -23,12 +23,12 @@ MonoBehaviour:
     <prefab>k__BackingField: {fileID: 2639836217758082343, guid: 233e9b7e2a022a54b990e0ebb968bcc2, type: 3}
   - <Name>k__BackingField: DoctorRoom2Doctor1
     <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 11, y: 6}
-    <prefab>k__BackingField: {fileID: 5810692715561223700, guid: ac334f6d834d15d4e8c590eba9514b49, type: 3}
+    <Size>k__BackingField: {x: 11, y: 11}
+    <prefab>k__BackingField: {fileID: 8370914507217722869, guid: 3bbee190ed6f1544b9e522dfe24ed888, type: 3}
   - <Name>k__BackingField: DoctorRoom2Doctor2
     <ID>k__BackingField: 3
-    <Size>k__BackingField: {x: 11, y: 6}
-    <prefab>k__BackingField: {fileID: 5810692715561223700, guid: ac334f6d834d15d4e8c590eba9514b49, type: 3}
+    <Size>k__BackingField: {x: 11, y: 11}
+    <prefab>k__BackingField: {fileID: 8370914507217722869, guid: 3bbee190ed6f1544b9e522dfe24ed888, type: 3}
   - <Name>k__BackingField: NurseRoom1Nurse1
     <ID>k__BackingField: 4
     <Size>k__BackingField: {x: 11, y: 6}
@@ -39,15 +39,15 @@ MonoBehaviour:
     <prefab>k__BackingField: {fileID: 4724136208527895240, guid: 7c110aecd21acf44d8bec40894385883, type: 3}
   - <Name>k__BackingField: NurseRoom2Nurse1
     <ID>k__BackingField: 6
-    <Size>k__BackingField: {x: 11, y: 6}
+    <Size>k__BackingField: {x: 11, y: 11}
     <prefab>k__BackingField: {fileID: 2533661867995900039, guid: 0d58120b4c548b2449b58f265ca5cf61, type: 3}
   - <Name>k__BackingField: NurseRoom2Nurse2
     <ID>k__BackingField: 7
-    <Size>k__BackingField: {x: 11, y: 6}
+    <Size>k__BackingField: {x: 11, y: 11}
     <prefab>k__BackingField: {fileID: 2533661867995900039, guid: 0d58120b4c548b2449b58f265ca5cf61, type: 3}
   - <Name>k__BackingField: WaitingRoom1
     <ID>k__BackingField: 8
-    <Size>k__BackingField: {x: 11, y: 6}
+    <Size>k__BackingField: {x: 11, y: 11}
     <prefab>k__BackingField: {fileID: 2142959137998661552, guid: d0f0cadf2d4fad34fa65054e1a3fc530, type: 3}
   - <Name>k__BackingField: WaitingRoom2
     <ID>k__BackingField: 9
