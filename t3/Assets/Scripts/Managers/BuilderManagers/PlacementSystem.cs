@@ -15,6 +15,7 @@ namespace Scripts.Managers.BuilderManagers
         [SerializeField] private PreviewSystem _previewSystem;
         private Vector3Int _lastDetectedPosition = Vector3Int.zero;
         [SerializeField] private ObjectPlacer _objectPlacer;
+        [SerializeField] private UI _ui;
         IBuildingState buildingState;
 
         private void Start()
@@ -26,6 +27,7 @@ namespace Scripts.Managers.BuilderManagers
         public void StartPlacement(int ID)
         {
             StopPlacement();
+            _ui.NoDisplayAllBuildPanel();
             _gridVisualization.SetActive(true);
             buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
             _inputManager.OnClicked += PlaceStructure;
@@ -45,6 +47,7 @@ namespace Scripts.Managers.BuilderManagers
         {
             if (_inputManager.IsPointerOverUi())
             {
+                Debug.Log("pointer os over UI");
                 return;
             }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();

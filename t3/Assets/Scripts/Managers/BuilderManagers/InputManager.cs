@@ -31,6 +31,11 @@ namespace Scripts.Managers.BuilderManagers
         public bool IsPointerOverUi()
             => EventSystem.current.IsPointerOverGameObject();
 
+        public bool IsPointerOverUi2()
+        {
+            return false;
+        }
+            
         public Vector3 GetSelectedMapToWorld()
         {
             Vector3 mousePos = Input.mousePosition;
