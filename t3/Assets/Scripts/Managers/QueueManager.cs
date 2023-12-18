@@ -205,7 +205,8 @@ namespace Scripts.Managers.Caracters
                 ListReceptionRoom.Add((ReceptionRoomData)room);
             } 
 
-            Debug.Log(ListDoctor.Count);
+            Debug.Log($"nbrReception={ListReceptionRoom.Count}, nbrWaiting={ListWaitingRoom.Count}, " +
+                $"nbrNurse={ListNurse.Count}, nbrDoctor={ListDoctor.Count}");
 
         }
     }

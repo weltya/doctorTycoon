@@ -16,7 +16,7 @@ namespace Scripts.Managers.BuilderManagers
         {
             GameObject go = Instantiate(prefab);
             go.transform.position = vector3;
-            Room room=go.GetComponent<DoctorRoomData>();
+            Room room=go.GetComponent<Room>();
             onObjectPlaced?.Invoke(room);
             _placedGameObject.Add(go);
             return _placedGameObject.Count - 1;

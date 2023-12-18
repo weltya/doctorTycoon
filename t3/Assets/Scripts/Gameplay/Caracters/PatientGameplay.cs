@@ -13,8 +13,6 @@ namespace Scripts.Gameplay.Caracters
 {
     public class PatientGameplay : MonoBehaviour
     {
-        #region[propriety]
-
         [SerializeField] public string Name;
 
         [SerializeField] private GameObject _assignedDoctors;
@@ -28,10 +26,6 @@ namespace Scripts.Gameplay.Caracters
 
         private Transform _targetPos;
         private NavMeshAgent _navMeshAgent;
-
-        #endregion[propriety]
-
-        #region[unity function]
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -48,13 +42,6 @@ namespace Scripts.Gameplay.Caracters
                 }
             }
         }
-        #endregion[unity function]
-
-        #region[setter getter]
-
-        #endregion[setter getter]
-
-        #region[navmesh]
         public void SetDestination(Transform destination, Room room)
         {
             if (!_navMeshAgent) _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -65,36 +52,32 @@ namespace Scripts.Gameplay.Caracters
 
             _navMeshAgent.SetDestination(destination.position);
         }
-        #endregion[navmesh]
 
-        #region[send patient to]
         public void MovePatientToReception(ReceptionRoomData room)
         {
             SetDestination(room.point, room);
-            Thread.Sleep(4000);
+            //Thread.Sleep(4000);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
-        #endregion[send patient to]
 
-        #region [send patient to]
         public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
         {
             
             SetDestination(room.points.ElementAt(i).Key, room);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
-        #endregion[send patient to]
+
         public void MovePatientToDoctor(DoctorRoomData room)
         {
             SetDestination(room.point, room);
-            Thread.Sleep(7000);
+            //Thread.Sleep(7000);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomDoctor(this);
         }
         public void MovePatientToNurse(NurseRoomData NurseRoom)
         {
 
             SetDestination(NurseRoom.point, NurseRoom);
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
     }
