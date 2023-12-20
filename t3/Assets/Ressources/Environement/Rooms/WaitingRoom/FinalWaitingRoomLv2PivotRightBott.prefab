@@ -5890,6 +5890,39 @@ MonoBehaviour:
   expSubjective: 0
   capacity: 16
   maxCapacity: 16
+  ListPoint:
+  - IsAvailable: 0
+    Waypoint: {fileID: 6818707862891248796}
+  - IsAvailable: 0
+    Waypoint: {fileID: 6827273548073476361}
+  - IsAvailable: 0
+    Waypoint: {fileID: 8603804045734965949}
+  - IsAvailable: 0
+    Waypoint: {fileID: 5963007686627055386}
+  - IsAvailable: 0
+    Waypoint: {fileID: 3394638102081848096}
+  - IsAvailable: 0
+    Waypoint: {fileID: 3809357206061144778}
+  - IsAvailable: 0
+    Waypoint: {fileID: 3993695212136855439}
+  - IsAvailable: 0
+    Waypoint: {fileID: 4937631433535442608}
+  - IsAvailable: 0
+    Waypoint: {fileID: 6810144968492249322}
+  - IsAvailable: 0
+    Waypoint: {fileID: 4031472561867288411}
+  - IsAvailable: 0
+    Waypoint: {fileID: 8755091600670409392}
+  - IsAvailable: 0
+    Waypoint: {fileID: 6531377493488510495}
+  - IsAvailable: 0
+    Waypoint: {fileID: 4214276498027821739}
+  - IsAvailable: 0
+    Waypoint: {fileID: 3806027720461296344}
+  - IsAvailable: 0
+    Waypoint: {fileID: 4865708308235581735}
+  - IsAvailable: 0
+    Waypoint: {fileID: 7066213398363218817}
 --- !u!1 &8437876498389600458
 GameObject:
   m_ObjectHideFlags: 0
