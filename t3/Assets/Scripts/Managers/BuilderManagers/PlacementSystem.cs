@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using  Scripts.UII;
 
 namespace Scripts.Managers.BuilderManagers
 {
@@ -17,21 +18,25 @@ namespace Scripts.Managers.BuilderManagers
         [SerializeField] private ObjectPlacer _objectPlacer;
         [SerializeField] private UI _ui;
         IBuildingState buildingState;
+        [SerializeField] private UIScoreManager score;
 
         private void Start()
         {
+           
             StopPlacement();
             room1 = new GridData();
         }
 
         public void StartPlacement(int ID)
         {
-            StopPlacement();
+             StopPlacement();
             _ui.NoDisplayAllBuildPanel();
             _gridVisualization.SetActive(true);
             buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
             _inputManager.OnClicked += PlaceStructure;
             _inputManager.OnExit += StopPlacement;
+            
+        
         }
 
         public void StartRemoving()
