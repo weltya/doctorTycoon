@@ -55,9 +55,11 @@ namespace Scripts.Managers.BuilderManagers
             {
                 return;
             }
-            int index = objectPlacer.PlaceObject(database.objectsData[_selectedObjectIndex].prefab, grid.CellToWorld(gridPosition));
-
-
+            int index = objectPlacer.PlaceObject(database.objectsData[_selectedObjectIndex].prefab, grid.CellToWorld(gridPosition), _selectedObjectIndex);
+            if (index < 0)
+            {
+                EndState();
+            }
             GridData selectedData = room1;
             selectedData.AddObjectAt(gridPosition, database.objectsData[_selectedObjectIndex].Size, database.objectsData[_selectedObjectIndex].ID, index);
 
