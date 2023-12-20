@@ -66,19 +66,23 @@ namespace Scripts.Managers.Caracters
             NurseRoomData whereToGo = IsNurseIsAvailable();
             if (whereToGo != null)
             {
+                Debug.Log("go to nurse");
+                patientGameplay.LibereRoom();
                 patientGameplay.MovePatientToNurse(whereToGo);
             }
             else
             {
+                Debug.Log("go to waiting room nurse");
                 _waitingQueueNurse.Enqueue(patientGameplay);
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
+                Debug.Log(WaitingRoom);
                 if (WaitingRoom != null)
                 {
                     int i;
-                    for(i=0;i<WaitingRoom.points.Count;i++){
-                        if(WaitingRoom.points.ElementAt(i).Value)
+                    for(i=0;i<WaitingRoom.ListPoint.Count;i++){
+                        if(WaitingRoom.ListPoint.ElementAt(i).IsAvailable)
                         {
-                            WaitingRoom.points[WaitingRoom.points.ElementAt(i).Key]=false;
+                            WaitingRoom.ListPoint.ElementAt(i).IsAvailable=false;
                             break;
                         }
                     }    
@@ -89,28 +93,34 @@ namespace Scripts.Managers.Caracters
 
         public void CheckOrWaitToWaitingRoomDoctor(PatientGameplay patientGameplay)
         {
+            for(int i=0;i<ListReceptionRoom.Count;i++){
+                Debug.Log(ListReceptionRoom[i].available);
+            }
+                   
             DoctorRoomData whereToGo = IsDoctorIsAvailable();
 
             if (whereToGo != null)
             {
-                Debug.Log(_waitingQueueDoctor.Dequeue().Name);
-                Debug.Log(patientGameplay.Name);
+                Debug.Log("go to doctor");
+
                 patientGameplay.MovePatientToDoctor(whereToGo);
             }
             else
             {
+                Debug.Log("go to waiting room doctor");
                 _waitingQueueDoctor.Enqueue(patientGameplay);
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {   
                     int i;
-                    for(i=0;i<WaitingRoom.points.Count;i++){
-                        if(WaitingRoom.points.ElementAt(i).Value)
+                    for(i=0;i<WaitingRoom.ListPoint.Count;i++){
+                        if(WaitingRoom.ListPoint.ElementAt(i).IsAvailable)
                         {
-                            WaitingRoom.points[WaitingRoom.points.ElementAt(i).Key]=false;
+                            WaitingRoom.ListPoint.ElementAt(i).IsAvailable=false;
                             break;
                         }
-                    }    
+                    }
+
                     patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
 
@@ -156,9 +166,14 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListWaitingRoom.Count; i++)
             {
-                if (ListWaitingRoom[i].points.Count < ListWaitingRoom[i].capacity)
-                {
-                  return ListWaitingRoom[i];
+                
+                for(int j=0;ListWaitingRoom[i].ListPoint.Count>j;j++){
+                    Debug.Log(ListWaitingRoom[i].ListPoint.ElementAt(j).IsAvailable);
+                    if (ListWaitingRoom[i].ListPoint.ElementAt(j).IsAvailable)
+                    {
+                        return ListWaitingRoom[i];
+                    }
+
                 }
             }
             return null;
@@ -166,32 +181,46 @@ namespace Scripts.Managers.Caracters
 
         private void UpdateReceptionAvailability()
         {        
-            ReceptionRoomData wheretogo=IsReceptionIsAvailable();
-            if (wheretogo!=null && _waitingQueueReception.Count > 0)
-            {
-                wheretogo.available=false;
-                _waitingQueueReception.Dequeue().MovePatientToReception(wheretogo);
+           // Debug.Log(ListReceptionRoom[0].available);
+            if(_waitingQueueReception.Count>0){
+                ReceptionRoomData wheretogo=IsReceptionIsAvailable();
+                if (wheretogo!=null)
+                {
+                    wheretogo.available=false;
+                    _waitingQueueReception.Dequeue().MovePatientToReception(wheretogo);
+                }
+
             }
+            
         }
         private void UpdateNurseAvailability()
         {
-            NurseRoomData whereToGo = IsNurseIsAvailable();
-            if ((whereToGo != null) && (_waitingQueueNurse.Count > 0))
-            {              
-                whereToGo.available=false;
-                _waitingQueueNurse.Dequeue().MovePatientToNurse(whereToGo);
+            if(_waitingQueueNurse.Count>0){
+                NurseRoomData whereToGo = IsNurseIsAvailable();
+                if ((whereToGo != null) && (_waitingQueueNurse.Count > 0))
+                {              
+                    whereToGo.available=false;
+                    _waitingQueueNurse.Dequeue().MovePatientToNurse(whereToGo);
+                }
+
             }
+            
         }
         private void UpdateDoctorAvailability()
         {
-            DoctorRoomData whereToGo = IsDoctorIsAvailable();
+            if(_waitingQueueDoctor.Count>0){
+                DoctorRoomData whereToGo = IsDoctorIsAvailable();
 
-            if ((whereToGo != null) && (_waitingQueueDoctor.Count > 0))
-            {
-                whereToGo.available=false;
-                _waitingQueueDoctor.Dequeue().MovePatientToDoctor(whereToGo);
+                if ((whereToGo != null) && (_waitingQueueDoctor.Count > 0))
+                {
+                    whereToGo.available=false;
+                    _waitingQueueDoctor.Dequeue().MovePatientToDoctor(whereToGo);
+                }
+
             }
+            
         }
+     
         private void AddRoom(Room room)
         {
             

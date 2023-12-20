@@ -4316,29 +4316,29 @@ MonoBehaviour:
   capacity: 0
   maxCapacity: 12
   ListPoint:
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 7998552119875635107}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 312072224112747710}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 4514397518712384417}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 7085551698356788466}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 513566891154541831}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 6912449903816153439}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 3790036787834614349}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 9178907260173687614}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 1434646475256970230}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 7621028416413755570}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 3350023476043316127}
-  - IsAvailable: 0
+  - IsAvailable: 1
     Waypoint: {fileID: 6212395460833631899}
 --- !u!1 &6273622788448312375
 GameObject:
