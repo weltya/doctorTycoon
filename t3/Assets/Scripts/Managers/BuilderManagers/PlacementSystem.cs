@@ -52,7 +52,6 @@ namespace Scripts.Managers.BuilderManagers
         {
             if (_inputManager.IsPointerOverUi())
             {
-                Debug.Log("pointer os over UI");
                 return;
             }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();

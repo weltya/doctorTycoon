@@ -74,7 +74,7 @@ namespace Scripts.UII
         if ( DoctorCapacityText!= null)
         {
             DoctorCapacityText.text = "Médcins : " + cap_doctor.ToString();
-            Debug.Log("UpdateDoctor called with cap_doctor: " + cap_doctor);
+            //Debug.Log("UpdateDoctor called with cap_doctor: " + cap_doctor);
         }
     }
 
