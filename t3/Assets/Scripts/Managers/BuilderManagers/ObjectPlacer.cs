@@ -21,7 +21,6 @@ namespace Scripts.Managers.BuilderManagers
             _placedGameObject.Add(go);
             return _placedGameObject.Count - 1;
         }
-
         internal void RemoveObjectAt(int gameObjectIndex)
         {
             if (_placedGameObject.Count <= gameObjectIndex || _placedGameObject[gameObjectIndex] == null) { return;  }
