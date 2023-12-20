@@ -6,6 +6,9 @@ using System.Linq;
 using Scripts.Utils.Enum;
 using UnityEngine.AI;
 using Scripts.Models.Caracters;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms;
 using Scripts.Managers.Caracters;
 
 
@@ -30,6 +33,29 @@ namespace Scripts.Gameplay.Caracters
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
+        public void wait(int milliseconds)
+        {
+            var timer1 = new System.Windows.Forms.Timer();
+            if (milliseconds == 0 || milliseconds < 0) return;
+
+            // Console.WriteLine("start wait timer");
+            timer1.Interval = milliseconds;
+            timer1.Enabled  = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+                    // Console.WriteLine("stop wait timer");
+            };
+
+            while (timer1.Enabled)
+            {
+                    Application.DoEvents();
+            }
+        }
+
 
         private void Update()
         {
@@ -56,14 +82,14 @@ namespace Scripts.Gameplay.Caracters
         public void MovePatientToReception(ReceptionRoomData room)
         {
             SetDestination(room.point, room);
-            //Thread.Sleep(4000);
+
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
 
         public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
-        {
-            
+        {           
             SetDestination(room.points.ElementAt(i).Key, room);
+            wait(5000);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
 

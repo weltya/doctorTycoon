@@ -64,13 +64,13 @@ namespace Scripts.Managers.Caracters
         public void CheckOrWaitToWaitingRoomNurse(PatientGameplay patientGameplay)
         {
             NurseRoomData whereToGo = IsNurseIsAvailable();
-
             if (whereToGo != null)
             {
                 patientGameplay.MovePatientToNurse(whereToGo);
             }
             else
             {
+                _waitingQueueNurse.Enqueue(patientGameplay);
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {
@@ -82,7 +82,6 @@ namespace Scripts.Managers.Caracters
                             break;
                         }
                     }    
-                    _waitingQueueDoctor.Enqueue(patientGameplay);
                     patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
             }
@@ -94,10 +93,13 @@ namespace Scripts.Managers.Caracters
 
             if (whereToGo != null)
             {
+                Debug.Log(_waitingQueueDoctor.Dequeue().Name);
+                Debug.Log(patientGameplay.Name);
                 patientGameplay.MovePatientToDoctor(whereToGo);
             }
             else
             {
+                _waitingQueueDoctor.Enqueue(patientGameplay);
                 WaitingRoomData WaitingRoom = IsWaitingRoomAvailable();
                 if (WaitingRoom != null)
                 {   
@@ -109,7 +111,6 @@ namespace Scripts.Managers.Caracters
                             break;
                         }
                     }    
-                    _waitingQueueDoctor.Enqueue(patientGameplay);
                     patientGameplay.MovePatientToWaitingRoom(WaitingRoom,i);
                 }
 
