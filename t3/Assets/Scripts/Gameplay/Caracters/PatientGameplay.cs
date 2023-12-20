@@ -9,7 +9,6 @@ using Scripts.Models.Caracters;
 using System.Threading.Tasks;
 using Scripts.Managers.Caracters;
 
-
 namespace Scripts.Gameplay.Caracters
 {
     public class PatientGameplay : MonoBehaviour
@@ -24,25 +23,26 @@ namespace Scripts.Gameplay.Caracters
         
         [SerializeField] private bool _isMoving;
 
-        private int place;
+        private WaitingRoomData wtgroom;
+        private int place =-1;
         private Transform _targetPos;
         private NavMeshAgent _navMeshAgent;
+
+
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
-        bool didNurse=false;
         
-
-
         private void Update()
         {
             if (_isMoving)
-            {
+            {   
                 if (Vector3.Distance(transform.position, _targetPos.position) < 0.5f)
                 {
                     _currentRoom = _nextRoom;
                     _isMoving = false;
+                    StartCoroutine(WaitAndContinue(5f));
                 }
             }
         }
@@ -56,44 +56,66 @@ namespace Scripts.Gameplay.Caracters
 
             _navMeshAgent.SetDestination(destination.position);
         }
-
-        public void MovePatientToReception(ReceptionRoomData room)
-        {
+        public IEnumerator sendPatienttoReception(ReceptionRoomData room){
             SetDestination(room.point, room);
+            yield return new WaitForSeconds(5f);
+
+            QueueManager.GetInstance().LibereRoom(room);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
         }
+        public IEnumerator sendPatienttoWaitingRoom(WaitingRoomData room,int i){
+            wtgroom=room;
+            place=i;
+            SetDestination(room.ListPoint.ElementAt(i).Waypoint, room);
+            yield return new WaitForSeconds(5f);
+        }
 
-        public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
-        {          
-            place=i; 
-            SetDestination(room.ListPoint.ElementAt(i).Waypoint, room);        
+        /*public void MovePatientToReception(ReceptionRoomData room)
+        {
+            SetDestination(room.point, room);
+            
+            QueueManager.GetInstance().LibereRoom(room);
+            QueueManager.GetInstance().CheckOrWaitToWaitingRoomNurse(this);
+        }*/
+        public void MovePatientToReception(ReceptionRoomData room){
+            StartCoroutine(sendPatienttoReception(room));
+        }
+
+
+
+        /*public void MovePatientToWaitingRoom(WaitingRoomData room,int i)
+        {   
+            wtgroom=room;
+            place=i;
+            SetDestination(room.ListPoint.ElementAt(i).Waypoint, room);
+        }*/
+        public void MovePatientToWaitingRoom(WaitingRoomData room,int i){
+            StartCoroutine(sendPatienttoWaitingRoom(room,i));
         }
 
         public void MovePatientToDoctor(DoctorRoomData room)
         {
+            if(place!=-1){
+                place=-1;
+                QueueManager.GetInstance().LibereWaitingRoom(wtgroom,place);
+            }
             SetDestination(room.point, room);
-            QueueManager.GetInstance().CheckOrWaitToWaitingRoomDoctor(this);
+            QueueManager.GetInstance().LibereRoom(room);            
         }
         public void MovePatientToNurse(NurseRoomData NurseRoom)
         {
-
+            if(place!=-1){
+                place=-1;
+                QueueManager.GetInstance().LibereWaitingRoom(wtgroom,place);
+            }
             SetDestination(NurseRoom.point, NurseRoom);
-            didNurse=true;
+            QueueManager.GetInstance().LibereRoom(NurseRoom);
             QueueManager.GetInstance().CheckOrWaitToWaitingRoomDoctor(this);
         }
-        public void LibereRoom(){
-            
-            if(_currentRoom is DoctorRoomData){
-                ((DoctorRoomData)_currentRoom).available=true;
-            }
-            else if(_currentRoom is WaitingRoomData){
-                ((WaitingRoomData)_currentRoom).ListPoint[place].IsAvailable=true;;
-            }else if(_currentRoom is NurseRoomData){
-                ((NurseRoomData)_currentRoom).available=true;
-            }else if(_currentRoom is ReceptionRoomData){
-                ((ReceptionRoomData)_currentRoom).available=true;
-            } 
-            
+        private IEnumerator WaitAndContinue(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
         }
+        
     }
 }
