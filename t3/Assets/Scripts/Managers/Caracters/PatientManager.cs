@@ -29,6 +29,9 @@ namespace Scripts.Managers.Caracters
             InstantiatePatient();
             InstantiatePatient();
         }
+        private void Update(){
+            //InstantiatePatient();
+        }
         private void InstantiatePatient()
         {
             GameObject go;
