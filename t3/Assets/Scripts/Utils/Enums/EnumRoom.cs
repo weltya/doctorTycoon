@@ -1,6 +1,6 @@
 namespace Scripts.Utils.Enum
 {
-   public enum Room
+   public enum EnumRoom
     {
         Reception,
         WaitingRoom,
