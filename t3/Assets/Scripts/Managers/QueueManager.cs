@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Managers.BuilderManagers;
 using System.Linq;
+using Scripts.UII;
 
 
 namespace Scripts.Managers.Caracters
@@ -21,9 +22,13 @@ namespace Scripts.Managers.Caracters
         private List<DoctorRoomData> ListDoctor = new List<DoctorRoomData>();
         private List<NurseRoomData> ListNurse = new List<NurseRoomData>();
         [SerializeField] ObjectPlacer _objectPlacer;
+        [SerializeField] private  UIScoreManager score;
+
+      
 
         private void Start()
         {
+           
             _objectPlacer.onObjectPlaced += AddRoom;
         }
         private void Awake()
@@ -223,17 +228,23 @@ namespace Scripts.Managers.Caracters
      
         private void AddRoom(Room room)
         {
-            
+         if(score!=null)
+         {   
             if(room is DoctorRoomData){
                 ListDoctor.Add((DoctorRoomData)room);
+                score.UpdateDoctor(ListDoctor.Count);
             }
             else if(room is WaitingRoomData){
                 ListWaitingRoom.Add((WaitingRoomData)room);
+                score.UpdateRoom(ListWaitingRoom.Count);
             }else if(room is NurseRoomData){
                 ListNurse.Add((NurseRoomData)room);
+                score.UpdateNurse(ListNurse.Count);
             }else if(room is ReceptionRoomData){
                 ListReceptionRoom.Add((ReceptionRoomData)room);
+                score.UpdateReception(ListReceptionRoom.Count);
             } 
+         }
 
             Debug.Log($"nbrReception={ListReceptionRoom.Count}, nbrWaiting={ListWaitingRoom.Count}, " +
                 $"nbrNurse={ListNurse.Count}, nbrDoctor={ListDoctor.Count}");

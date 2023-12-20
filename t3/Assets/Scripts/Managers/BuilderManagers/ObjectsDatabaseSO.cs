@@ -19,5 +19,6 @@ namespace Scripts.Managers.BuilderManagers
         [field: SerializeField] public int ID { get; private set; }
         [field: SerializeField] public Vector2Int Size { get; private set; } = Vector2Int.one;
         [field: SerializeField] public GameObject prefab { get; private set; }
+        [field: SerializeField] public int Prix {get; private set;}
     }
 }
