@@ -104,9 +104,6 @@ namespace Scripts.Managers.Caracters
             return waitingRoomStruct;
         }
             
-
-                
-
      
         private void AddRoom(Room room)
         {
@@ -158,24 +155,16 @@ namespace Scripts.Managers.Caracters
             {
                 wheretogo.available = false;
                 _waitingQueueReception.Dequeue();
-
-                score.UpdatePatientInReception(_waitingQueueReception);
-                patient.MovePatientToReception(wheretogo);
-                
+                //score.UpdatePatientInReception(_waitingQueueReception);
+                patient.MovePatientToReception(wheretogo);       
             }
         }
-
         public void CheckOrWaitToWaitingNurseRoom()
         {
             if (_waitingQueueWaitingNurse.Count <= 0)
             {
                 return;
             }
-
-            if (_waitingQueueWaitingNurse.Count <= 0)
-            {
-              return;
-              }
 
             PatientGameplay patient = _waitingQueueWaitingNurse.Peek();
             WaitingRoomStruct whereToGo = IsWaitingRoomAvailable();
@@ -219,10 +208,8 @@ namespace Scripts.Managers.Caracters
 
             if (whereToGo.waitingRoom != null)
             {
-            
                 whereToGo.pointData.IsAvailable = false;
-                patient.MovePatientToWaitingDoctor(whereToGo.waitingRoom, whereToGo.pointData);
-               
+                patient.MovePatientToWaitingDoctor(whereToGo.waitingRoom, whereToGo.pointData);      
                 _waitingQueueWaitingDoctor.Dequeue();
             }
       
@@ -264,14 +251,14 @@ namespace Scripts.Managers.Caracters
         {
             PatientGameplay scriptPatientGameplay = go.GetComponent<PatientGameplay>();
             _waitingQueueReception.Enqueue(scriptPatientGameplay);
-            score.UpdatePatientInReception(_waitingQueueReception.Count);
+            //score.UpdatePatientInReception(_waitingQueueReception.Count);
             CheckOrWaitToReception();
         }
 
         public void AddPatientInWaitingQueueNurse(PatientGameplay patient)
         {
             _waitingQueueWaitingNurse.Enqueue(patient);
-            score.UpdatePatientInNurse(_waitingQueueWaitingNurse.Count + _waitingQueueNurse.Count); 
+            //score.UpdatePatientInNurse(_waitingQueueWaitingNurse.Count + _waitingQueueNurse.Count); 
             CheckOrWaitToWaitingNurseRoom();
       
             
@@ -287,7 +274,7 @@ namespace Scripts.Managers.Caracters
         }
         public void AddPatientInWaitingQueueDoctor(PatientGameplay patient)
         { 
-            score.UpdatePatientInDoctor(_waitingQueueWaitingDoctor.Count+ _waitingQueueDoctor.Count);
+            //score.UpdatePatientInDoctor(_waitingQueueWaitingDoctor.Count+ _waitingQueueDoctor.Count);
             _waitingQueueWaitingDoctor.Enqueue(patient);
             
             CheckOrWaitToWaitingDoctorRoom();
