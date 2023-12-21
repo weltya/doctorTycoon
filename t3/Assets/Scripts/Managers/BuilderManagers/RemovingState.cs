@@ -63,6 +63,8 @@ namespace Scripts.Managers.BuilderManagers
             bool validity = CheckIfSelectionIsValid(gridPosition);
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity);
         }
+
+        public void RotatePreview() {}
     }
 
 }

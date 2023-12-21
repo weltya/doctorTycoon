@@ -13,7 +13,7 @@ namespace Scripts.Managers.BuilderManagers
 
         private Vector3 _position = Vector3.zero;
 
-        public event Action OnClicked, OnExit;
+        public event Action OnClicked, OnExit, onRotation;
 
         private void Update()
         {
@@ -24,6 +24,9 @@ namespace Scripts.Managers.BuilderManagers
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 OnExit?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.R)) {
+                onRotation?.Invoke();
             }
         }
 
