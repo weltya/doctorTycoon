@@ -5887,7 +5887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d8008a22819c348a978582e14ff44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expSubjective: 0
+  exp: -1
+  grs: 0
   capacity: 0
   maxCapacity: 16
   ListPoint:
@@ -5923,7 +5924,7 @@ MonoBehaviour:
     Waypoint: {fileID: 4865708308235581735}
   - IsAvailable: 1
     Waypoint: {fileID: 7066213398363218817}
-  typeOfRoom: 1
+  typeRoom: 1
 --- !u!1 &8437876498389600458
 GameObject:
   m_ObjectHideFlags: 0
