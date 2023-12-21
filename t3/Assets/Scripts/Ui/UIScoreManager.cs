@@ -29,8 +29,10 @@ namespace Scripts.UII
     private int guerison=0;
     private int patientsInNurse;
     private int patientsInDoctor;
+    private int patientInReception;
     private string pd;
     private string pn;
+    private string pr;
         [SerializeField] private ObjectsDatabaseSO database;
     private int _selectedObjectIndex;
     
@@ -55,8 +57,7 @@ namespace Scripts.UII
         UpdateMoney(10000);
         UpdateExp(0);
         UpdateGuerison(0);
-        UpdatePatientInDoctor(0);
-        UpdatePatientInNurse(0);
+      
     }
 
     public void Updatepatient(int cap_patient)
@@ -71,7 +72,7 @@ namespace Scripts.UII
     {
         if (NurseCapacityText != null)
         {
-           NurseCapacityText.text = "Infirmiéres : "+ getPatientsInNurse() + " / " + cap_nurse.ToString();
+           NurseCapacityText.text = "Infirmiéres : "+ pn + " / " + cap_nurse.ToString();
         }
     }
 
@@ -96,7 +97,7 @@ namespace Scripts.UII
     {
         if(ReceptionText !=null)
         {
-            ReceptionText.text = "Reception : " + cap_reception.ToString();
+            ReceptionText.text = "Reception : "+ pr + "/ " + cap_reception.ToString();
         }
     }
 
@@ -146,6 +147,14 @@ namespace Scripts.UII
     public string getPatientInDoctor()
     {
         return pd;
+    }
+    public void UpdatePatientInReception(int patientInReception )
+    {
+        this.pr=patientInReception.ToString();
+    }
+    public string getPatientInReception()
+    {
+        return pr;
     }
 
 public bool canBuy(int ID)
