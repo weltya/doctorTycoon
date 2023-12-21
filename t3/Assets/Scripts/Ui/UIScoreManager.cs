@@ -120,6 +120,11 @@ namespace Scripts.UII
         this.money = money;
     }
 
+public void setGuerison(int g)
+{
+    this.guerison= guerison+g;
+    UpdateGuerison(guerison);
+}
     public void UpdateGuerison(int guerison)
     {
         if (GuerisonText != null)
@@ -129,6 +134,12 @@ namespace Scripts.UII
         }
     }
     
+    public void setExp(int e)
+    {
+       this.exp_sub= exp_sub+e;
+       UpdateExp(exp_sub);
+       
+    }
 
     public void UpdateExp(int exp_sub)
     {
