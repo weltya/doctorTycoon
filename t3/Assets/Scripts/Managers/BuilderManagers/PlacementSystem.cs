@@ -25,6 +25,11 @@ namespace Scripts.Managers.BuilderManagers
            
             StopPlacement();
             room1 = new GridData();
+            _inputManager.onRotation += Rotation;
+        }
+
+        public void Rotation() {
+            buildingState?.RotatePreview();
         }
 
         public void StartPlacement(int ID)
@@ -35,8 +40,6 @@ namespace Scripts.Managers.BuilderManagers
             buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
             _inputManager.OnClicked += PlaceStructure;
             _inputManager.OnExit += StopPlacement;
-            
-        
         }
 
         public void StartRemoving()
@@ -75,6 +78,7 @@ namespace Scripts.Managers.BuilderManagers
             _inputManager.OnExit -= StopPlacement;
             _lastDetectedPosition = Vector3Int.zero;
             buildingState = null;
+            //_inputManager.onRotation -= Rotation;
         }
 
         private void Update()
@@ -87,9 +91,7 @@ namespace Scripts.Managers.BuilderManagers
             {
                 buildingState.UpdateState(gridPosition);
                 _lastDetectedPosition = gridPosition;
-            }  
-
-            
+            }            
         }
     }
 }

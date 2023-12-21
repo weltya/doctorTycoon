@@ -9,14 +9,13 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class PreviewSystem : MonoBehaviour
     {
+        [SerializeField] InputManager _inputManager;
         [SerializeField] private float _previewOffsetY = 0.05f;
         [SerializeField] private GameObject _cellIndicator;
         private GameObject _previewObject;
         [SerializeField] Material _previewMaterialPrefab;
         private Material _previewMaterialInstance;
         private Renderer _cellIndicatorRenderer;
-
-        
 
         private void Start()
         {
@@ -118,6 +117,12 @@ namespace Scripts.Managers.BuilderManagers
             _cellIndicator.SetActive(true);
             PrepareCursor(Vector2Int.one);
             ApplyFeedbackToCursor(false);
+        }
+
+        public void UpdatePreviewRotation(Quaternion newRotation) {
+            if (_previewObject != null) {
+                _previewObject.transform.rotation = newRotation;
+            }
         }
     }
 
