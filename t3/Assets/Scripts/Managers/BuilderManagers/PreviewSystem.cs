@@ -9,14 +9,13 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class PreviewSystem : MonoBehaviour
     {
+        [SerializeField] InputManager _inputManager;
         [SerializeField] private float _previewOffsetY = 0.05f;
         [SerializeField] private GameObject _cellIndicator;
         private GameObject _previewObject;
         [SerializeField] Material _previewMaterialPrefab;
         private Material _previewMaterialInstance;
         private Renderer _cellIndicatorRenderer;
-
-        
 
         private void Start()
         {
@@ -39,10 +38,11 @@ namespace Scripts.Managers.BuilderManagers
         {
             _previewObject = Instantiate(prefab);
             PreparePreaview(_previewObject);
-            PrepareCursor(size);
-            _cellIndicator.SetActive(true);
+            //PrepareCursor(size);
+            //_cellIndicator.SetActive(true);
         }
 
+        /*
         private void PrepareCursor(Vector2Int size)
         {            
             if (size.x > 0 || size.y > 0)
@@ -52,6 +52,7 @@ namespace Scripts.Managers.BuilderManagers
                 _cellIndicator.GetComponentInChildren<Renderer>().material.mainTextureScale = size;
             }
         }
+        */
 
         private void PreparePreaview(GameObject previewObject)
         {
@@ -86,7 +87,7 @@ namespace Scripts.Managers.BuilderManagers
             }
             
             MoveCursor(position);
-            ApplyFeedbackToCursor(validity);
+            //ApplyFeedbackToCursor(validity);
         }
 
         private void ApplyFeedbackToPreview(bool validity)
@@ -96,12 +97,14 @@ namespace Scripts.Managers.BuilderManagers
             _previewMaterialInstance.color = color;
         }
 
+        /*
         private void ApplyFeedbackToCursor(bool validity)
         {
             Color color = validity ? Color.green : Color.red;
             color.a = 0.5f;
             _cellIndicatorRenderer.material.color = color;
         }
+        */
 
         private void MoveCursor(Vector3 position)
         {
@@ -116,8 +119,14 @@ namespace Scripts.Managers.BuilderManagers
         internal void StartShowingRemovePreview()
         {
             _cellIndicator.SetActive(true);
-            PrepareCursor(Vector2Int.one);
-            ApplyFeedbackToCursor(false);
+            //PrepareCursor(Vector2Int.one);
+            //ApplyFeedbackToCursor(false);
+        }
+
+        public void UpdatePreviewRotation(Quaternion newRotation) {
+            if (_previewObject != null) {
+                _previewObject.transform.rotation = newRotation;
+            }
         }
     }
 
