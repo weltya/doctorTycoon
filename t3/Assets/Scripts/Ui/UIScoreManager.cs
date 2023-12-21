@@ -10,6 +10,7 @@ namespace Scripts.UII
 {
     public class UIScoreManager : MonoBehaviour
 {
+    private static UIScoreManager Instance;
     public TextMeshProUGUI ExperienceSubjectiveText ;
     public TextMeshProUGUI GuerisonText;
     public TextMeshProUGUI ReceptionText;
@@ -42,7 +43,16 @@ namespace Scripts.UII
             this.database = database;
         }
         */
+    public static UIScoreManager GetInstance()
+        {
+            return Instance;
+        }
 
+        private void Awake()
+        {
+            Debug.Log("instance créer ");
+             Instance=this;
+        }
 
 
     // Start is called before the first frame update
@@ -168,19 +178,23 @@ public void setGuerison(int g)
         return pr;
     }
 
-public bool canBuy(int ID)
-{
- int prix= database.objectsData[ID].Prix;
-    if(prix > money)
+    public bool canBuy(int ID)
     {
-        return false;
+    int prix= database.objectsData[ID].Prix;
+        if(prix > money)
+        {
+            return false;
+        }
+        money-=prix;
+        UpdateMoney(money);
+        return true;
+        
     }
-    money-=prix;
-    UpdateMoney(money);
-    return true;
+    public void addMoney(int montant){
+                money=money+montant;
+                UpdateMoney(money);
+            }
     
-}
-  
 }
 
 }

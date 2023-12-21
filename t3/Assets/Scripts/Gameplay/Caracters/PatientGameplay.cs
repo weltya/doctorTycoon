@@ -25,6 +25,13 @@ namespace Scripts.Gameplay.Caracters
         private PointData _roomWaitingDoctorPointdata;
         private DoctorRoomData _doctorRoomData;
 
+        private bool end=false;
+        private Vector3 _vector;
+        private Transform _position;
+        private float _maxSpawnZ = 33f;
+        private float _minSpawnZ = 27f;
+        private float _despawnX = 2f;
+
 
         private void Start()
         {
@@ -39,7 +46,7 @@ namespace Scripts.Gameplay.Caracters
                 {
                     _typeOfCurrentRoom = _typeOfnextRoom;
                     _isMoving = false;
-                    StartCoroutine(WaitAndContinue(5f));
+                    StartCoroutine(WaitAndContinue(1f));
                 }
             }
         }
@@ -57,7 +64,11 @@ namespace Scripts.Gameplay.Caracters
         {
             yield return new WaitForSeconds(seconds);
 
-            if (_typeOfCurrentRoom == EnumRoom.Reception)
+            if(end){
+                UIScoreManager.GetInstance().addMoney(200);
+                Destroy(this.gameObject);
+            }
+            else if (_typeOfCurrentRoom == EnumRoom.Reception)
             {
                 _roomReception.available = true;
                 QueueManager.GetInstance().AddPatientInWaitingQueueNurse(this);
@@ -82,11 +93,9 @@ namespace Scripts.Gameplay.Caracters
             {
                 _doctorRoomData.available = true;
                 QueueManager.GetInstance().CheckOrWaitToDoctorRoom();
-            }
-            else{
+                QueueManager.GetInstance().AddPatientToRemoveQueue(this);
 
             }
-
         }
 
         public void MovePatientToReception(ReceptionRoomData room)
@@ -149,10 +158,16 @@ namespace Scripts.Gameplay.Caracters
             score.setExp(exp_sub);
             score.setGuerison(grs);
         }
+
         public void MoveToRemovePoint()
         {
-            //SetDestination();
+            float despawnZ = Random.Range(_minSpawnZ, _maxSpawnZ);
+            GameObject dynamicObject = new GameObject("DynamicObject");
+            Transform _position = dynamicObject.transform;
+            _vector=new Vector3(_despawnX,0,despawnZ);
+            _position.position=_vector;
+            SetDestination(_position);
+            end=true;
         }
-
     }
 }
