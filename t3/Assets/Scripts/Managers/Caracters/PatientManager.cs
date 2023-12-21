@@ -8,8 +8,6 @@ namespace Scripts.Managers.Caracters
     {
         [SerializeField] List<GameObject> _patientsPrefab = new List<GameObject>();
 
-        [SerializeField] List<GameObject> _patientsInSpawn = new List<GameObject>();
-
         [SerializeField] private Transform __patientsParents;
 
         private Vector3 _position;
@@ -17,7 +15,6 @@ namespace Scripts.Managers.Caracters
         private float _maxSpawnZ = 33f;
         private float _minSpawnZ = 27f;
         private float _spawnX = 2f;
-
 
         private void Start()
         {
@@ -29,6 +26,7 @@ namespace Scripts.Managers.Caracters
             InstantiatePatient();
             InstantiatePatient();
         }
+
         private void InstantiatePatient()
         {
             GameObject go;
@@ -37,9 +35,7 @@ namespace Scripts.Managers.Caracters
             _position = new Vector3(_spawnX, 0, spawnZ);
 
             go = Instantiate(_patientsPrefab[0], _position, _rotation, __patientsParents);
-            _patientsInSpawn.Add(go);
-
-            QueueManager.GetInstance().CheckOrWaitToReception(go);
+            QueueManager.GetInstance().AddPatientInSpawnQueue(go);
         }
     }
 }
