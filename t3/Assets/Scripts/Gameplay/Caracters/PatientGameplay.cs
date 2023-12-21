@@ -80,7 +80,9 @@ namespace Scripts.Gameplay.Caracters
             {
                 _doctorRoomData.available = true;
                 QueueManager.GetInstance().CheckOrWaitToDoctorRoom();
-                Destroy(this.gameObject);
+            }
+            else{
+
             }
 
         }
@@ -121,7 +123,10 @@ namespace Scripts.Gameplay.Caracters
             _typeOfnextRoom = room.typeRoom;
             SetDestination(room.point);
         }
-        
+        public void MoveToRemovePoint()
+        {
+            //SetDestination();
+        }
 
     }
 }
