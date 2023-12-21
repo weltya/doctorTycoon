@@ -16,6 +16,7 @@ namespace Scripts.Managers.Caracters
         private Queue<PatientGameplay> _waitingQueueNurse = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueWaitingDoctor = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueDoctor = new Queue<PatientGameplay>();
+        private Queue<PatientGameplay> _waitingQueueRemove=new Queue<PatientGameplay>();
 
         private List<ReceptionRoomData> ListReceptionRoom = new List<ReceptionRoomData>();
         private List<WaitingRoomData> ListWaitingRoom = new List<WaitingRoomData>();
@@ -30,8 +31,6 @@ namespace Scripts.Managers.Caracters
             public WaitingRoomData waitingRoom;
             public PointData pointData;
         }
-
-      
 
         private void Start()
         {   
@@ -105,9 +104,6 @@ namespace Scripts.Managers.Caracters
             return waitingRoomStruct;
         }
             
-
-                
-
      
         private void AddRoom(Room room)
         {
@@ -136,15 +132,15 @@ namespace Scripts.Managers.Caracters
                 CheckOrWaitToReception();
             } 
          }
-
-            //Debug.Log($"nbrReception={ListReceptionRoom.Count}, nbrWaiting={ListWaitingRoom.Count}, " +
-                //$"nbrNurse={ListNurse.Count}, nbrDoctor={ListDoctor.Count}");
         }
 
         public static QueueManager GetInstance()
         {
             return Instance;
         }
+
+
+
 
         public void CheckOrWaitToReception()
         {
@@ -165,7 +161,6 @@ namespace Scripts.Managers.Caracters
                 
             }
         }
-
         public void CheckOrWaitToWaitingNurseRoom()
         {
             if (_waitingQueueWaitingNurse.Count <= 0)
@@ -245,6 +240,21 @@ namespace Scripts.Managers.Caracters
                 _waitingQueueDoctor.Dequeue();
             }
         }
+        public void CheckOrWaitToRemove(){
+
+            if(_waitingQueueRemove.Count<=0){
+                return;
+
+            }
+            PatientGameplay patient=_waitingQueueRemove.Peek();
+            
+
+                patient.MoveToRemovePoint();
+                _waitingQueueRemove.Dequeue();
+        
+        }
+
+
 
         public void AddPatientInSpawnQueue(GameObject go)
         {
@@ -288,6 +298,10 @@ namespace Scripts.Managers.Caracters
             
             CheckOrWaitToDoctorRoom();
        
+        }
+        public void AddPatientToRemoveQueue(PatientGameplay patient){
+            _waitingQueueRemove.Enqueue(patient);
+            CheckOrWaitToRemove();
         }
 
     }

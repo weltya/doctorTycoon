@@ -3304,7 +3304,6 @@ GameObject:
   - component: {fileID: 181212882}
   - component: {fileID: 181212884}
   - component: {fileID: 181212883}
-  - component: {fileID: 181212885}
   m_Layer: 5
   m_Name: HealthPatientPanel
   m_TagString: Untagged
@@ -3371,27 +3370,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181212881}
   m_CullTransparentMesh: 1
---- !u!114 &181212885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181212881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 1032675876}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1001 &181328073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3465,7 +3443,6 @@ GameObject:
   - component: {fileID: 184660563}
   - component: {fileID: 184660565}
   - component: {fileID: 184660564}
-  - component: {fileID: 184660566}
   m_Layer: 5
   m_Name: ReceptionCapacityPanel
   m_TagString: Untagged
@@ -3532,27 +3509,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184660562}
   m_CullTransparentMesh: 1
---- !u!114 &184660566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 184660562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 31227802}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1001 &188112112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4601,7 +4557,6 @@ GameObject:
   - component: {fileID: 287938246}
   - component: {fileID: 287938248}
   - component: {fileID: 287938247}
-  - component: {fileID: 287938249}
   m_Layer: 5
   m_Name: ExperienceSubjectivePanel
   m_TagString: Untagged
@@ -4668,27 +4623,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287938245}
   m_CullTransparentMesh: 1
---- !u!114 &287938249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287938245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 1597606226}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1001 &291296698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4989,7 +4923,7 @@ GameObject:
   - component: {fileID: 319347187}
   - component: {fileID: 319347190}
   - component: {fileID: 319347189}
-  - component: {fileID: 319347191}
+  - component: {fileID: 319347188}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -5012,6 +4946,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1967904848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &319347188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319347186}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &319347189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5061,28 +5016,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319347186}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &319347191
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319347186}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &320493278
 PrefabInstance:
@@ -8568,7 +8501,6 @@ GameObject:
   - component: {fileID: 634198944}
   - component: {fileID: 634198946}
   - component: {fileID: 634198945}
-  - component: {fileID: 634198947}
   m_Layer: 5
   m_Name: NurseCapacityPanel
   m_TagString: Untagged
@@ -8635,27 +8567,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634198943}
   m_CullTransparentMesh: 1
---- !u!114 &634198947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634198943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 918945753}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1001 &635710828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13103,7 +13014,6 @@ GameObject:
   - component: {fileID: 945902232}
   - component: {fileID: 945902234}
   - component: {fileID: 945902233}
-  - component: {fileID: 945902235}
   m_Layer: 5
   m_Name: 'PatientCapacityPanel '
   m_TagString: Untagged
@@ -13170,27 +13080,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945902231}
   m_CullTransparentMesh: 1
---- !u!114 &945902235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945902231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 787539670}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1 &952337668
 GameObject:
   m_ObjectHideFlags: 0
@@ -16382,7 +16271,6 @@ GameObject:
   - component: {fileID: 1275106405}
   - component: {fileID: 1275106407}
   - component: {fileID: 1275106406}
-  - component: {fileID: 1275106408}
   - component: {fileID: 1275106409}
   m_Layer: 5
   m_Name: WaitingCapacityPanel
@@ -16450,27 +16338,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275106404}
   m_CullTransparentMesh: 1
---- !u!114 &1275106408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275106404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 292995105}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!114 &1275106409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17048,7 +16915,6 @@ GameObject:
   - component: {fileID: 1347362855}
   - component: {fileID: 1347362857}
   - component: {fileID: 1347362856}
-  - component: {fileID: 1347362858}
   m_Layer: 5
   m_Name: MoneyPanel
   m_TagString: Untagged
@@ -17115,27 +16981,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347362854}
   m_CullTransparentMesh: 1
---- !u!114 &1347362858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347362854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 0}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1 &1351212119
 GameObject:
   m_ObjectHideFlags: 0
@@ -24074,7 +23919,6 @@ GameObject:
   - component: {fileID: 1950877946}
   - component: {fileID: 1950877948}
   - component: {fileID: 1950877947}
-  - component: {fileID: 1950877949}
   m_Layer: 5
   m_Name: DoctorCapacityPanel
   m_TagString: Untagged
@@ -24141,27 +23985,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950877945}
   m_CullTransparentMesh: 1
---- !u!114 &1950877949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950877945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a00a9cc3157556a84d54df0032154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExperienceSubjectiveText: {fileID: 0}
-  GuerisonText: {fileID: 0}
-  ReceptionText: {fileID: 0}
-  WaitingCapacityText: {fileID: 0}
-  NurseCapacityText: {fileID: 0}
-  PatientCapacityText: {fileID: 0}
-  DoctorCapacityText: {fileID: 131444287}
-  MoneyText: {fileID: 0}
-  database: {fileID: 0}
 --- !u!1 &1964449787
 GameObject:
   m_ObjectHideFlags: 0
