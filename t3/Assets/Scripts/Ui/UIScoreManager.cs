@@ -167,18 +167,6 @@ namespace Scripts.UII
         return pr;
     }
 
-public bool canBuy(int ID)
-{
- int prix= database.objectsData[ID].Prix;
-    if(prix > money)
-    {
-        this.pr=patientInReception.ToString();
-    }
-    public string getPatientInReception()
-    {
-        return pr;
-    }
-
     public bool canBuy(int ID)
     {
     int prix= database.objectsData[ID].Prix;

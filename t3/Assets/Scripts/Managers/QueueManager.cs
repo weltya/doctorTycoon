@@ -156,7 +156,7 @@ namespace Scripts.Managers.Caracters
                 wheretogo.available = false;
                 _waitingQueueReception.Dequeue();
 
-                score.UpdatePatientInReception(_waitingQueueReception);
+                score.UpdatePatientInReception(_waitingQueueReception.Count);
                 patient.MovePatientToReception(wheretogo);
                 
             }
