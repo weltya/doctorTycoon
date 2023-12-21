@@ -11,7 +11,6 @@ namespace Scripts.Managers.Caracters
     {
         private static QueueManager Instance;
         private ReceptionRoomData reception;
-        private Queue<PatientGameplay> _waitingQueueSpawn = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueReception = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueWaitingNurse = new Queue<PatientGameplay>();
         private Queue<PatientGameplay> _waitingQueueNurse = new Queue<PatientGameplay>();
@@ -150,28 +149,24 @@ namespace Scripts.Managers.Caracters
 
         public void CheckOrWaitToReception()
         {
-            if (_waitingQueueSpawn.Count <= 0)
+            if (_waitingQueueReception.Count <= 0)
             {
                 return;
             }
 
-            PatientGameplay patient = _waitingQueueSpawn.Peek();
+            PatientGameplay patient = _waitingQueueReception.Peek();
             ReceptionRoomData wheretogo = IsReceptionIsAvailable();
             if (wheretogo)
             {
                 wheretogo.available = false;
-                _waitingQueueSpawn.Dequeue();
+                _waitingQueueReception.Dequeue();
                 patient.MovePatientToReception(wheretogo);
-            }
-            else
-            {
-                _waitingQueueReception.Enqueue(patient);
             }
         }
 
         public void CheckOrWaitToWaitingNurseRoom()
         {
-            if (_waitingQueueReception.Count <= 0)
+            if (_waitingQueueWaitingNurse.Count <= 0)
             {
                 return;
             }
@@ -189,10 +184,6 @@ namespace Scripts.Managers.Caracters
                 whereToGo.pointData.IsAvailable = false;
                 patient.MovePatientToWaitingNurse(whereToGo.waitingRoom, whereToGo.pointData);
                 _waitingQueueWaitingNurse.Dequeue();
-            }
-            else
-            {
-                _waitingQueueWaitingNurse.Enqueue(patient);
             }
         }
 
@@ -212,10 +203,7 @@ namespace Scripts.Managers.Caracters
                 patient.MovePatientToNurse(whereToGo);
                 _waitingQueueNurse.Dequeue();
             }
-            else
-            {
-                _waitingQueueNurse.Enqueue(patient);
-            }
+    
         }
 
         public void CheckOrWaitToWaitingDoctorRoom()
@@ -237,10 +225,7 @@ namespace Scripts.Managers.Caracters
             
                 _waitingQueueWaitingDoctor.Dequeue();
             }
-            else
-            {
-                _waitingQueueWaitingDoctor.Enqueue(patient);
-            }
+      
         }
         public void CheckOrWaitToDoctorRoom()
         {
@@ -258,16 +243,12 @@ namespace Scripts.Managers.Caracters
                 patient.MovePatientToDoctor(whereToGo);
                 _waitingQueueDoctor.Dequeue();
             }
-            else
-            {
-                _waitingQueueDoctor.Enqueue(patient);
-            }
         }
 
         public void AddPatientInSpawnQueue(GameObject go)
         {
             PatientGameplay scriptPatientGameplay = go.GetComponent<PatientGameplay>();
-            _waitingQueueSpawn.Enqueue(scriptPatientGameplay);
+            _waitingQueueReception.Enqueue(scriptPatientGameplay);
             CheckOrWaitToReception();
         }
 
