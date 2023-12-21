@@ -10,6 +10,8 @@ namespace Scripts.Managers.Caracters
 
         [SerializeField] private Transform __patientsParents;
 
+        private GameObject _goQueueManager;
+        private QueueManager _queueManager;
         private Vector3 _position;
         private Quaternion _rotation = Quaternion.Euler(0, 90, 0);
         private float _maxSpawnZ = 33f;
@@ -18,6 +20,8 @@ namespace Scripts.Managers.Caracters
 
         private void Start()
         {
+            _goQueueManager = GameObject.Find("QueueManager");
+            _queueManager = _goQueueManager.GetComponent<QueueManager>();
             if (_patientsPrefab.Count <= 0)
             {
                 Debug.LogError("_patientprefab is empty");
@@ -34,7 +38,7 @@ namespace Scripts.Managers.Caracters
             _position = new Vector3(_spawnX, 0, spawnZ);
 
             go = Instantiate(_patientsPrefab[0], _position, _rotation, __patientsParents);
-            QueueManager.GetInstance().AddPatientInSpawnQueue(go);
+            _queueManager.AddPatientInSpawnQueue(go);
         }
     }
 }

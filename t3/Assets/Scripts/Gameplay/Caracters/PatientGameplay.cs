@@ -16,6 +16,11 @@ namespace Scripts.Gameplay.Caracters
                 
         [SerializeField] private bool _isMoving;
 
+        private QueueManager _queueManager;
+        private GameObject _goQueueManager;
+        private UIScoreManager _uiScoreManager;
+        private GameObject _goUiScoreManager;
+
         private Transform _targetPos;
         private NavMeshAgent _navMeshAgent;
         private ReceptionRoomData _roomReception;
@@ -36,6 +41,14 @@ namespace Scripts.Gameplay.Caracters
 
         private void Start()
         {
+            _goQueueManager = GameObject.Find("QueueManager");
+            _queueManager = _goQueueManager.GetComponent<QueueManager>();
+            _goUiScoreManager = GameObject.Find("ScorePanel");
+            if ( _goUiScoreManager == null )
+            {
+                Destroy(this.gameObject);
+            }
+            _uiScoreManager = _goUiScoreManager.GetComponent<UIScoreManager>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
         
@@ -66,35 +79,35 @@ namespace Scripts.Gameplay.Caracters
             yield return new WaitForSeconds(seconds);
 
             if(end){
-                UIScoreManager.GetInstance().addMoney(200);
+                _uiScoreManager.addMoney(200);
                 Destroy(this.gameObject);
             }
             else if (_typeOfCurrentRoom == EnumRoom.Reception)
             {
                 _roomReception.available = true;
-                QueueManager.GetInstance().AddPatientInWaitingQueueNurse(this);
-                QueueManager.GetInstance().CheckOrWaitToReception();
+                _queueManager.AddPatientInWaitingQueueNurse(this);
+                _queueManager.CheckOrWaitToReception();
             } else if (_typeOfCurrentRoom == EnumRoom.WaitingRoom && _roomNurse == null)
             {
                     _roomWaitingNursePointdata.IsAvailable = true;
-                    QueueManager.GetInstance().AddPatientInNurseQueue(this);
-                    QueueManager.GetInstance().CheckOrWaitToWaitingNurseRoom();
+                    _queueManager.AddPatientInNurseQueue(this);
+                    _queueManager.CheckOrWaitToWaitingNurseRoom();
                 
             } else if (_typeOfCurrentRoom == EnumRoom.NurseRoom)
             {
                 _roomNurse.available = true;
-                QueueManager.GetInstance().AddPatientInWaitingQueueDoctor(this);
-                QueueManager.GetInstance().CheckOrWaitToNurseRoom();
+                _queueManager.AddPatientInWaitingQueueDoctor(this);
+                _queueManager.CheckOrWaitToNurseRoom();
             } else if (_typeOfCurrentRoom == EnumRoom.WaitingRoom && _roomNurse != null)
             {
                 _roomWaitingDoctorPointdata.IsAvailable = true;
-                QueueManager.GetInstance().AddPatientInDoctorQueue(this);
-                QueueManager.GetInstance().CheckOrWaitToWaitingDoctorRoom();
+                _queueManager.AddPatientInDoctorQueue(this);
+                _queueManager.CheckOrWaitToWaitingDoctorRoom();
             } else if (_typeOfnextRoom == EnumRoom.DoctorRoom)
             {
                 _doctorRoomData.available = true;
-                QueueManager.GetInstance().CheckOrWaitToDoctorRoom();
-                QueueManager.GetInstance().AddPatientToRemoveQueue(this);
+                _queueManager.CheckOrWaitToDoctorRoom();
+                _queueManager.AddPatientToRemoveQueue(this);
 
             }
         }
@@ -107,8 +120,8 @@ namespace Scripts.Gameplay.Caracters
             int exp_sub= _roomReception.exp_sub();
             int grs = _roomReception.guerison();
             SetDestination(room.point);
-           UIScoreManager.GetInstance().setExp(exp_sub);
-            UIScoreManager.GetInstance().setGuerison(grs);
+            _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setGuerison(grs);
           
 
         }
@@ -122,8 +135,8 @@ namespace Scripts.Gameplay.Caracters
             int grs= _roomWaitingNurse.guerison();
           
             SetDestination(pointData.Waypoint);
-           UIScoreManager.GetInstance().setExp(exp_sub);
-            UIScoreManager.GetInstance().setGuerison(grs);
+           _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setGuerison(grs);
         }
 
         public void MovePatientToNurse(NurseRoomData room)
@@ -134,8 +147,8 @@ namespace Scripts.Gameplay.Caracters
             int exp_sub= _roomNurse.exp_sub();
             int grs= _roomNurse.guerison();
             SetDestination(room.point);
-          UIScoreManager.GetInstance().setExp(exp_sub);
-            UIScoreManager.GetInstance().setGuerison(grs);
+          _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setGuerison(grs);
         }
 
         public void MovePatientToWaitingDoctor(WaitingRoomData waitingRoom, PointData pointData)
@@ -148,8 +161,8 @@ namespace Scripts.Gameplay.Caracters
             int grs= _roomWaitingDoctor.guerison();
         
             SetDestination(pointData.Waypoint);
-            UIScoreManager.GetInstance().setExp(exp_sub);
-            UIScoreManager.GetInstance().setGuerison(grs);
+            _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setGuerison(grs);
         }
 
         public void MovePatientToDoctor(DoctorRoomData room)
@@ -161,8 +174,8 @@ namespace Scripts.Gameplay.Caracters
             SetDestination(room.point); 
             int exp_sub=  _doctorRoomData.exp_sub();
             int grs=  _doctorRoomData.guerison();
-          UIScoreManager.GetInstance().setExp(exp_sub);
-            UIScoreManager.GetInstance().setGuerison(grs);
+          _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setGuerison(grs);
         }
 
         public void MoveToRemovePoint()

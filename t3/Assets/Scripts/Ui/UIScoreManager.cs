@@ -5,196 +5,203 @@ using System.Collections.Generic;
 using Scripts.Managers.BuilderManagers;
 
 
-
 namespace Scripts.UII
 {
     public class UIScoreManager : MonoBehaviour
 {
-    private static UIScoreManager Instance;
-    public TextMeshProUGUI ExperienceSubjectiveText ;
-    public TextMeshProUGUI GuerisonText;
-    public TextMeshProUGUI ReceptionText;
-    public TextMeshProUGUI WaitingCapacityText;
-    public TextMeshProUGUI NurseCapacityText;
-    public TextMeshProUGUI PatientCapacityText;
-    public TextMeshProUGUI DoctorCapacityText;
-    public TextMeshProUGUI MoneyText;
+        public TextMeshProUGUI ExperienceSubjectiveText ;
+        public TextMeshProUGUI GuerisonText;
+        public TextMeshProUGUI ReceptionText;
+        public TextMeshProUGUI WaitingCapacityText;
+        public TextMeshProUGUI NurseCapacityText;
+        public TextMeshProUGUI PatientCapacityText;
+        public TextMeshProUGUI DoctorCapacityText;
+        public TextMeshProUGUI MoneyText;
 
-    private int cap_patient;
-    private int cap_nurse;
-    private int cap_doctor;
-    private int cap_waiting;
-    private int cap_reception;
-    private int money=0;
-    private int exp_sub=0;
-    private int guerison=0;
-    private int patientsInNurse;
-    private int patientsInDoctor;
-    private int patientInReception;
-    private string pd;
-    private string pn;
-    private string pr;
+        private int money=10000;
+        private int exp_sub=0;
+        private int guerison=0;
+
+        private int _nbPatientDoctor = 0;
+        private int _nbPatientNurse = 0;
+        private int _nbPatientReception = 0;
+        private int _nbPatientWaiting = 0;
+
+        private int _nbDoctorRoom = 0;
+        private int _nbNurseRoom = 0;
+        private int _nbWaitingRoom = 0;
+        private int _nbReceptionRoom = 0;
+
         [SerializeField] private ObjectsDatabaseSO database;
-    private int _selectedObjectIndex;
-    
-
-     /* public Score(ObjectsDatabaseSO database)
-        {
-            this.database = database;
-        }
-        */
-    public static UIScoreManager GetInstance()
-        {
-            return Instance;
-        }
-
-        private void Awake()
-        {
-            Debug.Log("instance créer ");
-             Instance=this;
-        }
 
 
-    // Start is called before the first frame update
-    void Start()
-    { 
-    
-        UpdateDoctor(0);
-        Updatepatient(0);
-        UpdateNurse(0);
-        UpdateRoom(0);
-        UpdateReception(0);
-        UpdateMoney(10000);
-        UpdateExp(0);
-        UpdateGuerison(0);
-      
-    }
-
-    public void Updatepatient(int cap_patient)
-    {
-        if (PatientCapacityText != null)
-        {
-            PatientCapacityText.text = "Patients : " + cap_patient.ToString();
-        }
-    }
-
-    public void UpdateNurse(int cap_nurse)
-    {
-        if (NurseCapacityText != null)
-        {
-           NurseCapacityText.text = "Infirmiéres : "+ pn + " / " + cap_nurse.ToString();
-        }
-    }
-
-    public void UpdateDoctor(int cap_doctor)
-    {
-        if ( DoctorCapacityText!= null)
-        {
-            DoctorCapacityText.text = "Médcins : " +  pd + "/ " + cap_doctor.ToString();
-            //Debug.Log("UpdateDoctor called with cap_doctor: " + cap_doctor);
-        }
-    }
-
-    public void UpdateRoom(int cap_waiting)
-    {
-        if(WaitingCapacityText!=null)
-        {
-            WaitingCapacityText.text= "Salle attente : "+ cap_waiting.ToString();
-        }
-    }
-
-    public void UpdateReception(int cap_reception)
-    {
-        if(ReceptionText !=null)
-        {
-            ReceptionText.text = "Reception : "+ pr + "/ " + cap_reception.ToString();
-        }
-    }
-
-    public void UpdateMoney(int money)
-    {
-        if(MoneyText!= null)
-        {
-            MoneyText.text= "Argent : " + money.ToString();
-        }
-        this.money = money;
-    }
-
-public void setGuerison(int g)
-{
-    this.guerison= guerison+g;
-    UpdateGuerison(guerison);
-}
-    public void UpdateGuerison(int guerison)
-    {
-        if (GuerisonText != null)
-        {
-            GuerisonText.text = "Guérison : " + guerison.ToString();
-          
-        }
-    }
-    
-    public void setExp(int e)
-    {
-       this.exp_sub= exp_sub+e;
-       UpdateExp(exp_sub);
-       
-    }
-
-    public void UpdateExp(int exp_sub)
-    {
-        if (ExperienceSubjectiveText != null)
-        {
-           ExperienceSubjectiveText.text = "Experience Subjective : " + exp_sub.ToString();
-
-        }
-    }
-
-    public void UpdatePatientInNurse(int patientsInNurse)
-    {
-       this.pn=  patientsInNurse.ToString();
-      
-    }
-    public string getPatientsInNurse()
-    {
-        return pn;
-    }
-
-    public void UpdatePatientInDoctor(int patientsInDoctor)
-    {
-        this.pd= patientsInDoctor.ToString();
-       
-    }
-    public string getPatientInDoctor()
-    {
-        return pd;
-    }
-    public void UpdatePatientInReception(int patientInReception )
-    {
-        this.pr=patientInReception.ToString();
-    }
-    public string getPatientInReception()
-    {
-        return pr;
-    }
-
-    public bool canBuy(int ID)
-    {
-    int prix= database.objectsData[ID].Prix;
-        if(prix > money)
-        {
-            return false;
-        }
-        money-=prix;
-        UpdateMoney(money);
-        return true;
-        
-    }
-    public void addMoney(int montant){
-                money=money+montant;
-                UpdateMoney(money);
+            private void Awake()
+            {
+                Debug.Log("instance uiscoremanager créer ");
             }
+
+
+        void Start()
+        { 
     
-}
+            UpdateTextDoctor();
+            UpdateTextNurse();
+            UpdateTextWaiting();
+            UpdateTextReception();
+            UpdateMoney(money);
+            UpdateExp(exp_sub);
+            UpdateGuerison();
+        }
+        /*update nb patient in different room*/
+        public void UpdateNbPatientNurse(int nbPatient)
+        {
+            _nbPatientNurse = nbPatient;
+            UpdateTextNurse();
+        }
+
+        public void UpdateNbPatientDoctor(int nbPatient)
+        {
+            _nbPatientDoctor = nbPatient;
+            UpdateTextDoctor();
+        }
+
+        public void UpdateNbPatientReception(int nbPatient)
+        {
+            _nbPatientReception = nbPatient;
+            UpdateTextReception();
+        }
+
+        public void UpdateNbPatientWaiting(int nbPatient)
+        {
+            _nbPatientWaiting = nbPatient;
+            UpdateTextWaiting();
+        }
+
+        /*update nb patient in different room*/
+        public void UpdateNbRoomNurse(int nbPatient)
+        {
+            _nbNurseRoom = nbPatient;
+            UpdateTextNurse();
+        }
+
+        public void UpdateNbRoomDoctor(int nbPatient)
+        {
+            _nbDoctorRoom = nbPatient;
+            UpdateTextDoctor();
+        }
+
+        public void UpdateNbRoomReception(int nbPatient)
+        {
+            _nbReceptionRoom = nbPatient;
+            UpdateTextReception();
+        }
+
+        public void UpdateNbRoomWaiting(int nbPatient)
+        {
+            _nbWaitingRoom = nbPatient;
+            UpdateTextWaiting();
+        }
+
+        /*update textmesh - capacity*/
+        public void UpdateTextNurse()
+        {
+            if (NurseCapacityText != null)
+            {
+               NurseCapacityText.text = "Infirmières : " + _nbPatientNurse + "/" + _nbNurseRoom;
+            }
+        }
+
+        public void UpdateTextDoctor()
+        {
+            if ( DoctorCapacityText!= null)
+            {
+                DoctorCapacityText.text = "Médecins : " +  _nbPatientDoctor + "/" + _nbDoctorRoom;
+            }
+        }
+
+        public void UpdateTextWaiting()
+        {
+            if(WaitingCapacityText!=null)
+            {
+                WaitingCapacityText.text= "Salles attente : " + _nbPatientWaiting + "/" + _nbWaitingRoom;
+            }
+        }
+
+        public void UpdateTextReception()
+        {
+            if(ReceptionText != null)
+            {
+                ReceptionText.text = "Réception : " + _nbPatientReception + "/" + _nbReceptionRoom;
+            }
+        }
+
+
+
+
+
+
+
+
+
+        /*update textmesh health-money*/
+        public void UpdateMoney(int money)
+        {
+            if(MoneyText!= null)
+            {
+                MoneyText.text= "Argent : " + money.ToString();
+            }
+            this.money = money;
+        }
+
+        public void setGuerison(int g)
+        {
+            this.guerison= guerison+g;
+            UpdateGuerison();
+        }
+
+        public void UpdateGuerison()
+        {
+            if (GuerisonText != null)
+            {
+                GuerisonText.text = "Guérison : " + guerison.ToString();
+          
+            }
+        }
+    
+        public void setExp(int e)
+        {
+           this.exp_sub= exp_sub+e;
+           UpdateExp(exp_sub);
+       
+        }
+
+        public void UpdateExp(int exp_sub)
+        {
+            if (ExperienceSubjectiveText != null)
+            {
+               ExperienceSubjectiveText.text = "Experience Subjective : " + exp_sub.ToString();
+            }
+        }
+
+        
+
+        public bool canBuy(int ID)
+        {
+        int prix= database.objectsData[ID].Prix;
+            if(prix > money)
+            {
+                return false;
+            }
+            money-=prix;
+            UpdateMoney(money);
+            return true;
+        
+        }
+        public void addMoney(int montant){
+                    money=money+montant;
+                    UpdateMoney(money);
+        }
+    
+    }
 
 }
