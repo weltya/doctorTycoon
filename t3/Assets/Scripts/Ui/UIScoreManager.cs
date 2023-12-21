@@ -27,7 +27,11 @@ namespace Scripts.UII
     private int money=0;
     private int exp_sub=0;
     private int guerison=0;
-    [SerializeField] private ObjectsDatabaseSO database;
+    private int patientsInNurse;
+    private int patientsInDoctor;
+    private string pd;
+    private string pn;
+        [SerializeField] private ObjectsDatabaseSO database;
     private int _selectedObjectIndex;
     
 
@@ -51,6 +55,8 @@ namespace Scripts.UII
         UpdateMoney(10000);
         UpdateExp(0);
         UpdateGuerison(0);
+        UpdatePatientInDoctor(0);
+        UpdatePatientInNurse(0);
     }
 
     public void Updatepatient(int cap_patient)
@@ -65,7 +71,7 @@ namespace Scripts.UII
     {
         if (NurseCapacityText != null)
         {
-           NurseCapacityText.text = "Infirmiéres : " + cap_nurse.ToString();
+           NurseCapacityText.text = "Infirmiéres : "+ getPatientsInNurse() + " / " + cap_nurse.ToString();
         }
     }
 
@@ -73,7 +79,7 @@ namespace Scripts.UII
     {
         if ( DoctorCapacityText!= null)
         {
-            DoctorCapacityText.text = "Médcins : " + cap_doctor.ToString();
+            DoctorCapacityText.text = "Médcins : " +  pd + "/ " + cap_doctor.ToString();
             //Debug.Log("UpdateDoctor called with cap_doctor: " + cap_doctor);
         }
     }
@@ -120,6 +126,26 @@ namespace Scripts.UII
            ExperienceSubjectiveText.text = "Experience Subjective : " + exp_sub.ToString();
 
         }
+    }
+
+    public void UpdatePatientInNurse(int patientsInNurse)
+    {
+       this.pn=  patientsInNurse.ToString();
+      
+    }
+    public string getPatientsInNurse()
+    {
+        return pn;
+    }
+
+    public void UpdatePatientInDoctor(int patientsInDoctor)
+    {
+        this.pd= patientsInDoctor.ToString();
+       
+    }
+    public string getPatientInDoctor()
+    {
+        return pd;
     }
 
 public bool canBuy(int ID)

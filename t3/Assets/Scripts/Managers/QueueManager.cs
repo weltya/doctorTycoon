@@ -24,6 +24,8 @@ namespace Scripts.Managers.Caracters
         private List<NurseRoomData> ListNurse = new List<NurseRoomData>();
         [SerializeField] ObjectPlacer _objectPlacer;
         [SerializeField] private  UIScoreManager score;
+        private int pd=0;
+        private int pn=0;
     
         public struct WaitingRoomStruct
         {
@@ -34,8 +36,10 @@ namespace Scripts.Managers.Caracters
       
 
         private void Start()
-        {
+        {   
+            
             _objectPlacer.onObjectPlaced += AddRoom;
+          
         }
         private void Awake()
         {
@@ -172,6 +176,11 @@ namespace Scripts.Managers.Caracters
                 return;
             }
 
+            if (_waitingQueueWaitingNurse.Count <= 0)
+            {
+              return;
+              }
+
             PatientGameplay patient = _waitingQueueWaitingNurse.Peek();
             WaitingRoomStruct whereToGo = IsWaitingRoomAvailable();
 
@@ -221,8 +230,11 @@ namespace Scripts.Managers.Caracters
 
             if (whereToGo.waitingRoom != null)
             {
+            
                 whereToGo.pointData.IsAvailable = false;
                 patient.MovePatientToWaitingDoctor(whereToGo.waitingRoom, whereToGo.pointData);
+                pd++;
+            
                 _waitingQueueWaitingDoctor.Dequeue();
             }
             else
@@ -261,24 +273,42 @@ namespace Scripts.Managers.Caracters
 
         public void AddPatientInWaitingQueueNurse(PatientGameplay patient)
         {
+            score.UpdatePatientInNurse(++pn);
             _waitingQueueWaitingNurse.Enqueue(patient);
+
+           
+            
             CheckOrWaitToWaitingNurseRoom();
+      
+            
         }
 
         public void AddPatientInNurseQueue(PatientGameplay patient)
         {
+            score.UpdatePatientInNurse(++pn);
             _waitingQueueNurse.Enqueue(patient);
-            CheckOrWaitToNurseRoom();
+             CheckOrWaitToNurseRoom(); 
+         
+           
+            
         }
         public void AddPatientInWaitingQueueDoctor(PatientGameplay patient)
-        {
+        { 
+            score.UpdatePatientInDoctor(++pd);
             _waitingQueueWaitingDoctor.Enqueue(patient);
+            
             CheckOrWaitToWaitingDoctorRoom();
+          
+           
+
         }
         public void AddPatientInDoctorQueue(PatientGameplay patient)
         {
+            score.UpdatePatientInDoctor(++pd);
             _waitingQueueDoctor.Enqueue(patient);
+            
             CheckOrWaitToDoctorRoom();
+       
         }
 
     }
