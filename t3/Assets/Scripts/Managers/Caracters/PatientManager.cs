@@ -22,10 +22,9 @@ namespace Scripts.Managers.Caracters
             {
                 Debug.LogError("_patientprefab is empty");
             }
-            InstantiatePatient();
-            InstantiatePatient();
-            InstantiatePatient();
+            InvokeRepeating("InstantiatePatient",2f,3f);
         }
+        
 
         private void InstantiatePatient()
         {
