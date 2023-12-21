@@ -78,6 +78,14 @@ namespace Scripts.Managers.BuilderManagers
             bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), isValidPlacement);
         }
+
+        public void RotatePreview() {
+            if (_selectedObjectIndex > -1) {
+                var previewObject = database.objectsData[_selectedObjectIndex].prefab;
+                previewObject.transform.Rotate(0, 90, 0);
+                previewSystem.UpdatePreviewRotation(previewObject.transform.rotation);
+            }
+        }
     }
 }
 
