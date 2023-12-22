@@ -26,8 +26,9 @@ namespace Scripts.Managers.Caracters
             {
                 Debug.LogError("_patientprefab is empty");
             }
-            //InvokeRepeating("InstantiatePatient",2f,3f);
+            InvokeRepeating("InstantiatePatient",2f,3f);
         }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.O))
