@@ -62,7 +62,6 @@ namespace Scripts.Managers.Caracters
          */
         private void Awake()
         {
-            Debug.Log("instance queuemanager cr�er ");
             _goUiScoreManager = GameObject.Find("ScorePanel");
             _uiScoreManager = _goUiScoreManager.GetComponent<UIScoreManager>();
         }

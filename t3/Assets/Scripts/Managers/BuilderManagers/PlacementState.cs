@@ -82,6 +82,7 @@ namespace Scripts.Managers.BuilderManagers
             if (index < 0)
             {
                 EndState();
+                return;
             }
             GridData selectedData = room1;
             selectedData.AddObjectAt(gridPosition, database.objectsData[_selectedObjectIndex].Size, database.objectsData[_selectedObjectIndex].ID, index,rotation);
