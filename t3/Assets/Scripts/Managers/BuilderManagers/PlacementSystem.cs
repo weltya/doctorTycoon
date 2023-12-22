@@ -6,6 +6,10 @@ using  Scripts.UII;
 
 namespace Scripts.Managers.BuilderManagers
 {
+    /**
+     * @class PlacementSystem
+     * @brief Manages the placement and removal of structures in the game world.
+     */
     public class PlacementSystem : MonoBehaviour
     {
         private int _selectedObjectIndex = -1;
@@ -21,6 +25,9 @@ namespace Scripts.Managers.BuilderManagers
         IBuildingState buildingState;
         [SerializeField] private UIScoreManager score;
 
+        /**
+         * @brief Initializes the placement system.
+         */
         private void Start()
         {
            
@@ -29,10 +36,17 @@ namespace Scripts.Managers.BuilderManagers
             _inputManager.onRotation += Rotation;
         }
 
+        /**
+         * @brief Method called to rotate the placement preview.
+         */
         public void Rotation() {
             buildingState?.RotatePreview();
         }
 
+        /**
+         * @brief Starts the placement of a structure with the specified ID.
+         * @param {int} ID - The ID of the structure to be placed.
+         */
         public void StartPlacement(int ID)
         {
             StopPlacement();
@@ -49,12 +63,15 @@ namespace Scripts.Managers.BuilderManagers
                 _inputManager.OnClicked += PlaceStructure;
                 _inputManager.OnExit += StopPlacement;
             }
-            else
+            elsecomm
             {
                 throw new System.Exception($"(no room with id : {ID}");
             }
-        }
+        } 
 
+        /**
+         * @brief Starts the removal of structures.
+         */
         public void StartRemoving()
         {
             StopPlacement();
@@ -64,6 +81,9 @@ namespace Scripts.Managers.BuilderManagers
             _inputManager.OnExit += StopPlacement;
         }
 
+        /**
+         * @brief Places the structure at the selected position.
+         */
         private void PlaceStructure()
         {
             if (_inputManager.IsPointerOverUi())
@@ -81,13 +101,11 @@ namespace Scripts.Managers.BuilderManagers
             }
         }
 
-        //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-        //{
-        //    GridData selectedData = room1;
+      
 
-        //    return selectedData.CanPlaceObjectAt(gridPosition, _database.objectsData[selectedObjectIndex].Size);
-        //}
-
+        /**
+         * @brief Stops the placement or removal process.
+         */
         private void StopPlacement()
         {
             if (buildingState == null) { return; }
@@ -100,6 +118,9 @@ namespace Scripts.Managers.BuilderManagers
             //_inputManager.onRotation -= Rotation;
         }
 
+        /**
+         * @brief Updates the placement or removal state based on the mouse position.
+         */
         private void Update()
         {
            if (buildingState == null) { return; }

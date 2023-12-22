@@ -6,7 +6,11 @@ using System.Linq;
 using UnityEngine;
 
 namespace Scripts.Managers.Caracters
-{
+{   
+    /**
+     * @class QueueManager
+     * @brief Manages the queues and patient flow in the game.
+     */
     public class QueueManager : MonoBehaviour
     {
         private Queue<PatientGameplay> _waitingQueueReception = new Queue<PatientGameplay>();
@@ -29,12 +33,18 @@ namespace Scripts.Managers.Caracters
         private GameObject _goUiScoreManager;
 
 
+        /**
+         * @brief Structure to hold information about an available waiting room and a point within it.
+         */
         public struct WaitingRoomStruct
         {
             public WaitingRoomData waitingRoom;
             public PointData pointData;
         }
 
+        /**
+         * @brief Initializes the QueueManager by subscribing to events and starting periodic checks for patient flow.
+         */
         private void Start()
         {
             _objectPlacer.onObjectPlaced += AddRoom;
@@ -46,13 +56,21 @@ namespace Scripts.Managers.Caracters
             InvokeRepeating("CheckOrWaitToDoctorRoom", 5f, 1f);
             InvokeRepeating("CheckOrWaitToRemove", 5f, 1f);
         }
+
+        /**
+         * @brief Awake method to find the UIScoreManager object.
+         */
         private void Awake()
         {
-            Debug.Log("instance queuemanager créer ");
+            Debug.Log("instance queuemanager crï¿½er ");
             _goUiScoreManager = GameObject.Find("ScorePanel");
             _uiScoreManager = _goUiScoreManager.GetComponent<UIScoreManager>();
         }
         
+        /**
+         * @brief Checks for an available reception room.
+         * @return The available reception room, or null if none is available.
+         */
         private ReceptionRoomData IsReceptionIsAvailable()
         {
             for (int i = 0; i < ListReceptionRoom.Count; i++)
@@ -65,6 +83,11 @@ namespace Scripts.Managers.Caracters
             }
             return null;
         }
+
+        /**
+         * @brief Checks for an available doctor room.
+         * @return The available doctor room, or null if none is available.
+         */
         private DoctorRoomData IsDoctorIsAvailable()
         {
             for (int i = 0; i < ListDoctor.Count; i++)
@@ -77,6 +100,11 @@ namespace Scripts.Managers.Caracters
             }
             return null;
         }
+
+        /**
+         * @brief Checks for an available nurse room.
+         * @return The available nurse room, or null if none is available.
+         */
         private NurseRoomData IsNurseIsAvailable()
         {
             for (int i = 0; i < ListNurse.Count; i++)
@@ -89,6 +117,11 @@ namespace Scripts.Managers.Caracters
             }
             return null;
         }
+
+        /**
+         * @brief Checks for an available waiting room and point within it.
+         * @return The structure containing the available waiting room and point, or null if none are available.
+         */
         private WaitingRoomStruct IsWaitingRoomAvailable()
         {
             WaitingRoomStruct waitingRoomStruct;
@@ -113,7 +146,10 @@ namespace Scripts.Managers.Caracters
             return waitingRoomStruct;
         }
             
-     
+        /**
+         * @brief Adds a room to the corresponding list and updates UI scores.
+         * @param {Room} room - The room to be added.
+         */
         private void AddRoom(Room room)
         {
             if (room is DoctorRoomData)
@@ -144,6 +180,9 @@ namespace Scripts.Managers.Caracters
             }
         }
 
+        /**
+         * @brief Checks if a reception room is available and dequeues patients accordingly.
+         */
         public void CheckOrWaitToReception()
         {
             if (_waitingQueueReception.Count <= 0)
@@ -160,6 +199,10 @@ namespace Scripts.Managers.Caracters
                 patient.MovePatientToReception(wheretogo);
             }
         }
+
+        /**
+         * @brief Checks if a waiting room for nurses is available and dequeues patients accordingly.
+         */
         public void CheckOrWaitToWaitingNurseRoom()
         {
             if (_waitingQueueWaitingNurse.Count <= 0)
@@ -180,6 +223,9 @@ namespace Scripts.Managers.Caracters
             }
         }
 
+        /**
+         * @brief Checks if a nurse room is available and dequeues patients accordingly.
+         */
         public void CheckOrWaitToNurseRoom()
         {
             if (_waitingQueueNurse.Count <= 0)
@@ -201,6 +247,9 @@ namespace Scripts.Managers.Caracters
             }
         }
 
+        /**
+         * @brief Checks if a waiting room for doctors is available and dequeues patients accordingly.
+         */
         public void CheckOrWaitToWaitingDoctorRoom()
         {
             if (_waitingQueueWaitingDoctor.Count <= 0)
@@ -222,6 +271,10 @@ namespace Scripts.Managers.Caracters
             }
       
         }
+
+        /**
+         * @brief Checks if a doctor room is available and dequeues patients accordingly.
+         */
         public void CheckOrWaitToDoctorRoom()
         {
             if (_waitingQueueDoctor.Count <= 0)
@@ -242,6 +295,10 @@ namespace Scripts.Managers.Caracters
                 patient.PatientGameplay.MovePatientToDoctor(whereToGo);
             }
         }
+
+        /**
+         * @brief Checks if there are patients in the remove queue and dequeues them accordingly.
+         */
         public void CheckOrWaitToRemove(){
 
             if(_waitingQueueRemove.Count<=0){
@@ -253,10 +310,12 @@ namespace Scripts.Managers.Caracters
             patient.DoctorRoomData.IsAvailable = true;
             patient.PatientGameplay.MoveToRemovePoint();
             _waitingQueueRemove.Dequeue();
-            //_uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
         }
 
-
+        /**
+         * @brief Adds a newly instantiated patient to the reception queue.
+         * @param {GameObject} go - The instantiated patient game object.
+         */
         public void AddPatientInSpawnQueue(GameObject go)
         {
             PatientGameplay scriptPatientGameplay = go.GetComponent<PatientGameplay>();
@@ -265,6 +324,10 @@ namespace Scripts.Managers.Caracters
             CheckOrWaitToReception();
         }
 
+        /**
+         * @brief Adds a patient to the waiting queue for nurses.
+         * @param {SavePatientAndHisWaypoint} patient - The patient and associated waypoint data.
+         */
         public void AddPatientInWaitingQueueNurse(SavePatientAndHisWaypoint patient)
         {
             _waitingQueueWaitingNurse.Enqueue(patient);
@@ -272,6 +335,10 @@ namespace Scripts.Managers.Caracters
             CheckOrWaitToWaitingNurseRoom();
         }
 
+        /**
+         * @brief Adds a patient to the nurse queue.
+         * @param {SavePatientAndHisWaypoint} patient - The patient and associated waypoint data.
+         */
         public void AddPatientInNurseQueue(SavePatientAndHisWaypoint patient)
         {
             _waitingQueueNurse.Enqueue(patient);
@@ -279,41 +346,67 @@ namespace Scripts.Managers.Caracters
             CheckOrWaitToNurseRoom(); 
         }
 
+        /**
+         * @brief Adds a patient to the waiting queue for doctors.
+         * @param {SavePatientAndHisWaypoint} patient - The patient and associated waypoint data.
+         */
         public void AddPatientInWaitingQueueDoctor(SavePatientAndHisWaypoint patient)
         {
             _waitingQueueWaitingDoctor.Enqueue(patient);
             _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
             CheckOrWaitToWaitingDoctorRoom();
         }
+
+        /**
+         * @brief Adds a patient to the doctor queue.
+         * @param {SavePatientAndHisWaypoint} patient - The patient and associated waypoint data.
+         */
         public void AddPatientInDoctorQueue(SavePatientAndHisWaypoint patient)
         { 
             _waitingQueueDoctor.Enqueue(patient);
             _uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
             CheckOrWaitToDoctorRoom();
         }
+
+        /**
+         * @brief Adds a patient to the remove queue.
+         * @param {SavePatientAndHisWaypoint} patient - The patient and associated waypoint data.
+         */
         public void AddPatientToRemoveQueue(SavePatientAndHisWaypoint patient){
             _waitingQueueRemove.Enqueue(patient);
             CheckOrWaitToRemove();
         }
 
+        /**
+         * @brief Updates the count when a patient is removed from the reception queue.
+         */
         public void UpdateNbReceptionRemoveFix()
         {
             NbCaractersInReception -= 1;
             _uiScoreManager.UpdateNbPatientReception(NbCaractersInReception);
         }
 
+        /**
+         * @brief Updates the count when a patient is added to the reception queue.
+         */
         public void UpdateNbReceptionAddFix()
         {
             NbCaractersInReception += 1;
             _uiScoreManager.UpdateNbPatientReception(NbCaractersInReception);
         }
 
+        /**
+         * @brief Updates the count when a patient is removed from the waiting queue.
+         */
         public void UpdateNbWaitingRemoveFix()
         {
             NbCaractersInWaiting -= 1;
             _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
         }
 
+        /**
+         * @brief Updates the count when a patient is added to the waiting queue.
+         */
         public void UpdateNbWaitingAddFix()
         {
             NbCaractersInWaiting += 1;

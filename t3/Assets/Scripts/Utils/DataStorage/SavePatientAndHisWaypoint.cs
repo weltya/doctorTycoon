@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @class SavePatientAndHisWaypoint
+ * @brief Represents data for saving the state of a patient and related room information.
+ */
 public class SavePatientAndHisWaypoint
 {
     public PatientGameplay PatientGameplay;

@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Scripts.Managers.Caracters
 {
+    /**
+     * @class PatientManager
+     * @brief Manages the instantiation of patients in the game.
+     */
     public class PatientManager : MonoBehaviour
     {
         [SerializeField] List<GameObject> _patientsPrefab = new List<GameObject>();
@@ -18,6 +22,9 @@ namespace Scripts.Managers.Caracters
         private float _minSpawnZ = 27f;
         private float _spawnX = 2f;
 
+        /**
+         * @brief Initializes the PatientManager by finding the QueueManager and starting patient instantiation.
+         */
         private void Start()
         {
             _goQueueManager = GameObject.Find("QueueManager");
@@ -29,6 +36,9 @@ namespace Scripts.Managers.Caracters
             InvokeRepeating("InstantiatePatient",2f,3f);
         }
 
+        /**
+         * @brief Checks for user input to manually instantiate a patient.
+         */
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.O))
@@ -38,6 +48,9 @@ namespace Scripts.Managers.Caracters
         }
         
 
+        /**
+         * @brief Instantiates a patient and adds them to the reception queue.
+         */
         private void InstantiatePatient()
         {
             GameObject go;

@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+/**
+ * @class OpenMenu
+ * @brief Handles the opening of the main menu.
+ */
 public class OpenMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /**
+     * @brief Called when the menu button is clicked.
+     * Loads the main menu scene (replace "MainMenu" with your actual scene name).
+     */
     public void OnMenuButtonClicked()
     {
-        // Load the scene with the game (replace "GameScene" with your actual scene name)
         SceneManager.LoadScene("MainMenu");
     }
 }
