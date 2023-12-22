@@ -15094,7 +15094,12 @@ MonoBehaviour:
   NurseCapacityText: {fileID: 918945753}
   DoctorCapacityText: {fileID: 131444287}
   MoneyText: {fileID: 2083489880}
-  ReceptionPanelImage: {fileID: 166952169}
+  ExperienceSubjective: {fileID: 166952169}
+  GuerisonPanel: {fileID: 1078661415}
+  ReceptionPanelImage: {fileID: 638398854}
+  WaitingPanelImage: {fileID: 148160163}
+  NursePanelImage: {fileID: 483068790}
+  DoctorPanelImage: {fileID: 1935236320}
   database: {fileID: 11400000, guid: 73ef35c4ef3d0cd489d4f0f55d474ddb, type: 2}
 --- !u!1 &1190278129
 GameObject:

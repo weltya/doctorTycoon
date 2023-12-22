@@ -17,7 +17,12 @@ namespace Scripts.UII
         public TextMeshProUGUI DoctorCapacityText;
         public TextMeshProUGUI MoneyText;
 
+        public Image ExperienceSubjective;
+        public Image GuerisonPanel;
         public Image ReceptionPanelImage;
+        public Image WaitingPanelImage;
+        public Image NursePanelImage;
+        public Image DoctorPanelImage;
 
         private int money=10000;
         private int exp_sub=0;
