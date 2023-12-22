@@ -38,6 +38,8 @@ namespace Scripts.Gameplay.Caracters
         private float _minSpawnZ = 27f;
         private float _despawnX = 2f;
 
+        private SavePatientAndHisWaypoint _savePatientAndHisWaypoint = new SavePatientAndHisWaypoint();
+
 
         private void Start()
         {
@@ -46,10 +48,17 @@ namespace Scripts.Gameplay.Caracters
             _goUiScoreManager = GameObject.Find("ScorePanel");
             if ( _goUiScoreManager == null )
             {
-                Destroy(this.gameObject);
+                Debug.LogError("_goUiScoreManager = null");
             }
             _uiScoreManager = _goUiScoreManager.GetComponent<UIScoreManager>();
+
+            if ( _uiScoreManager == null )
+            {
+                Debug.LogError("_uiScoreManager = null");
+            }
             _navMeshAgent = GetComponent<NavMeshAgent>();
+
+            _savePatientAndHisWaypoint.PatientGameplay = this;
         }
         
         private void Update()
@@ -80,50 +89,47 @@ namespace Scripts.Gameplay.Caracters
 
             if(end){
                 _uiScoreManager.addMoney(200);
+                _queueManager.CheckOrWaitToDoctorRoom();
                 Destroy(this.gameObject);
             }
             else if (_typeOfCurrentRoom == EnumRoom.Reception)
-            {
-                _roomReception.available = true;
-                _queueManager.AddPatientInWaitingQueueNurse(this);
+            {  
+                _queueManager.UpdateNbReceptionRemoveFix();
+                _queueManager.AddPatientInWaitingQueueNurse(_savePatientAndHisWaypoint);
                 _queueManager.CheckOrWaitToReception();
             } else if (_typeOfCurrentRoom == EnumRoom.WaitingRoom && _roomNurse == null)
             {
-                    _roomWaitingNursePointdata.IsAvailable = true;
-                    _queueManager.AddPatientInNurseQueue(this);
+                    _queueManager.AddPatientInNurseQueue(_savePatientAndHisWaypoint);
                     _queueManager.CheckOrWaitToWaitingNurseRoom();
                 
             } else if (_typeOfCurrentRoom == EnumRoom.NurseRoom)
             {
-                _roomNurse.available = true;
-                _queueManager.AddPatientInWaitingQueueDoctor(this);
+                _queueManager.AddPatientInWaitingQueueDoctor(_savePatientAndHisWaypoint);
                 _queueManager.CheckOrWaitToNurseRoom();
             } else if (_typeOfCurrentRoom == EnumRoom.WaitingRoom && _roomNurse != null)
             {
-                _roomWaitingDoctorPointdata.IsAvailable = true;
-                _queueManager.AddPatientInDoctorQueue(this);
+                _queueManager.AddPatientInDoctorQueue(_savePatientAndHisWaypoint);
                 _queueManager.CheckOrWaitToWaitingDoctorRoom();
             } else if (_typeOfnextRoom == EnumRoom.DoctorRoom)
             {
-                _doctorRoomData.available = true;
                 _queueManager.CheckOrWaitToDoctorRoom();
-                _queueManager.AddPatientToRemoveQueue(this);
+                _queueManager.AddPatientToRemoveQueue(_savePatientAndHisWaypoint);
 
             }
         }
 
         public void MovePatientToReception(ReceptionRoomData room)
         {
-            
             _roomReception = room;
             _typeOfnextRoom = room.TypeRoom;
+
+            _savePatientAndHisWaypoint.ReceptionRoomData = room;
+
             int exp_sub= _roomReception.exp_sub();
             int grs = _roomReception.guerison();
-            SetDestination(room.point);
-            _uiScoreManager.setExp(exp_sub);
-            _uiScoreManager.setGuerison(grs);
-          
 
+
+            SetDestination(room.point);
         }
 
         public void MovePatientToWaitingNurse(WaitingRoomData waitingRoom, PointData pointData)
@@ -131,24 +137,33 @@ namespace Scripts.Gameplay.Caracters
             _typeOfnextRoom = waitingRoom.typeRoom;
             _roomWaitingNursePointdata = pointData;
 
+            _savePatientAndHisWaypoint.WaitingRoomData = waitingRoom;
+            _savePatientAndHisWaypoint.PointDataWaitingNurse = pointData;
+
             int exp_sub= _roomWaitingNurse.exp_sub();
             int grs= _roomWaitingNurse.guerison();
           
-            SetDestination(pointData.Waypoint);
-           _uiScoreManager.setExp(exp_sub);
+            _uiScoreManager.setExp(exp_sub);
             _uiScoreManager.setGuerison(grs);
+
+            SetDestination(pointData.Waypoint);
         }
 
         public void MovePatientToNurse(NurseRoomData room)
         {
            
             _roomNurse = room;
-            _typeOfnextRoom = room.typeRoom; 
+            _typeOfnextRoom = room.typeRoom;
+
+            _savePatientAndHisWaypoint.NurseRoomData = room;
+
             int exp_sub= _roomNurse.exp_sub();
             int grs= _roomNurse.guerison();
-            SetDestination(room.point);
-          _uiScoreManager.setExp(exp_sub);
+
+            _uiScoreManager.setExp(exp_sub);
             _uiScoreManager.setGuerison(grs);
+
+            SetDestination(room.point);
         }
 
         public void MovePatientToWaitingDoctor(WaitingRoomData waitingRoom, PointData pointData)
@@ -156,26 +171,32 @@ namespace Scripts.Gameplay.Caracters
            
             _roomWaitingDoctor = waitingRoom;
             _typeOfnextRoom = waitingRoom.typeRoom;
-            _roomWaitingDoctorPointdata = pointData; 
+            _roomWaitingDoctorPointdata = pointData;
+
+            _savePatientAndHisWaypoint.WaitingRoomData2 = waitingRoom;
+            _savePatientAndHisWaypoint.PointDataWaitingNurse2 = pointData;
+
             int exp_sub= _roomWaitingDoctor.exp_sub();
             int grs= _roomWaitingDoctor.guerison();
         
-            SetDestination(pointData.Waypoint);
             _uiScoreManager.setExp(exp_sub);
             _uiScoreManager.setGuerison(grs);
+            SetDestination(pointData.Waypoint);
         }
 
         public void MovePatientToDoctor(DoctorRoomData room)
         {
-            
-
             _doctorRoomData = room;
             _typeOfnextRoom = room.typeRoom;
-            SetDestination(room.point); 
+
+            _savePatientAndHisWaypoint.DoctorRoomData = room;
+
             int exp_sub=  _doctorRoomData.exp_sub();
             int grs=  _doctorRoomData.guerison();
-          _uiScoreManager.setExp(exp_sub);
+
+            _uiScoreManager.setExp(exp_sub);
             _uiScoreManager.setGuerison(grs);
+            SetDestination(room.point);
         }
 
         public void MoveToRemovePoint()

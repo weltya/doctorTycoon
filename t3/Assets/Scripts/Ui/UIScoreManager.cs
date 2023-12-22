@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.Managers.BuilderManagers;
-
+using UnityEngine.UI;
 
 namespace Scripts.UII
 {
@@ -14,9 +14,10 @@ namespace Scripts.UII
         public TextMeshProUGUI ReceptionText;
         public TextMeshProUGUI WaitingCapacityText;
         public TextMeshProUGUI NurseCapacityText;
-        public TextMeshProUGUI PatientCapacityText;
         public TextMeshProUGUI DoctorCapacityText;
         public TextMeshProUGUI MoneyText;
+
+        public Image ReceptionPanelImage;
 
         private int money=10000;
         private int exp_sub=0;
@@ -32,6 +33,10 @@ namespace Scripts.UII
         private int _nbWaitingRoom = 0;
         private int _nbReceptionRoom = 0;
 
+        private Color32 _colorGreen = new Color32(146, 185, 32, 255);
+        private Color32 _colorOrange = new Color32(222, 169, 29, 255);
+        private Color32 _colorRed = new Color32(221, 99, 26, 255);
+
         [SerializeField] private ObjectsDatabaseSO database;
 
 
@@ -40,10 +45,12 @@ namespace Scripts.UII
                 Debug.Log("instance uiscoremanager créer ");
             }
 
-
-        void Start()
+        private void Update()
+        {
+            ReceptionPanelImage.color = Color.red;
+        }
+        private void Start()
         { 
-    
             UpdateTextDoctor();
             UpdateTextNurse();
             UpdateTextWaiting();
@@ -51,6 +58,7 @@ namespace Scripts.UII
             UpdateMoney(money);
             UpdateExp(exp_sub);
             UpdateGuerison();
+            ReceptionPanelImage.color = _colorRed;
         }
         /*update nb patient in different room*/
         public void UpdateNbPatientNurse(int nbPatient)
@@ -124,6 +132,7 @@ namespace Scripts.UII
             if(WaitingCapacityText!=null)
             {
                 WaitingCapacityText.text= "Salles attente : " + _nbPatientWaiting + "/" + _nbWaitingRoom;
+                WaitingCapacityText.text = "rien";
             }
         }
 
