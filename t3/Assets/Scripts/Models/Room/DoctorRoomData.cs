@@ -10,4 +10,5 @@ public class DoctorRoomData : Room
     public Transform Point;
     public Boolean IsAvailable = true;
     public EnumRoom TypeRoom = EnumRoom.DoctorRoom;
+    public float WaitTime = 1;
 }

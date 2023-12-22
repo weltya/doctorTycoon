@@ -724,6 +724,7 @@ MonoBehaviour:
   Point: {fileID: 5452422491720421895}
   IsAvailable: 1
   TypeRoom: 2
+  WaitTime: 3
 --- !u!1 &1751471508293126808
 GameObject:
   m_ObjectHideFlags: 0
