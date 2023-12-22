@@ -9,9 +9,4 @@ Il est important de pouvoir gérer le flux continu de patients tout en s'assuran
 
 # Comment y jouer ?
 
-Il existe deux méthodes pour jouer à ce jeu :
-
- - [En ligne](https://berbie.itch.io/t3)
- - En local
-
-Si vous décidez de jouer en ligne, il suffira de cliquer sur le bouton `Run game` pour démarrer la partie. Par contre, si vous décidez de jouer en local voici les instructions :
+Le jeu est à disposition [En ligne](https://berbie.itch.io/t3). Il suffira de cliquer sur le bouton `Run game` pour démarrer la partie.

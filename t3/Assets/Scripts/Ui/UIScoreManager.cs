@@ -51,7 +51,6 @@ namespace Scripts.UII
 
             private void Awake()
             {
-                Debug.Log("instance uiscoremanager créer ");
             }
         /**
         * @brief Updates the visual representation based on game statistics.
