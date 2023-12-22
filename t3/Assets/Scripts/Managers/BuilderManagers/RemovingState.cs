@@ -28,10 +28,10 @@ namespace Scripts.Managers.BuilderManagers
             previewSystem.StopShowingPreview();
         }
 
-        public void OnAction(Vector3Int gridPosition)
+        public void OnAction(Vector3Int gridPosition,Quaternion rotation)
         {
             GridData selectedData = null;
-            if (!room1.CanPlaceObjectAt(gridPosition, Vector2Int.one))
+            if (!room1.CanPlaceObjectAt(gridPosition, Vector2Int.one,rotation))
             {
                 selectedData = room1;
             }
@@ -50,17 +50,17 @@ namespace Scripts.Managers.BuilderManagers
                 objectPlacer.RemoveObjectAt(_gameObjectIndex);
             }
             Vector3 cellPosition = grid.CellToWorld(gridPosition);
-            previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));
+            previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition,rotation));
         }
 
-        private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
+        private bool CheckIfSelectionIsValid(Vector3Int gridPosition,Quaternion rotation)
         {
-            return !room1.CanPlaceObjectAt(gridPosition, Vector2Int.one);
+            return !room1.CanPlaceObjectAt(gridPosition, Vector2Int.one,rotation);
         }
 
-        public void UpdateState(Vector3Int gridPosition)
+        public void UpdateState(Vector3Int gridPosition,Quaternion rotation)
         {
-            bool validity = CheckIfSelectionIsValid(gridPosition);
+            bool validity = CheckIfSelectionIsValid(gridPosition,rotation);
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity);
         }
 
