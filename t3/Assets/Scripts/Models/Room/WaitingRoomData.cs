@@ -12,6 +12,7 @@ public class WaitingRoomData : Room
     public int MaxCapacity;
     public List<PointData> ListPoint = new();
     public EnumRoom TypeRoom = EnumRoom.WaitingRoom;
+    public float WaitTime = 0.5f;
 }
 
 [Serializable]

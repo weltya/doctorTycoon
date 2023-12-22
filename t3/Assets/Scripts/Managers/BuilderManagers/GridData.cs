@@ -24,6 +24,7 @@ namespace Scripts.Managers.BuilderManagers
                 if (_placeObjects.ContainsKey(position))
                 {
                     //throw new Exception($"Dictionary contains already this cell pos {position}");
+                    return;
                 }
                 _placeObjects[position] = placementData;
             }
