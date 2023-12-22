@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -39120,6 +39120,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _patientsPrefab:
   - {fileID: 1937906917727848, guid: a190dd39d1aef794a9020b76672b8666, type: 3}
+  - {fileID: 1671420187843170, guid: d0b33fe38fe1f7e4b9d195b909723583, type: 3}
+  - {fileID: 1737250219149040, guid: 3e8fc7e91cce1424b94cf9365cc53087, type: 3}
+  - {fileID: 1314342268318126, guid: 365752de9afd0374e9637b79efeea6be, type: 3}
+  - {fileID: 1676496221505850, guid: ad5729a29ed589a40a084c9d56906573, type: 3}
+  - {fileID: 1861728019847672, guid: 0147499a35c12794db684f682d5cc33c, type: 3}
+  - {fileID: 1720182499639476, guid: 30b03f893b325bf428ff5664f959e55a, type: 3}
+  - {fileID: 1336792298889626, guid: 085d582806155934d9334d8186d06353, type: 3}
+  - {fileID: 1507861583691864, guid: ffbabef8fd486f94194e098f3696f5cd, type: 3}
+  - {fileID: 1471275468567326, guid: 46cdafcf3a985e648bbb21d0fba36900, type: 3}
+  - {fileID: 1649254955463702, guid: f1810c474525a9445b24ade4457ff044, type: 3}
+  - {fileID: 1007469830167882, guid: 8a55de393fc2d2e409e04c1ba9b55d94, type: 3}
+  - {fileID: 1926660624625792, guid: 62d5a4c84c2bd704fa44e05e98eb4f32, type: 3}
+  - {fileID: 1933544858344220, guid: 0b3f24fd9d0da7641b37af53e850a803, type: 3}
+  - {fileID: 1232684501109920, guid: 962459052b3318c4f9b934cb2d6aa821, type: 3}
+  - {fileID: 1994065756889592, guid: a65dd173e89474a4a9f1925d23aa48b3, type: 3}
+  - {fileID: 1913968135271826, guid: ae14663bc9d54634e8df28cba493d53c, type: 3}
+  - {fileID: 1869304042920686, guid: 872697748f7e53441affe438d97d040b, type: 3}
+  - {fileID: 1822861048783140, guid: 362fa6becb2ff18478b57f86d03ef4d9, type: 3}
+  - {fileID: 1475707269996172, guid: bb8b8e737957eee468c05c2085467973, type: 3}
+  - {fileID: 1627794777773752, guid: 05a1abf5c978dbb46ab9173ab8d32367, type: 3}
+  - {fileID: 1823799248057678, guid: fda85942b0923074da2073c7ee671599, type: 3}
+  - {fileID: 1339332981911598, guid: 55f93178954d65f47bd394b44d9807db, type: 3}
+  - {fileID: 1068617181663284, guid: 16e4342708bac4c478b651152b1bd0c7, type: 3}
+  - {fileID: 1330655189533068, guid: 8e6d4d44b8dd62346904e6c37428a871, type: 3}
+  - {fileID: 1825034878119828, guid: ccc0ccdebc265f447a5d0d56d7286367, type: 3}
+  - {fileID: 1802114867144994, guid: 186168e9e7cd5f9439e35cafd4642158, type: 3}
+  - {fileID: 1040482128028058, guid: 33fdf751619bb2e4981c3f6424cf2a6a, type: 3}
   __patientsParents: {fileID: 177631431}
 --- !u!4 &924543278 stripped
 Transform:

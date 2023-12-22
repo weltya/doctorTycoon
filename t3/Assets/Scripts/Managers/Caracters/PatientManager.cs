@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 namespace Scripts.Managers.Caracters
 {
@@ -54,11 +56,12 @@ namespace Scripts.Managers.Caracters
         private void InstantiatePatient()
         {
             GameObject go;
-
-            float spawnZ = Random.Range(_minSpawnZ, _maxSpawnZ);
+            System.Random rand=new System.Random();
+            int randomindex=rand.Next(0,_patientsPrefab.Count);
+            float spawnZ = UnityEngine.Random.Range(_minSpawnZ, _maxSpawnZ);
             _position = new Vector3(_spawnX, 0, spawnZ);
 
-            go = Instantiate(_patientsPrefab[0], _position, _rotation, __patientsParents);
+            go = Instantiate(_patientsPrefab[randomindex], _position, _rotation, __patientsParents);
             _queueManager.UpdateNbReceptionAddFix();
             _queueManager.AddPatientInSpawnQueue(go);
         }
