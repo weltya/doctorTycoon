@@ -8,6 +8,7 @@ namespace Scripts.Managers.BuilderManagers
 {
     public class PlacementSystem : MonoBehaviour
     {
+        private int _selectedObjectIndex = -1;
         [SerializeField] InputManager _inputManager;
         [SerializeField] private Grid _grid;
         [SerializeField] private ObjectsDatabaseSO _database;
@@ -34,12 +35,24 @@ namespace Scripts.Managers.BuilderManagers
 
         public void StartPlacement(int ID)
         {
-             StopPlacement();
+            StopPlacement();
             _ui.NoDisplayAllBuildPanel();
             _gridVisualization.SetActive(true);
-            buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
-            _inputManager.OnClicked += PlaceStructure;
-            _inputManager.OnExit += StopPlacement;
+
+            _selectedObjectIndex = _database.objectsData.FindIndex(data => data.ID == ID);
+
+            if (_selectedObjectIndex > -1)
+            {
+                var previewObject = _database.objectsData[_selectedObjectIndex].prefab;
+                Quaternion rotation = previewObject.transform.rotation;
+                buildingState = new PlacementState(ID, _grid, _previewSystem, _database, room1, _objectPlacer);
+                _inputManager.OnClicked += PlaceStructure;
+                _inputManager.OnExit += StopPlacement;
+            }
+            else
+            {
+                throw new System.Exception($"(no room with id : {ID}");
+            }
         }
 
         public void StartRemoving()
@@ -59,7 +72,13 @@ namespace Scripts.Managers.BuilderManagers
             }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();
             Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
-            buildingState.OnAction(gridPosition);
+
+            if (_selectedObjectIndex > -1)
+            {
+                var previewObject = _database.objectsData[_selectedObjectIndex].prefab;
+                Quaternion rotation = previewObject.transform.rotation;
+                buildingState.OnAction(gridPosition, rotation);
+            }
         }
 
         //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
@@ -83,16 +102,23 @@ namespace Scripts.Managers.BuilderManagers
 
         private void Update()
         {
-            if (buildingState == null) { return; }
+           if (buildingState == null) { return; }
             Vector3 mousePosition = _inputManager.GetSelectedMapToWorld();
             Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
-            
-            if (_lastDetectedPosition != gridPosition) 
+
+            if (_selectedObjectIndex > -1)
             {
-                buildingState.UpdateState(gridPosition);
-                _lastDetectedPosition = gridPosition;
-            }            
+                var previewObject = _database.objectsData[_selectedObjectIndex].prefab;
+                Quaternion rotation = previewObject.transform.rotation;
+
+                if (_lastDetectedPosition != gridPosition)
+                {
+                    buildingState.UpdateState(gridPosition, rotation);
+                    _lastDetectedPosition = gridPosition;
+                }
+            }
         }
+    
     }
 }
 

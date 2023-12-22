@@ -48,9 +48,9 @@ namespace Scripts.Managers.BuilderManagers
             previewSystem.StopShowingPreview();
         }
 
-        public void OnAction(Vector3Int gridPosition)
+        public void OnAction(Vector3Int gridPosition,Quaternion rotation)
         {
-            bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
+            bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex,rotation);
             if (!isValidPlacement)
             {
                 return;
@@ -61,29 +61,49 @@ namespace Scripts.Managers.BuilderManagers
                 EndState();
             }
             GridData selectedData = room1;
-            selectedData.AddObjectAt(gridPosition, database.objectsData[_selectedObjectIndex].Size, database.objectsData[_selectedObjectIndex].ID, index);
+            selectedData.AddObjectAt(gridPosition, database.objectsData[_selectedObjectIndex].Size, database.objectsData[_selectedObjectIndex].ID, index,rotation);
 
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
         }
 
-        private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+        private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex,Quaternion rotation)
         {
             GridData selectedData = room1;
 
-            return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
+            return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size,rotation);
         }
 
-        public void UpdateState(Vector3Int gridPosition)
+        public void UpdateState(Vector3Int gridPosition,Quaternion rotation)
         {
-            bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex);
+            bool isValidPlacement = CheckPlacementValidity(gridPosition, _selectedObjectIndex, rotation);
             previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), isValidPlacement);
         }
 
         public void RotatePreview() {
-            if (_selectedObjectIndex > -1) {
+            if (_selectedObjectIndex > -1)
+            {
                 var previewObject = database.objectsData[_selectedObjectIndex].prefab;
+
+                // Rotate the preview object visually
                 previewObject.transform.Rotate(0, 90, 0);
                 previewSystem.UpdatePreviewRotation(previewObject.transform.rotation);
+
+                // Update the underlying GridData with the new rotated positions
+                Vector3Int gridPosition = grid.WorldToCell(previewObject.transform.position);
+                Vector2Int objectSize = database.objectsData[_selectedObjectIndex].Size;
+
+                // Remove the old positions from the GridData
+                room1.RemoveObjectAt(gridPosition);
+
+                // Calculate the new rotated positions
+                Quaternion rotation = previewObject.transform.rotation;
+                List<Vector3Int> rotatedPositions = room1.CalculatePositions(gridPosition, objectSize, rotation);
+
+                // Add the new rotated positions to the GridData with the correct index
+                foreach (var position in rotatedPositions)
+                {
+                    room1.AddObjectAt(position, objectSize, database.objectsData[_selectedObjectIndex].ID, _selectedObjectIndex, rotation);
+                }
             }
         }
     }
