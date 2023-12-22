@@ -3,7 +3,9 @@ using Scripts.Utils.Enum;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+
 using Scripts.UII;
+
 
 namespace Scripts.Gameplay.Caracters
 {
@@ -11,7 +13,7 @@ namespace Scripts.Gameplay.Caracters
     {
         [SerializeField] private EnumRoom _typeOfCurrentRoom;
         [SerializeField] private EnumRoom _typeOfnextRoom;
-        
+                
         [SerializeField] private bool _isMoving;
 
         private Transform _targetPos;
@@ -99,39 +101,68 @@ namespace Scripts.Gameplay.Caracters
 
         public void MovePatientToReception(ReceptionRoomData room)
         {
+            
             _roomReception = room;
             _typeOfnextRoom = room.TypeRoom;
+            int exp_sub= _roomReception.exp_sub();
+            int grs = _roomReception.guerison();
             SetDestination(room.point);
+           UIScoreManager.GetInstance().setExp(exp_sub);
+            UIScoreManager.GetInstance().setGuerison(grs);
+          
+
         }
 
         public void MovePatientToWaitingNurse(WaitingRoomData waitingRoom, PointData pointData)
-        {
-            _roomWaitingNurse = waitingRoom;
+        {  _roomWaitingNurse = waitingRoom;
             _typeOfnextRoom = waitingRoom.typeRoom;
             _roomWaitingNursePointdata = pointData;
+
+            int exp_sub= _roomWaitingNurse.exp_sub();
+            int grs= _roomWaitingNurse.guerison();
+          
             SetDestination(pointData.Waypoint);
+           UIScoreManager.GetInstance().setExp(exp_sub);
+            UIScoreManager.GetInstance().setGuerison(grs);
         }
 
         public void MovePatientToNurse(NurseRoomData room)
         {
+           
             _roomNurse = room;
-            _typeOfnextRoom = room.typeRoom;
+            _typeOfnextRoom = room.typeRoom; 
+            int exp_sub= _roomNurse.exp_sub();
+            int grs= _roomNurse.guerison();
             SetDestination(room.point);
+          UIScoreManager.GetInstance().setExp(exp_sub);
+            UIScoreManager.GetInstance().setGuerison(grs);
         }
 
         public void MovePatientToWaitingDoctor(WaitingRoomData waitingRoom, PointData pointData)
         {
+           
             _roomWaitingDoctor = waitingRoom;
             _typeOfnextRoom = waitingRoom.typeRoom;
-            _roomWaitingDoctorPointdata = pointData;
+            _roomWaitingDoctorPointdata = pointData; 
+            int exp_sub= _roomWaitingDoctor.exp_sub();
+            int grs= _roomWaitingDoctor.guerison();
+        
             SetDestination(pointData.Waypoint);
+            UIScoreManager.GetInstance().setExp(exp_sub);
+            UIScoreManager.GetInstance().setGuerison(grs);
         }
 
         public void MovePatientToDoctor(DoctorRoomData room)
         {
+            
+
             _doctorRoomData = room;
             _typeOfnextRoom = room.typeRoom;
-            SetDestination(room.point);
+            SetDestination(room.point); 
+            int exp_sub=  _doctorRoomData.exp_sub();
+            int grs=  _doctorRoomData.guerison();
+          UIScoreManager.GetInstance().setExp(exp_sub);
+            UIScoreManager.GetInstance().setGuerison(grs);
         }
 
         public void MoveToRemovePoint()

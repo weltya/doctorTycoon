@@ -718,6 +718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4951d42d234ba40a397675e33b2594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exp: -2
+  grs: -2
   point: {fileID: 5452422491720421895}
   available: 1
   typeRoom: 2

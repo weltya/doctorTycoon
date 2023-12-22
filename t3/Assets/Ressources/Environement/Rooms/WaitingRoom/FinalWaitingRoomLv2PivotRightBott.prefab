@@ -5887,7 +5887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d8008a22819c348a978582e14ff44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expSubjective: 0
+  exp: -1
+  grs: 0
   capacity: 0
   maxCapacity: 16
   ListPoint:

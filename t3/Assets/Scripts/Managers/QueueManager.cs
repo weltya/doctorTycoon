@@ -267,14 +267,15 @@ namespace Scripts.Managers.Caracters
         public void AddPatientInWaitingQueueNurse(PatientGameplay patient)
         {
             _waitingQueueWaitingNurse.Enqueue(patient);
-            score.UpdatePatientInNurse(_waitingQueueWaitingNurse.Count + _waitingQueueNurse.Count); 
+           
             CheckOrWaitToWaitingNurseRoom();
       
             
         }
 
         public void AddPatientInNurseQueue(PatientGameplay patient)
-        {
+        { 
+            score.UpdatePatientInNurse(_waitingQueueWaitingNurse.Count + _waitingQueueNurse.Count); 
             _waitingQueueNurse.Enqueue(patient);
              CheckOrWaitToNurseRoom(); 
          
@@ -293,7 +294,7 @@ namespace Scripts.Managers.Caracters
         }
         public void AddPatientInDoctorQueue(PatientGameplay patient)
         {
-           
+            score.UpdatePatientInDoctor(_waitingQueueWaitingDoctor.Count+ _waitingQueueDoctor.Count);  
             _waitingQueueDoctor.Enqueue(patient);
             
             CheckOrWaitToDoctorRoom();
