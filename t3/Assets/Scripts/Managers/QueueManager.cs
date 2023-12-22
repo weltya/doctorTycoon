@@ -55,9 +55,9 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListReceptionRoom.Count; i++)
             {
-                if (ListReceptionRoom[i].available)
+                if (ListReceptionRoom[i].IsAvailable)
                 {
-                    ListReceptionRoom[i].available = false;
+                    ListReceptionRoom[i].IsAvailable = false;
                     return ListReceptionRoom[i];
                 }
             }
@@ -67,9 +67,9 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListDoctor.Count; i++)
             {
-                if (ListDoctor[i].available)
+                if (ListDoctor[i].IsAvailable)
                 {
-                    ListDoctor[i].available = false;
+                    ListDoctor[i].IsAvailable = false;
                     return ListDoctor[i];
                 }
             }
@@ -79,9 +79,9 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListNurse.Count; i++)
             {
-                if (ListNurse[i].available)
+                if (ListNurse[i].IsAvailable)
                 {
-                    ListNurse[i].available = false;
+                    ListNurse[i].IsAvailable = false;
                     return ListNurse[i];
                 }
             }
@@ -92,7 +92,7 @@ namespace Scripts.Managers.Caracters
             WaitingRoomStruct waitingRoomStruct;
             foreach (var waitingRoomData in ListWaitingRoom)
             {
-                if (waitingRoomData.capacity >= waitingRoomData.maxCapacity)
+                if (waitingRoomData.Capacity >= waitingRoomData.MaxCapacity)
                 {
                     break;
                 }
@@ -152,7 +152,7 @@ namespace Scripts.Managers.Caracters
             ReceptionRoomData wheretogo = IsReceptionIsAvailable();
             if (wheretogo)
             {
-                wheretogo.available = false;
+                wheretogo.IsAvailable = false;
                 _waitingQueueReception.Dequeue();
                 patient.MovePatientToReception(wheretogo);
             }
@@ -168,7 +168,7 @@ namespace Scripts.Managers.Caracters
             WaitingRoomStruct whereToGo = IsWaitingRoomAvailable();
             if (whereToGo.waitingRoom != null)
             {
-                patient.ReceptionRoomData.available = true;
+                patient.ReceptionRoomData.IsAvailable = true;
 
                 whereToGo.pointData.IsAvailable = false;
                 _waitingQueueWaitingNurse.Dequeue();
@@ -191,7 +191,7 @@ namespace Scripts.Managers.Caracters
             {
                 patient.PointDataWaitingNurse.IsAvailable = true;
 
-                whereToGo.available = false;
+                whereToGo.IsAvailable = false;
                 _waitingQueueNurse.Dequeue();
                 _uiScoreManager.UpdateNbPatientNurse(_waitingQueueNurse.Count + _waitingQueueWaitingNurse.Count);
                 patient.PatientGameplay.MovePatientToNurse(whereToGo);
@@ -210,7 +210,7 @@ namespace Scripts.Managers.Caracters
 
             if (whereToGo.waitingRoom != null)
             {
-                patient.NurseRoomData.available = true;
+                patient.NurseRoomData.IsAvailable = true;
 
                 whereToGo.pointData.IsAvailable = false;
                 _waitingQueueWaitingDoctor.Dequeue();
@@ -233,7 +233,7 @@ namespace Scripts.Managers.Caracters
             {
                 patient.PointDataWaitingNurse2.IsAvailable = true;
 
-                whereToGo.available = false;
+                whereToGo.IsAvailable = false;
                 _waitingQueueDoctor.Dequeue();
                 _uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
                 patient.PatientGameplay.MovePatientToDoctor(whereToGo);
@@ -247,7 +247,7 @@ namespace Scripts.Managers.Caracters
 
             SavePatientAndHisWaypoint patient=_waitingQueueRemove.Peek();
 
-            patient.DoctorRoomData.available = true;
+            patient.DoctorRoomData.IsAvailable = true;
             patient.PatientGameplay.MoveToRemovePoint();
             _waitingQueueRemove.Dequeue();
             //_uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);

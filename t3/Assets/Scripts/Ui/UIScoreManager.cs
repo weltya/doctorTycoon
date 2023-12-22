@@ -24,9 +24,9 @@ namespace Scripts.UII
         public Image NursePanelImage;
         public Image DoctorPanelImage;
 
-        private int money=10000;
-        private int exp_sub=0;
-        private int guerison=0;
+        private int _money=10000;
+        private float _expSubjective=0;
+        private float _health=0;
 
         private int _nbPatientDoctor = 0;
         private int _nbPatientNurse = 0;
@@ -60,8 +60,8 @@ namespace Scripts.UII
             UpdateTextNurse();
             UpdateTextWaiting();
             UpdateTextReception();
-            UpdateMoney(money);
-            UpdateExp(exp_sub);
+            UpdateMoney(_money);
+            UpdateExp(_expSubjective);
             UpdateGuerison();
             ReceptionPanelImage.color = _colorRed;
         }
@@ -164,12 +164,12 @@ namespace Scripts.UII
             {
                 MoneyText.text= "Argent : " + money.ToString();
             }
-            this.money = money;
+            this._money = money;
         }
 
-        public void setGuerison(int g)
+        public void setGuerison(float g)
         {
-            this.guerison= guerison+g;
+            this._health= _health+g;
             UpdateGuerison();
         }
 
@@ -177,23 +177,23 @@ namespace Scripts.UII
         {
             if (GuerisonText != null)
             {
-                GuerisonText.text = "Guérison : " + guerison.ToString();
+                GuerisonText.text = "Guérison : " + _health.ToString();
           
             }
         }
     
-        public void setExp(int e)
+        public void setExp(float e)
         {
-           this.exp_sub= exp_sub+e;
-           UpdateExp(exp_sub);
+           this._expSubjective= _expSubjective+e;
+           UpdateExp(_expSubjective);
        
         }
 
-        public void UpdateExp(int exp_sub)
+        public void UpdateExp(float expSub)
         {
             if (ExperienceSubjectiveText != null)
             {
-               ExperienceSubjectiveText.text = "Experience Subjective : " + exp_sub.ToString();
+               ExperienceSubjectiveText.text = "Experience Subjective : " + expSub.ToString();
             }
         }
 
@@ -202,18 +202,18 @@ namespace Scripts.UII
         public bool canBuy(int ID)
         {
         int prix= database.objectsData[ID].Prix;
-            if(prix > money)
+            if(prix > _money)
             {
                 return false;
             }
-            money-=prix;
-            UpdateMoney(money);
+            _money-=prix;
+            UpdateMoney(_money);
             return true;
         
         }
         public void addMoney(int montant){
-                    money=money+montant;
-                    UpdateMoney(money);
+                    _money=_money+montant;
+                    UpdateMoney(_money);
         }
     
     }
