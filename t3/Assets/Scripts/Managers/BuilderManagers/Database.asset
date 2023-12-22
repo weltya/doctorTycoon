@@ -17,22 +17,22 @@ MonoBehaviour:
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 11, y: 6}
     <prefab>k__BackingField: {fileID: 8023610441519211567, guid: 5925373105a08e840aeadfca1d2b6082, type: 3}
-    <Prix>k__BackingField: 1000
+    <Prix>k__BackingField: 1500
   - <Name>k__BackingField: DoctorRoom1Doctor2
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 11, y: 6}
     <prefab>k__BackingField: {fileID: 8023610441519211567, guid: 6733d8a57559b7942a497e271b3c7caf, type: 3}
-    <Prix>k__BackingField: 2000
+    <Prix>k__BackingField: 2500
   - <Name>k__BackingField: DoctorRoom2Doctor1
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 11, y: 11}
     <prefab>k__BackingField: {fileID: 1578623245217686164, guid: e603c915cc53e1646a0e4792a4ae67b8, type: 3}
-    <Prix>k__BackingField: 3000
+    <Prix>k__BackingField: 3500
   - <Name>k__BackingField: DoctorRoom2Doctor2
     <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 11, y: 11}
     <prefab>k__BackingField: {fileID: 1578623245217686164, guid: a224b31d0c71e314194b4cd5c2d9019d, type: 3}
-    <Prix>k__BackingField: 4000
+    <Prix>k__BackingField: 4500
   - <Name>k__BackingField: NurseRoom1Nurse1
     <ID>k__BackingField: 4
     <Size>k__BackingField: {x: 11, y: 6}
