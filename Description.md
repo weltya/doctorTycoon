@@ -14,7 +14,7 @@ Notre jeu est un jeu de type Tycoon. Vous n'incarnerez ni les patients, ni les m
 Le joueur n'a que très peu d'actions possibles facilitant la prise en main du jeu :
 
  - Cliquer sur le bouton de construction pour choisir un type de bâtiment (parmi 4) avant de choisir quel bâtiment de ce type acheter (entre 1 et 4 bâtiments différents pour un seul type)
- - Déplacer le curseur pour choisir l'endroit où placer le bâtiment en cours d'achat. Un appui sur la touche `r` lui permettra de faire une rotation à 90° du bâtiment. Enfin, avec un `clic gauche`, le joueur pourra placer le bâtiment. Pour quitter ce menu de construction, il suffit d'appuyer sur la touche `échap`
+ - Déplacer le curseur pour choisir l'endroit où placer le bâtiment en cours d'achat. Un appui sur la touche `r` lui permettra de faire une rotation à 90° du bâtiment. Enfin, avec un `clic gauche`, le joueur pourra placer le bâtiment. Pour quitter ce menu de construction, il suffit d'appuyer sur la touche `e`
  - Un bouton menu permet de revenir au menu permettant soit de continuer la partie soit de quitter le jeu
  - Un appui long sur une des quatre touches directionnelles permettra au joueur de déplacer la vue
 
