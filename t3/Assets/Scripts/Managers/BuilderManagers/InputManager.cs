@@ -21,7 +21,7 @@ namespace Scripts.Managers.BuilderManagers
             {
                 OnClicked?.Invoke();
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 OnExit?.Invoke();
             }

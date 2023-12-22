@@ -539,7 +539,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5359512756747407183}
   - component: {fileID: 8620731293169136902}
-  - component: {fileID: 6952368925735253657}
   m_Layer: 0
   m_Name: FinalReceptionRoom1PivotRightBott
   m_TagString: Untagged
@@ -555,7 +554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5367670868441946815}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: -1}
   m_LocalPosition: {x: -4, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -576,25 +575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452d9a49c39e79c7488fb95c08409c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 7278391942110563994}
-  available: 1
+  Reception: {fileID: 0}
+  Point: {fileID: 7278391942110563994}
+  IsAvailable: 1
   TypeRoom: 0
---- !u!208 &6952368925735253657
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5367670868441946815}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 2, y: 0.5, z: 2.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 4, y: 0, z: 2}
-  m_TimeToStationary: 0.5
 --- !u!1 &6545912720789729989
 GameObject:
   m_ObjectHideFlags: 0

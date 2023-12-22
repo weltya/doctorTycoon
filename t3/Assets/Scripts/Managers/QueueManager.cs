@@ -9,23 +9,26 @@ namespace Scripts.Managers.Caracters
 {
     public class QueueManager : MonoBehaviour
     {
-        private static QueueManager Instance;
-        private ReceptionRoomData reception;
         private Queue<PatientGameplay> _waitingQueueReception = new Queue<PatientGameplay>();
-        private Queue<PatientGameplay> _waitingQueueWaitingNurse = new Queue<PatientGameplay>();
-        private Queue<PatientGameplay> _waitingQueueNurse = new Queue<PatientGameplay>();
-        private Queue<PatientGameplay> _waitingQueueWaitingDoctor = new Queue<PatientGameplay>();
-        private Queue<PatientGameplay> _waitingQueueDoctor = new Queue<PatientGameplay>();
-        private Queue<PatientGameplay> _waitingQueueRemove=new Queue<PatientGameplay>();
+        public int NbCaractersInReception = 0;
+        private Queue<SavePatientAndHisWaypoint> _waitingQueueWaitingNurse = new Queue<SavePatientAndHisWaypoint>();
+        private Queue<SavePatientAndHisWaypoint> _waitingQueueNurse = new Queue<SavePatientAndHisWaypoint>();
+        private Queue<SavePatientAndHisWaypoint> _waitingQueueWaitingDoctor = new Queue<SavePatientAndHisWaypoint>();
+        public int NbCaractersInWaiting = 0;
+        private Queue<SavePatientAndHisWaypoint> _waitingQueueDoctor = new Queue<SavePatientAndHisWaypoint>();
+        private Queue<SavePatientAndHisWaypoint> _waitingQueueRemove=new Queue<SavePatientAndHisWaypoint>();
 
         private List<ReceptionRoomData> ListReceptionRoom = new List<ReceptionRoomData>();
+        public int NbCapacityWaiting = 0;
         private List<WaitingRoomData> ListWaitingRoom = new List<WaitingRoomData>();
         private List<DoctorRoomData> ListDoctor = new List<DoctorRoomData>();
         private List<NurseRoomData> ListNurse = new List<NurseRoomData>();
         [SerializeField] ObjectPlacer _objectPlacer;
-        [SerializeField] private  UIScoreManager score;
-     
-    
+
+        private UIScoreManager _uiScoreManager;
+        private GameObject _goUiScoreManager;
+
+
         public struct WaitingRoomStruct
         {
             public WaitingRoomData waitingRoom;
@@ -33,23 +36,30 @@ namespace Scripts.Managers.Caracters
         }
 
         private void Start()
-        {   
-            
+        {
             _objectPlacer.onObjectPlaced += AddRoom;
-          
+            //avoid any type of blocking
+            InvokeRepeating("CheckOrWaitToReception", 5f,1f);
+            InvokeRepeating("CheckOrWaitToWaitingNurseRoom", 5f, 1f);
+            InvokeRepeating("CheckOrWaitToWaitingDoctorRoom", 5f, 1f);
+            InvokeRepeating("CheckOrWaitToNurseRoom", 5f, 1f);
+            InvokeRepeating("CheckOrWaitToDoctorRoom", 5f, 1f);
+            InvokeRepeating("CheckOrWaitToRemove", 5f, 1f);
         }
         private void Awake()
         {
-            Instance = this;
+            Debug.Log("instance queuemanager créer ");
+            _goUiScoreManager = GameObject.Find("ScorePanel");
+            _uiScoreManager = _goUiScoreManager.GetComponent<UIScoreManager>();
         }
         
         private ReceptionRoomData IsReceptionIsAvailable()
         {
             for (int i = 0; i < ListReceptionRoom.Count; i++)
             {
-                if (ListReceptionRoom[i].available)
+                if (ListReceptionRoom[i].IsAvailable)
                 {
-                    ListReceptionRoom[i].available = false;
+                    ListReceptionRoom[i].IsAvailable = false;
                     return ListReceptionRoom[i];
                 }
             }
@@ -59,9 +69,9 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListDoctor.Count; i++)
             {
-                if (ListDoctor[i].available)
+                if (ListDoctor[i].IsAvailable)
                 {
-                    ListDoctor[i].available = false;
+                    ListDoctor[i].IsAvailable = false;
                     return ListDoctor[i];
                 }
             }
@@ -71,9 +81,9 @@ namespace Scripts.Managers.Caracters
         {
             for (int i = 0; i < ListNurse.Count; i++)
             {
-                if (ListNurse[i].available)
+                if (ListNurse[i].IsAvailable)
                 {
-                    ListNurse[i].available = false;
+                    ListNurse[i].IsAvailable = false;
                     return ListNurse[i];
                 }
             }
@@ -84,7 +94,7 @@ namespace Scripts.Managers.Caracters
             WaitingRoomStruct waitingRoomStruct;
             foreach (var waitingRoomData in ListWaitingRoom)
             {
-                if (waitingRoomData.capacity >= waitingRoomData.maxCapacity)
+                if (waitingRoomData.Capacity >= waitingRoomData.MaxCapacity)
                 {
                     break;
                 }
@@ -92,7 +102,6 @@ namespace Scripts.Managers.Caracters
                 {
                     if (pointData.IsAvailable)
                     {
-                        
                         waitingRoomStruct.waitingRoom = waitingRoomData;
                         waitingRoomStruct.pointData = pointData;
                         return waitingRoomStruct;
@@ -107,40 +116,33 @@ namespace Scripts.Managers.Caracters
      
         private void AddRoom(Room room)
         {
-        if(score!=null)
-        {   
-            if(room is DoctorRoomData)
+            if (room is DoctorRoomData)
             {
                 ListDoctor.Add((DoctorRoomData)room);
-                score.UpdateDoctor(ListDoctor.Count);
-                    CheckOrWaitToDoctorRoom();
-            } else if(room is WaitingRoomData)
+                _uiScoreManager.UpdateNbRoomDoctor(ListDoctor.Count);
+                CheckOrWaitToDoctorRoom();
+            }
+            else if (room is WaitingRoomData)
             {
                 ListWaitingRoom.Add((WaitingRoomData)room);
-                score.UpdateRoom(ListWaitingRoom.Count);
+                NbCapacityWaiting += ((WaitingRoomData)room).MaxCapacity;
+                _uiScoreManager.UpdateNbRoomWaiting(NbCapacityWaiting);
                 CheckOrWaitToWaitingNurseRoom();
                 CheckOrWaitToWaitingDoctorRoom();
-            } else if(room is NurseRoomData)
+            }
+            else if (room is NurseRoomData)
             {
                 ListNurse.Add((NurseRoomData)room);
-                score.UpdateNurse(ListNurse.Count);
+                _uiScoreManager.UpdateNbRoomNurse(ListNurse.Count);
                 CheckOrWaitToNurseRoom();
-            } else if(room is ReceptionRoomData)
+            }
+            else if (room is ReceptionRoomData)
             {
                 ListReceptionRoom.Add((ReceptionRoomData)room);
-                score.UpdateReception(ListReceptionRoom.Count);
+                _uiScoreManager.UpdateNbRoomReception(ListReceptionRoom.Count);
                 CheckOrWaitToReception();
-            } 
-         }
+            }
         }
-
-        public static QueueManager GetInstance()
-        {
-            return Instance;
-        }
-
-
-
 
         public void CheckOrWaitToReception()
         {
@@ -153,12 +155,9 @@ namespace Scripts.Managers.Caracters
             ReceptionRoomData wheretogo = IsReceptionIsAvailable();
             if (wheretogo)
             {
-                wheretogo.available = false;
+                wheretogo.IsAvailable = false;
                 _waitingQueueReception.Dequeue();
-
-                score.UpdatePatientInReception(_waitingQueueReception.Count);
                 patient.MovePatientToReception(wheretogo);
-                
             }
         }
         public void CheckOrWaitToWaitingNurseRoom()
@@ -168,19 +167,16 @@ namespace Scripts.Managers.Caracters
                 return;
             }
 
-            if (_waitingQueueWaitingNurse.Count <= 0)
-            {
-              return;
-              }
-
-            PatientGameplay patient = _waitingQueueWaitingNurse.Peek();
+            SavePatientAndHisWaypoint patient = _waitingQueueWaitingNurse.Peek();
             WaitingRoomStruct whereToGo = IsWaitingRoomAvailable();
-
             if (whereToGo.waitingRoom != null)
             {
+                patient.ReceptionRoomData.IsAvailable = true;
+
                 whereToGo.pointData.IsAvailable = false;
-                patient.MovePatientToWaitingNurse(whereToGo.waitingRoom, whereToGo.pointData);
                 _waitingQueueWaitingNurse.Dequeue();
+                _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
+                patient.PatientGameplay.MovePatientToWaitingNurse(whereToGo.waitingRoom, whereToGo.pointData);  
             }
         }
 
@@ -191,16 +187,18 @@ namespace Scripts.Managers.Caracters
                 return;
             }
 
-            PatientGameplay patient = _waitingQueueNurse.Peek();
+            SavePatientAndHisWaypoint patient = _waitingQueueNurse.Peek();
             NurseRoomData whereToGo = IsNurseIsAvailable();
 
             if (whereToGo != null)
             {
-                whereToGo.available = false;
-                patient.MovePatientToNurse(whereToGo);
+                patient.PointDataWaitingNurse.IsAvailable = true;
+
+                whereToGo.IsAvailable = false;
                 _waitingQueueNurse.Dequeue();
+                _uiScoreManager.UpdateNbPatientNurse(_waitingQueueNurse.Count + _waitingQueueWaitingNurse.Count);
+                patient.PatientGameplay.MovePatientToNurse(whereToGo);
             }
-    
         }
 
         public void CheckOrWaitToWaitingDoctorRoom()
@@ -210,16 +208,17 @@ namespace Scripts.Managers.Caracters
                 return;
             }
 
-            PatientGameplay patient = _waitingQueueWaitingDoctor.Peek();
+            SavePatientAndHisWaypoint patient = _waitingQueueWaitingDoctor.Peek();
             WaitingRoomStruct whereToGo = IsWaitingRoomAvailable();
 
             if (whereToGo.waitingRoom != null)
             {
-            
+                patient.NurseRoomData.IsAvailable = true;
+
                 whereToGo.pointData.IsAvailable = false;
-                patient.MovePatientToWaitingDoctor(whereToGo.waitingRoom, whereToGo.pointData);
-               
                 _waitingQueueWaitingDoctor.Dequeue();
+                _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
+                patient.PatientGameplay.MovePatientToWaitingDoctor(whereToGo.waitingRoom, whereToGo.pointData);
             }
       
         }
@@ -230,80 +229,95 @@ namespace Scripts.Managers.Caracters
                 return;
             }
 
-            PatientGameplay patient = _waitingQueueDoctor.Peek();
+            SavePatientAndHisWaypoint patient = _waitingQueueDoctor.Peek();
             DoctorRoomData whereToGo = IsDoctorIsAvailable();
 
             if (whereToGo != null)
             {
-                whereToGo.available = false;
-                patient.MovePatientToDoctor(whereToGo);
+                patient.PointDataWaitingNurse2.IsAvailable = true;
+
+                whereToGo.IsAvailable = false;
                 _waitingQueueDoctor.Dequeue();
+                _uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
+                patient.PatientGameplay.MovePatientToDoctor(whereToGo);
             }
         }
         public void CheckOrWaitToRemove(){
 
             if(_waitingQueueRemove.Count<=0){
                 return;
-
             }
-            PatientGameplay patient=_waitingQueueRemove.Peek();
-            
 
-                patient.MoveToRemovePoint();
-                _waitingQueueRemove.Dequeue();
-        
+            SavePatientAndHisWaypoint patient=_waitingQueueRemove.Peek();
+
+            patient.DoctorRoomData.IsAvailable = true;
+            patient.PatientGameplay.MoveToRemovePoint();
+            _waitingQueueRemove.Dequeue();
+            //_uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
         }
-
 
 
         public void AddPatientInSpawnQueue(GameObject go)
         {
             PatientGameplay scriptPatientGameplay = go.GetComponent<PatientGameplay>();
             _waitingQueueReception.Enqueue(scriptPatientGameplay);
-            score.UpdatePatientInReception(_waitingQueueReception.Count);
+            _uiScoreManager.UpdateNbPatientReception(NbCaractersInReception);
             CheckOrWaitToReception();
         }
 
-        public void AddPatientInWaitingQueueNurse(PatientGameplay patient)
+        public void AddPatientInWaitingQueueNurse(SavePatientAndHisWaypoint patient)
         {
             _waitingQueueWaitingNurse.Enqueue(patient);
-           
+            _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
             CheckOrWaitToWaitingNurseRoom();
-      
-            
         }
 
-        public void AddPatientInNurseQueue(PatientGameplay patient)
-        { 
-            score.UpdatePatientInNurse(_waitingQueueWaitingNurse.Count + _waitingQueueNurse.Count); 
-            _waitingQueueNurse.Enqueue(patient);
-             CheckOrWaitToNurseRoom(); 
-         
-           
-            
-        }
-        public void AddPatientInWaitingQueueDoctor(PatientGameplay patient)
-        { 
-            score.UpdatePatientInDoctor(_waitingQueueWaitingDoctor.Count+ _waitingQueueDoctor.Count);
-            _waitingQueueWaitingDoctor.Enqueue(patient);
-            
-            CheckOrWaitToWaitingDoctorRoom();
-          
-           
-
-        }
-        public void AddPatientInDoctorQueue(PatientGameplay patient)
+        public void AddPatientInNurseQueue(SavePatientAndHisWaypoint patient)
         {
-            score.UpdatePatientInDoctor(_waitingQueueWaitingDoctor.Count+ _waitingQueueDoctor.Count);  
-            _waitingQueueDoctor.Enqueue(patient);
-            
-            CheckOrWaitToDoctorRoom();
-       
+            _waitingQueueNurse.Enqueue(patient);
+            _uiScoreManager.UpdateNbPatientNurse(_waitingQueueNurse.Count + _waitingQueueWaitingNurse.Count);
+            CheckOrWaitToNurseRoom(); 
         }
-        public void AddPatientToRemoveQueue(PatientGameplay patient){
+
+        public void AddPatientInWaitingQueueDoctor(SavePatientAndHisWaypoint patient)
+        {
+            _waitingQueueWaitingDoctor.Enqueue(patient);
+            _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
+            CheckOrWaitToWaitingDoctorRoom();
+        }
+        public void AddPatientInDoctorQueue(SavePatientAndHisWaypoint patient)
+        { 
+            _waitingQueueDoctor.Enqueue(patient);
+            _uiScoreManager.UpdateNbPatientDoctor(_waitingQueueDoctor.Count);
+            CheckOrWaitToDoctorRoom();
+        }
+        public void AddPatientToRemoveQueue(SavePatientAndHisWaypoint patient){
             _waitingQueueRemove.Enqueue(patient);
             CheckOrWaitToRemove();
         }
 
+        public void UpdateNbReceptionRemoveFix()
+        {
+            NbCaractersInReception -= 1;
+            _uiScoreManager.UpdateNbPatientReception(NbCaractersInReception);
+        }
+
+        public void UpdateNbReceptionAddFix()
+        {
+            NbCaractersInReception += 1;
+            _uiScoreManager.UpdateNbPatientReception(NbCaractersInReception);
+        }
+
+        public void UpdateNbWaitingRemoveFix()
+        {
+            NbCaractersInWaiting -= 1;
+            _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
+        }
+
+        public void UpdateNbWaitingAddFix()
+        {
+            NbCaractersInWaiting += 1;
+            _uiScoreManager.UpdateNbPatientWaiting(NbCaractersInWaiting);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.AnnotationUtility;
 
 namespace Scripts.Managers.Caracters
 {
@@ -10,6 +11,8 @@ namespace Scripts.Managers.Caracters
 
         [SerializeField] private Transform __patientsParents;
 
+        private GameObject _goQueueManager;
+        private QueueManager _queueManager;
         private Vector3 _position;
         private Quaternion _rotation = Quaternion.Euler(0, 90, 0);
         private float _maxSpawnZ = 33f;
@@ -18,11 +21,20 @@ namespace Scripts.Managers.Caracters
 
         private void Start()
         {
+            _goQueueManager = GameObject.Find("QueueManager");
+            _queueManager = _goQueueManager.GetComponent<QueueManager>();
             if (_patientsPrefab.Count <= 0)
             {
                 Debug.LogError("_patientprefab is empty");
             }
-            InvokeRepeating("InstantiatePatient",2f,3f);
+            //InvokeRepeating("InstantiatePatient",2f,3f);
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                InstantiatePatient();
+            }
         }
         
 
@@ -34,7 +46,8 @@ namespace Scripts.Managers.Caracters
             _position = new Vector3(_spawnX, 0, spawnZ);
 
             go = Instantiate(_patientsPrefab[0], _position, _rotation, __patientsParents);
-            QueueManager.GetInstance().AddPatientInSpawnQueue(go);
+            _queueManager.UpdateNbReceptionAddFix();
+            _queueManager.AddPatientInSpawnQueue(go);
         }
     }
 }
