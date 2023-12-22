@@ -2,6 +2,12 @@ using Scripts.Utils.Enum;
 using System;
 using UnityEngine;
 
+
+/**
+ * @class DoctorRoomData
+ * @brief Represents a doctor room in the game.
+ * @extends Room
+ */
 public class DoctorRoomData : Room
 {
     public DoctorData Doctordata;

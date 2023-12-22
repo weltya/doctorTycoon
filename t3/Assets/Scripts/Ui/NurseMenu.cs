@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @class NurseMenu
+ * @brief Manages the nurse menu in the game.
+ */
 public class NurseMenu : MonoBehaviour
 {
      public GameObject SalleInfPanel;
@@ -13,7 +17,9 @@ public class NurseMenu : MonoBehaviour
       SalleInfPanel.SetActive(false);  
     }
 
-    // Update is called once per frame
+    /**
+     * @brief Toggles the visibility of the nurse menu panels.
+     */
     public void OnButtonClick()
     {
         // Toggle the visibility of the game object

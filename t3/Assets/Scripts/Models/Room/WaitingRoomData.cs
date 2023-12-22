@@ -4,6 +4,11 @@ using Scripts.Models.Caracters;
 using System;
 using Scripts.Utils.Enum;
 
+/**
+ * @class WaitingRoomData
+ * @brief Represents a waiting room in the game.
+ * @extends Room
+ */
 public class WaitingRoomData : Room
 {
     public float ExpSubjective=1;
@@ -14,6 +19,10 @@ public class WaitingRoomData : Room
     public EnumRoom TypeRoom = EnumRoom.WaitingRoom;
 }
 
+/**
+ * @struct PointData
+ * @brief Represents a point in the waiting room where a patient can wait.
+ */
 [Serializable]
 public class PointData
 {
