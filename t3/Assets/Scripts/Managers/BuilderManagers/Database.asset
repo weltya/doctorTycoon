@@ -65,6 +65,6 @@ MonoBehaviour:
     <Prix>k__BackingField: 2000
   - <Name>k__BackingField: Reception1
     <ID>k__BackingField: 10
-    <Size>k__BackingField: {x: 5, y: 4}
-    <prefab>k__BackingField: {fileID: 5367670868441946815, guid: c2eeb3dceb060ff45ab436130766ac1e, type: 3}
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 3962655506176917595, guid: a214c4fa62a6bd74e886291b3f0ef84b, type: 3}
     <Prix>k__BackingField: 200
