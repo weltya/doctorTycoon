@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class BulkRename : ScriptableObject
 {
+    /*
     [MenuItem("Tools/Bulk Rename")]
     static void RenameSelectedObjects()
     {
@@ -17,4 +18,5 @@ public class BulkRename : ScriptableObject
             counter++;
         }
     }
+    */
 }
