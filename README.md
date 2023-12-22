@@ -10,3 +10,10 @@ Il est important de pouvoir gérer le flux continu de patients tout en s'assuran
 # Comment y jouer ?
 
 Le jeu est à disposition [En ligne](https://berbie.itch.io/t3). Il suffira de cliquer sur le bouton `Run game` pour démarrer la partie.
+
+
+# Description 
+[Contribution Guidelines](CONTRIBUTING.md)
+
+# Comment y contribuer
+[comment y contribue](Description.md)
