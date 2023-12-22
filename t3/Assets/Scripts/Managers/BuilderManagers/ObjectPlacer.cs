@@ -11,6 +11,10 @@ using UnityEngine.UIElements;
 
 namespace Scripts.Managers.BuilderManagers
 {
+    /**
+     * @class ObjectPlacer
+     * @brief Handles the placement and removal of objects in the game world.
+     */
     public class ObjectPlacer : MonoBehaviour
     {
         internal event Action<Room> onObjectPlaced;
@@ -19,6 +23,13 @@ namespace Scripts.Managers.BuilderManagers
    
 
 
+        /**
+         * @brief Places an object in the game world at a specified position.
+         * @param prefab The prefab of the object to be placed.
+         * @param vector3 The position where the object should be placed.
+         * @param ID The ID of the object.
+         * @return The index of the placed object in the _placedGameObject list.
+         */
         public int PlaceObject(GameObject prefab, Vector3 vector3, int ID)
         {
 
@@ -39,6 +50,11 @@ namespace Scripts.Managers.BuilderManagers
             _placedGameObject.Add(go);
             return _placedGameObject.Count - 1;
         }
+
+        /**
+         * @brief Removes the object at the specified index from the game world.
+         * @param gameObjectIndex The index of the object to be removed.
+         */
         internal void RemoveObjectAt(int gameObjectIndex)
         {
             if (_placedGameObject.Count <= gameObjectIndex || _placedGameObject[gameObjectIndex] == null) { return;  }

@@ -9,6 +9,10 @@ using Scripts.UII;
 
 namespace Scripts.Gameplay.Caracters
 {
+    /**
+    * @class PatientGameplay
+    * @brief Handles the gameplay logic for a patient in the hospital.
+    */
     public class PatientGameplay : MonoBehaviour
     {
         [SerializeField] private EnumRoom _typeOfCurrentRoom;
@@ -40,7 +44,9 @@ namespace Scripts.Gameplay.Caracters
 
         private SavePatientAndHisWaypoint _savePatientAndHisWaypoint = new SavePatientAndHisWaypoint();
 
-
+        /**
+        * @brief Initialization method called when the script starts.
+        */
         private void Start()
         {
             _goQueueManager = GameObject.Find("QueueManager");
@@ -60,9 +66,12 @@ namespace Scripts.Gameplay.Caracters
 
             _savePatientAndHisWaypoint.PatientGameplay = this;
         }
-        
+        /**
+        * @brief Update method called every frame.
+        */
         private void Update()
         {
+            // Checking if the patient has reached the destination            
             if (_isMoving)
             {   
                 if (Vector3.Distance(transform.position, _targetPos.position) < 0.5f)
@@ -73,6 +82,11 @@ namespace Scripts.Gameplay.Caracters
                 }
             }
         }
+
+        /**
+        * @brief Set the destination for the patient's navigation.
+        * @param destination The destination for navigation.
+        */
         private void SetDestination(Transform destination)
         {
             if (!_navMeshAgent) _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -83,6 +97,11 @@ namespace Scripts.Gameplay.Caracters
             _navMeshAgent.SetDestination(destination.position);
         }
 
+        /**
+        * @brief Coroutine to wait for a specified time before taking the next action.
+        * @param seconds The time to wait in seconds.
+        * @return IEnumerator for coroutine functionality.
+        */
         private IEnumerator WaitAndContinue(float seconds)
         {
             yield return new WaitForSeconds(seconds);
@@ -119,7 +138,11 @@ namespace Scripts.Gameplay.Caracters
 
             }
         }
-
+        
+        /**
+        * @brief Move the patient to the Reception Room.
+        * @param ReceptionRoomData The Reception Room data.
+        */
         public void MovePatientToReception(ReceptionRoomData room)
         {
             _roomReception = room;
@@ -130,6 +153,11 @@ namespace Scripts.Gameplay.Caracters
             SetDestination(room.Point);
         }
 
+        /**
+        * @brief Move the patient to the Waiting Room for the nurse.
+        * @param waitingRoom The Waiting Room data for the nurse.
+        * @param pointData The PointData for the nurse's Waiting Room.
+        */
         public void MovePatientToWaitingNurse(WaitingRoomData waitingRoom, PointData pointData)
         {  _roomWaitingNurse = waitingRoom;
             _typeOfnextRoom = waitingRoom.TypeRoom;
@@ -146,7 +174,10 @@ namespace Scripts.Gameplay.Caracters
 
             SetDestination(pointData.Waypoint);
         }
-
+        /**
+        * @brief Move the patient to the Nurse Room.
+        * @param room The Nurse Room data.
+        */
         public void MovePatientToNurse(NurseRoomData room)
         {
            
@@ -164,6 +195,11 @@ namespace Scripts.Gameplay.Caracters
             SetDestination(room.Point);
         }
 
+        /**
+        * @brief Move the patient to the Waiting Room for the doctor.
+        * @param waitingRoom The Waiting Room data for the doctor.
+        * @param pointData The PointData for the doctor's Waiting Room.
+        */
         public void MovePatientToWaitingDoctor(WaitingRoomData waitingRoom, PointData pointData)
         {
            
@@ -182,6 +218,10 @@ namespace Scripts.Gameplay.Caracters
             SetDestination(pointData.Waypoint);
         }
 
+        /**
+        * @brief Move the patient to the Doctor Room.
+        * @param room The Doctor Room data.
+        */
         public void MovePatientToDoctor(DoctorRoomData room)
         {
             _doctorRoomData = room;
@@ -197,6 +237,9 @@ namespace Scripts.Gameplay.Caracters
             SetDestination(room.Point);
         }
 
+        /**
+        * @brief Move the patient to the removal point (end point).
+        */
         public void MoveToRemovePoint()
         {
             float despawnZ = Random.Range(_minSpawnZ, _maxSpawnZ);

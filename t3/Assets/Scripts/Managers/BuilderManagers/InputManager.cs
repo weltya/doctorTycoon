@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 namespace Scripts.Managers.BuilderManagers
 {
+    /**
+     * @class InputManager
+     * @brief Handles input events for the building system.
+     */
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private LayerMask _layerMask;
@@ -15,6 +19,9 @@ namespace Scripts.Managers.BuilderManagers
 
         public event Action OnClicked, OnExit, onRotation;
 
+        /**
+         * @brief Update is called once per frame and checks for input events.
+         */
         private void Update()
         {
             if(Input.GetMouseButtonDown(0))
@@ -30,15 +37,27 @@ namespace Scripts.Managers.BuilderManagers
             }
         }
 
-        /*settings go UI>BuildPanel : Raycast target off*/
+        /**
+         * @brief Checks if the pointer is over a UI element.
+         * @return True if the pointer is over a UI element, false otherwise.
+         */
         public bool IsPointerOverUi()
             => EventSystem.current.IsPointerOverGameObject();
 
+
+        /**
+         * @brief Placeholder method for checking if the pointer is over a UI element.
+         * @return Always returns false.
+         */
         public bool IsPointerOverUi2()
         {
             return false;
         }
-            
+        
+       /**
+         * @brief Gets the world position of the selected map location.
+         * @return The world position of the selected map location.
+         */
         public Vector3 GetSelectedMapToWorld()
         {
             Vector3 mousePos = Input.mousePosition;

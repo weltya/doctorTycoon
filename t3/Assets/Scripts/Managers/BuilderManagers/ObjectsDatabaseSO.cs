@@ -5,13 +5,23 @@ using UnityEngine;
 
 namespace Scripts.Managers.BuilderManagers
 {
+    /**
+     * @class ObjectsDatabaseSO
+     * @brief ScriptableObject class for storing object data in the game.
+     */
     [CreateAssetMenu]
     public class ObjectsDatabaseSO : ScriptableObject
     {
+        /**
+         * @brief List of ObjectData instances representing objects in the game.
+         */
         public List<ObjectData> objectsData;
     }
 
-
+    /**
+     * @class ObjectData
+     * @brief Serializable class representing data for a specific object in the game.
+     */
     [Serializable]
     public class ObjectData
     {

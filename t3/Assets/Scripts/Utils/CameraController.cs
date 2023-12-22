@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace View
 {
+    /**
+     * @class CameraController
+     * @brief Controls the movement and zoom of the camera in the game.
+     */
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private float _moveSpeed = 40f;
@@ -15,6 +19,11 @@ namespace View
 
         private float _currentZoom = 10f;
 
+
+        /**
+         * @brief LateUpdate is called once per frame, after other updates.
+         * Handles camera movement and zoom based on user input.
+         */
         private void LateUpdate()
         {
             float horizontal = Input.GetAxis("Horizontal");
@@ -33,49 +42,6 @@ namespace View
             {
                 transform.position = newPosition;
             }
-
-
-
-
-            /*
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
-            _currentZoom -= scroll * _zoomSpeed;
-            _currentZoom = Mathf.Clamp(_currentZoom, _minZoom, _maxZoom);
-
-            Vector3 newPosition = transform.position + transform.forward * scroll * _zoomSpeed;
-            newPosition.y = Mathf.Clamp(newPosition.y, _minZoom, _maxZoom);
-            transform.position = newPosition;
-            */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /* ZOOM orthographic
-            currentZoom -= Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed;
-            currentZoom = Mathf.Clamp(_currentZoom, _minZoom, _maxZoom);
-
-            Camera.main.orthographicSize = currentZoom;
-
-            if (newPosition.y > _minZoom && newPosition.y < _maxZoom)
-            {
-                transform.position = newPosition;
-            }
-            */
         }
     }
 }
