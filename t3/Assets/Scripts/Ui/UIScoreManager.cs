@@ -82,13 +82,33 @@ namespace Scripts.UII
             else
                 DoctorPanelImage.color = _colorOrange;
 
-            //TODO a faire
-            if (_nbPatientDoctor < _nbDoctorRoom * 10)
-                DoctorPanelImage.color = _colorGreen;
-            else if (_nbPatientDoctor >= _nbDoctorRoom * 15)
-                DoctorPanelImage.color = _colorRed;
+            //Waiting
+            if (_nbWaitingRoom != 0) 
+            {
+                if (( (float)_nbPatientWaiting / (float)_nbWaitingRoom ) < 0.3f)
+                    WaitingPanelImage.color = _colorGreen;
+                else if (( (float)_nbPatientWaiting / (float)_nbWaitingRoom) < 0.6f)
+                    WaitingPanelImage.color = _colorOrange;
+                else
+                    WaitingPanelImage.color = _colorRed;
+            }
+
+            //Exp subjective
+            if (_expSubjective > 20f)
+                ExperienceSubjective.color = _colorGreen;
+            else if (_expSubjective < -20f)
+                ExperienceSubjective.color = _colorRed;
             else
-                DoctorPanelImage.color = _colorOrange;
+                ExperienceSubjective.color = _colorOrange;
+
+            //health
+            if (_health > 20f)
+                GuerisonPanel.color = _colorGreen;
+            else if (_health < -20f)
+                GuerisonPanel.color = _colorRed;
+            else
+                GuerisonPanel.color = _colorOrange;
+
         }
         /**
         * @brief Start is called before the first frame update.

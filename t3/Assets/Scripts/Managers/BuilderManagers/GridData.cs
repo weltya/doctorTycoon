@@ -41,7 +41,8 @@ namespace Scripts.Managers.BuilderManagers
             {
                 if (_placeObjects.ContainsKey(position))
                 {
-                    throw new Exception($"Dictionary contains already this cell pos {position}");
+                    //throw new Exception($"Dictionary contains already this cell pos {position}");
+                    return;
                 }
                 _placeObjects[position] = placementData;
             }
@@ -106,10 +107,17 @@ namespace Scripts.Managers.BuilderManagers
 
         internal void RemoveObjectAt(Vector3Int gridPosition)
         {
-            foreach (var pos in _placeObjects[gridPosition].occupiedPositions)
+            try
             {
-                _placeObjects.Remove(pos);
+                foreach (var pos in _placeObjects[gridPosition].occupiedPositions)
+                {
+                    _placeObjects.Remove(pos);
+                }
+            } catch(Exception e)
+            {
+                
             }
+            
         }
     }
 
