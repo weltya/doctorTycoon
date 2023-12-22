@@ -1247,8 +1247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4951d42d234ba40a397675e33b2594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExpSubjective: 1
-  Health: 1
+  ExpSubjective: -1
+  Health: -1
   Point: {fileID: 3712457692025447637}
   IsAvailable: 1
   TypeRoom: 2
