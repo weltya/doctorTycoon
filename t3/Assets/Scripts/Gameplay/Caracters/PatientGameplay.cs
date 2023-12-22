@@ -95,6 +95,7 @@ namespace Scripts.Gameplay.Caracters
             else if (_typeOfCurrentRoom == EnumRoom.Reception)
             {  
                 _queueManager.UpdateNbReceptionRemoveFix();
+                _queueManager.UpdateNbWaitingAddFix();
                 _queueManager.AddPatientInWaitingQueueNurse(_savePatientAndHisWaypoint);
                 _queueManager.CheckOrWaitToReception();
             } else if (_typeOfCurrentRoom == EnumRoom.WaitingRoom && _roomNurse == null)
@@ -112,6 +113,7 @@ namespace Scripts.Gameplay.Caracters
                 _queueManager.CheckOrWaitToWaitingDoctorRoom();
             } else if (_typeOfnextRoom == EnumRoom.DoctorRoom)
             {
+                _queueManager.UpdateNbWaitingRemoveFix();
                 _queueManager.CheckOrWaitToDoctorRoom();
                 _queueManager.AddPatientToRemoveQueue(_savePatientAndHisWaypoint);
 

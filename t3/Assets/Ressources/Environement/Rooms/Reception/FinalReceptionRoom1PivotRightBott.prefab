@@ -575,10 +575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452d9a49c39e79c7488fb95c08409c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 7278391942110563994}
-  exp: 1
-  grs: 1
-  available: 1
+  Reception: {fileID: 0}
+  Point: {fileID: 7278391942110563994}
+  IsAvailable: 1
   TypeRoom: 0
 --- !u!1 &6545912720789729989
 GameObject:

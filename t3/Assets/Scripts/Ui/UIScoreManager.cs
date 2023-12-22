@@ -50,9 +50,39 @@ namespace Scripts.UII
                 Debug.Log("instance uiscoremanager créer ");
             }
 
-        private void Update()
+        private void UpdateColor()
         {
-            ReceptionPanelImage.color = Color.red;
+            //Reception
+            if(_nbPatientReception < _nbReceptionRoom * 5)
+                ReceptionPanelImage.color = _colorGreen;
+            else if(_nbPatientReception >= _nbReceptionRoom * 15)
+                ReceptionPanelImage.color = _colorRed;
+            else
+                ReceptionPanelImage.color = _colorOrange;
+
+            //Nurse
+            if (_nbPatientNurse < _nbNurseRoom * 10)
+                NursePanelImage.color = _colorGreen;
+            else if (_nbPatientNurse >= _nbWaitingRoom * 15)
+                NursePanelImage.color = _colorRed;
+            else
+                NursePanelImage.color = _colorOrange;
+
+            //Doctor
+            if (_nbPatientDoctor < _nbDoctorRoom * 10)
+                DoctorPanelImage.color = _colorGreen;
+            else if (_nbPatientDoctor >= _nbDoctorRoom * 15)
+                DoctorPanelImage.color = _colorRed;
+            else
+                DoctorPanelImage.color = _colorOrange;
+
+            //TODO a faire
+            if (_nbPatientDoctor < _nbDoctorRoom * 10)
+                DoctorPanelImage.color = _colorGreen;
+            else if (_nbPatientDoctor >= _nbDoctorRoom * 15)
+                DoctorPanelImage.color = _colorRed;
+            else
+                DoctorPanelImage.color = _colorOrange;
         }
         private void Start()
         { 
@@ -63,7 +93,7 @@ namespace Scripts.UII
             UpdateMoney(_money);
             UpdateExp(_expSubjective);
             UpdateGuerison();
-            ReceptionPanelImage.color = _colorRed;
+            UpdateColor();
         }
         /*update nb patient in different room*/
         public void UpdateNbPatientNurse(int nbPatient)
@@ -90,7 +120,7 @@ namespace Scripts.UII
             UpdateTextWaiting();
         }
 
-        /*update nb patient in different room*/
+        /*update nb room*/
         public void UpdateNbRoomNurse(int nbPatient)
         {
             _nbNurseRoom = nbPatient;
@@ -109,44 +139,47 @@ namespace Scripts.UII
             UpdateTextReception();
         }
 
-        public void UpdateNbRoomWaiting(int nbPatient)
+        public void UpdateNbRoomWaiting(int maxCapacity)
         {
-            _nbWaitingRoom = nbPatient;
+            _nbWaitingRoom = maxCapacity;
             UpdateTextWaiting();
         }
 
         /*update textmesh - capacity*/
-        public void UpdateTextNurse()
+        private void UpdateTextNurse()
         {
             if (NurseCapacityText != null)
             {
                NurseCapacityText.text = "Infirmières : " + _nbPatientNurse + "/" + _nbNurseRoom;
             }
+            UpdateColor();
         }
 
-        public void UpdateTextDoctor()
+        private void UpdateTextDoctor()
         {
             if ( DoctorCapacityText!= null)
             {
                 DoctorCapacityText.text = "Médecins : " +  _nbPatientDoctor + "/" + _nbDoctorRoom;
             }
+            UpdateColor();
         }
 
-        public void UpdateTextWaiting()
+        private void UpdateTextWaiting()
         {
             if(WaitingCapacityText!=null)
             {
                 WaitingCapacityText.text= "Salles attente : " + _nbPatientWaiting + "/" + _nbWaitingRoom;
-                WaitingCapacityText.text = "rien";
             }
+            UpdateColor();
         }
 
-        public void UpdateTextReception()
+        private void UpdateTextReception()
         {
             if(ReceptionText != null)
             {
                 ReceptionText.text = "Réception : " + _nbPatientReception + "/" + _nbReceptionRoom;
             }
+            UpdateColor();
         }
 
 
