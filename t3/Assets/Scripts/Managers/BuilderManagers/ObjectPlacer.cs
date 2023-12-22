@@ -38,7 +38,6 @@ namespace Scripts.Managers.BuilderManagers
            //if batiment ne peut pas etre placer
             if(!can)
            {
-                Debug.Log("pas assez d'argent");
             return -1;
            }
             GameObject go = Instantiate(prefab);
