@@ -63,7 +63,7 @@ namespace Scripts.Managers.BuilderManagers
                 _inputManager.OnClicked += PlaceStructure;
                 _inputManager.OnExit += StopPlacement;
             }
-            elsecomm
+            else
             {
                 throw new System.Exception($"(no room with id : {ID}");
             }

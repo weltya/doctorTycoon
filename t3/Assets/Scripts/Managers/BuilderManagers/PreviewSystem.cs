@@ -36,7 +36,7 @@ namespace Scripts.Managers.BuilderManagers
                 Component[] components = _cellIndicator.GetComponents(typeof(Component));
                 foreach (Component component in components)
                 {
-                    Debug.og(component.ToString());
+                    Debug.Log(component.ToString());
                 }
                 Debug.LogError("_cellIndicatorRenderer vaut null");
             }
