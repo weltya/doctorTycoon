@@ -9,6 +9,9 @@
     - [Branches](#branches)
 
 ## Installation
+certains éléments graphiques sont protégés par une licence, nous contacter
+welty.alex67@gmail.com
+
 ### Installation locale
 **Doctor Tycoon** a été développé sur [Unity](https://unity.com/fr/), plus précisément sur la version **2022.3.11f1** de l'éditeur.
 

@@ -1,5 +1,4 @@
 la branch newproto est la branche par défaut
-
 # Sommaire
 
 - [Le jeu](#doctor-tycoon--lart-de-lassociation-médicale)
